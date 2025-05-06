@@ -30,46 +30,53 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   spanishCaptions,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<any>(null);
 
   useEffect(() => {
-    // Initialize the video player when the component mounts
-    if (window.videojs && document.getElementById(videoId)) {
-      try {
-        const player = window.videojs(videoId, {
-          playbackRates: [0.75, 1, 1.25, 1.5, 2],
-          responsive: true,
-        });
-
-        // Cleanup on unmount
-        return () => {
-          if (player) {
-            player.dispose();
+    // Wait for DOM to be ready and videojs to be available
+    const initializePlayer = () => {
+      if (window.videojs && videoRef.current) {
+        try {
+          // Make sure we dispose any previous instance first
+          if (playerRef.current) {
+            playerRef.current.dispose();
           }
-        };
-      } catch (error) {
-        console.error(`Error initializing video player for ${videoId}:`, error);
+          
+          // Initialize the player
+          playerRef.current = window.videojs(videoRef.current, {
+            playbackRates: [0.75, 1, 1.25, 1.5, 2],
+            responsive: true,
+            fluid: true,
+          });
+          
+          console.log(`Video player for ${videoId} initialized successfully`);
+        } catch (error) {
+          console.error(`Error initializing video player for ${videoId}:`, error);
+        }
+      } else {
+        console.warn(`VideoJS or video element for ${videoId} not found, will retry`);
+        setTimeout(initializePlayer, 500); // retry after a delay
       }
-    } else {
-      console.warn(`VideoJS or video element ${videoId} not found`);
-    }
+    };
+
+    // Start initialization
+    setTimeout(initializePlayer, 100);
+
+    // Clean up on unmount
+    return () => {
+      if (playerRef.current) {
+        try {
+          playerRef.current.dispose();
+        } catch (e) {
+          console.error("Error disposing video player:", e);
+        }
+      }
+    };
   }, [videoId]);
 
   // Determine if the video is an HLS stream or a regular MP4
   const isHLS = videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
-
-  // Function to handle capturing poster image when no poster is provided
-  const handleCapturePoster = () => {
-    if (videoRef.current && !poster && videoRef.current.duration > 0) {
-      // Seek to 5% of the video (to avoid black frames at the beginning)
-      try {
-        videoRef.current.currentTime = videoRef.current.duration * 0.05;
-        console.log("Attempting to capture poster frame from video");
-      } catch (error) {
-        console.error("Error seeking video for poster capture:", error);
-      }
-    }
-  };
 
   return (
     <section className="lesson-section" id={id}>
@@ -77,16 +84,16 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       <div className="content-block">
         <div className="video-container">
           <video
-            id={videoId}
             ref={videoRef}
+            id={videoId}
             className="video-js vjs-16-9 vjs-big-play-centered"
             controls
             preload="auto"
             poster={poster}
             data-setup="{}"
-            onLoadedMetadata={handleCapturePoster}
           >
             <source src={videoSource} type={videoType} />
+            
             {englishCaptions && (
               <track
                 kind="subtitles"
@@ -95,6 +102,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
                 label="English"
               />
             )}
+            
             {spanishCaptions && (
               <track
                 kind="subtitles"
@@ -103,6 +111,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
                 label="Spanish"
               />
             )}
+            
             <p className="vjs-no-js">
               To view this video please enable JavaScript, and consider upgrading
               to a web browser that{" "}

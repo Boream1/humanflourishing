@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
 import LearningObjectives from "./LearningObjectives";
@@ -23,45 +23,57 @@ const Chapter1Content: React.FC = () => {
     title: "Human Connection in the Age of AI",
     url: "https://www.ie.edu/insights/articles/human-connection-in-the-age-of-ai/"
   }];
+  
+  // Create a ref to store the React root for the reflection activity
+  const reflectionRootRef = useRef<any>(null);
 
   useEffect(() => {
     // Mount the reflection activity component
     const reflectionRoot = document.getElementById("reflection-activity-root");
-    if (reflectionRoot) {
+    if (reflectionRoot && !reflectionRootRef.current) {
       console.log("Mounting ReflectionActivity component");
-      const root = createRoot(reflectionRoot);
-      root.render(<ReflectionActivity />);
-    } else {
-      console.error("Reflection activity root element not found");
+      try {
+        reflectionRootRef.current = createRoot(reflectionRoot);
+        reflectionRootRef.current.render(<ReflectionActivity />);
+      } catch (error) {
+        console.error("Error rendering ReflectionActivity:", error);
+      }
     }
 
-    // Add event to dispatch feedback when user reaches the end
-    const configureLastVideo = () => {
-      const lastVideo = document.getElementById("video-1-6");
-      if (lastVideo && window.videojs) {
-        console.log("Configuring last video events");
-        try {
-          const player = window.videojs(lastVideo);
-          player.on("ended", function () {
-            console.log("Last video ended, triggering feedback modal");
-            // Only trigger the feedback modal when the last video ends
-            document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
-          });
-        } catch (error) {
-          console.error("Error setting up video end event:", error);
+    // Configure feedback modal trigger when last video ends
+    const configureLastVideoFeedback = () => {
+      // Wait a bit for the video to be initialized by VideoJS component
+      setTimeout(() => {
+        if (window.videojs) {
+          try {
+            const lastVideo = window.videojs.getPlayer("video-1-6");
+            if (lastVideo) {
+              console.log("Successfully found last video, configuring feedback event");
+              lastVideo.on("ended", function() {
+                console.log("Last video ended, triggering feedback modal");
+                document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+              });
+            } else {
+              console.warn("Last video element not found yet, will retry");
+              setTimeout(configureLastVideoFeedback, 1000);
+            }
+          } catch (error) {
+            console.error("Error setting up video end event:", error);
+            setTimeout(configureLastVideoFeedback, 1000);
+          }
+        } else {
+          console.warn("VideoJS not available, will retry");
+          setTimeout(configureLastVideoFeedback, 1000);
         }
-      } else {
-        console.warn("Last video element or videojs not found, will retry");
-        // Try again in a moment as the video might not be fully initialized
-        setTimeout(configureLastVideo, 1000);
-      }
+      }, 1000);
     };
 
-    // Start checking for the last video after components have rendered
-    setTimeout(configureLastVideo, 500);
+    // Start checking for the last video after the component has rendered
+    configureLastVideoFeedback();
   }, []);
 
-  return <>
+  return (
+    <>
       <section className="chapter-header">
         <h1 className="chapter-title text-left">LESSON 1: Being Human</h1>
       </section>
@@ -102,7 +114,8 @@ const Chapter1Content: React.FC = () => {
       </section>
 
       <ChapterNavigation prevLink="index.html" prevText="Back to Home" nextLink="chapter2.html" nextText="Next Chapter" />
-    </>;
+    </>
+  );
 };
 
 export default Chapter1Content;
