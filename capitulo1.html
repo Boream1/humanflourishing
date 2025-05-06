@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capítulo 1 - Mi Curso Online</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+  <div class="page-container">
+    <header class="main-header">
+      <div class="logo">
+        <h1>Mi Curso Online</h1>
+      </div>
+      <nav class="main-nav">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú de navegación">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-list" id="navList">
+          <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+          <li class="nav-item"><a href="capitulo1.html" class="nav-link active">Capítulo 1</a></li>
+          <li class="nav-item"><a href="capitulo2.html" class="nav-link">Capítulo 2</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content chapter-content">
+      <section class="chapter-header">
+        <h2 class="chapter-title">Capítulo 1</h2>
+        <p class="chapter-description">Aquí irá la introducción al primer capítulo.</p>
+      </section>
+
+      <section class="chapter-body">
+        <article class="lesson-content">
+          <!-- Aquí irá el contenido del capítulo -->
+        </article>
+      </section>
+
+      <section class="chapter-navigation">
+        <div class="nav-buttons">
+          <a href="index.html" class="nav-button prev">← Volver al Inicio</a>
+          <a href="capitulo2.html" class="nav-button next">Siguiente Capítulo →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Mi Curso Online. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
