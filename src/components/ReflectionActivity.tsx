@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormField, FormItem, FormControl } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { FileText } from "lucide-react";
+import { FileText, AlertTriangle } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 // Define the questions for the reflection activity
 const reflectionQuestions = [
@@ -21,6 +22,7 @@ type ReflectionAnswers = {
 export default function ReflectionActivity() {
   // Store the character counts for each question
   const [charCounts, setCharCounts] = useState<{ [key: string]: number }>({});
+  const { toast } = useToast();
   
   const form = useForm<ReflectionAnswers>({
     defaultValues: reflectionQuestions.reduce((acc, _, index) => {
@@ -48,7 +50,28 @@ export default function ReflectionActivity() {
   const onSubmit = (data: ReflectionAnswers) => {
     console.log("Submitted answers:", data);
     // Here you would typically send the data to a server or process it further
-    alert("Reflection submitted successfully!");
+    
+    let hasEmptyResponse = false;
+    for (const key in data) {
+      if (data[key].trim() === "") {
+        hasEmptyResponse = true;
+        toast({
+          title: "Empty Response",
+          description: "Please write your answer before submitting.",
+          variant: "destructive",
+          duration: 3000,
+        });
+        break;
+      }
+    }
+    
+    if (!hasEmptyResponse) {
+      toast({
+        title: "Success!",
+        description: "Your reflection has been submitted successfully!",
+        duration: 3000,
+      });
+    }
   };
 
   return (
