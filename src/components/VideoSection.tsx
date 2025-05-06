@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 
 interface VideoSectionProps {
@@ -34,10 +33,18 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   
   // Check if the video source is a complete URL or needs to be made relative
   const getRelativePath = (path: string) => {
-    // If it's already a relative path or a complete URL with protocol, return it as is
-    if (path.startsWith('/') || path.startsWith('./') || path.startsWith('http')) {
+    if (!path) return "";
+    
+    // If it's already a complete URL with protocol, return it as is
+    if (path.startsWith('http')) {
       return path;
     }
+    
+    // If it's already a relative path starting with / or ./, return it as is
+    if (path.startsWith('/') || path.startsWith('./')) {
+      return path;
+    }
+    
     // Otherwise, make it relative to the current location
     return `./${path}`;
   };
@@ -58,12 +65,12 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     let attempts = 0;
     const maxAttempts = 10;
     
-    // Wait for DOM to be ready and videojs to be available
     const initializePlayer = () => {
       // Check if component is still mounted
       if (!isMounted) return;
       
-      if (window.videojs && videoRef.current && attempts < maxAttempts) {
+      // Check if videojs is available and the video element exists
+      if (typeof window.videojs === 'function' && videoRef.current && attempts < maxAttempts) {
         try {
           // Make sure we dispose any previous instance first
           if (playerRef.current) {
@@ -71,7 +78,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             playerRef.current = null;
           }
           
-          // Initialize the player with error handling
+          // Initialize video.js player
+          console.log(`Initializing video player for ${videoId} with source ${processedVideoSource}`);
           playerRef.current = window.videojs(videoRef.current, {
             playbackRates: [0.75, 1, 1.25, 1.5, 2],
             responsive: true,
@@ -83,7 +91,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
           // Add error event handler
           playerRef.current.on('error', (e: any) => {
             if (isMounted) {
-              console.log(`Video player error for ${videoId}:`, playerRef.current.error());
+              console.error(`Video player error for ${videoId}:`, playerRef.current.error());
             }
           });
           
@@ -104,14 +112,31 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         console.error(`Failed to initialize video player for ${videoId} after ${maxAttempts} attempts.`);
       }
     };
-
-    // Start initialization with a delay to ensure DOM is ready
-    const initTimer = setTimeout(initializePlayer, 1000);
+    
+    // Check if videojs is already available before setting up
+    if (window.videojs) {
+      // Start initialization after a short delay to ensure DOM is ready
+      const initTimer = setTimeout(initializePlayer, 500);
+    } else {
+      // If videojs isn't available, listen for it to load
+      console.log(`Waiting for VideoJS to load for video ${videoId}...`);
+      const checkVideoJs = setInterval(() => {
+        if (window.videojs) {
+          clearInterval(checkVideoJs);
+          initializePlayer();
+        }
+      }, 500);
+      
+      // Safety timeout to clear interval if videojs never loads
+      setTimeout(() => {
+        clearInterval(checkVideoJs);
+        console.error(`VideoJS failed to load for video ${videoId} after timeout`);
+      }, 10000);
+    }
 
     // Clean up on unmount
     return () => {
       isMounted = false;
-      clearTimeout(initTimer);
       if (playerRef.current) {
         try {
           playerRef.current.dispose();
@@ -121,7 +146,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         }
       }
     };
-  }, [videoId]);
+  }, [videoId, processedVideoSource]);
 
   // Determine if the video is an HLS stream or a regular MP4
   const isHLS = processedVideoSource.includes('.m3u8');

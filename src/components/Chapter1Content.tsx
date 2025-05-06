@@ -26,6 +26,7 @@ const Chapter1Content: React.FC = () => {
   
   // Create a ref to store the React root for the reflection activity
   const reflectionRootRef = useRef<any>(null);
+  const feedbackTriggeredRef = useRef<boolean>(false);
 
   useEffect(() => {
     // Mount the reflection activity component
@@ -42,6 +43,8 @@ const Chapter1Content: React.FC = () => {
 
     // Configure feedback modal trigger when last video ends
     const configureLastVideoFeedback = () => {
+      console.log("Attempting to configure feedback trigger for last video");
+      
       // Wait for VideoJS to be initialized
       if (window.videojs) {
         try {
@@ -54,8 +57,11 @@ const Chapter1Content: React.FC = () => {
             
             // Set up the ended event handler
             lastVideo.on("ended", function() {
-              console.log("Last video ended, triggering feedback modal");
-              document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+              if (!feedbackTriggeredRef.current) {
+                console.log("Last video ended, triggering feedback modal");
+                document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+                feedbackTriggeredRef.current = true;
+              }
             });
           } else {
             console.warn("Last video element not found yet, will retry");
@@ -72,17 +78,28 @@ const Chapter1Content: React.FC = () => {
     };
 
     // Start checking for the last video after a delay to ensure the component has rendered
-    setTimeout(configureLastVideoFeedback, 3000);
+    const feedbackTimer = setTimeout(configureLastVideoFeedback, 3000);
 
-    // Also set up a fallback trigger for the feedback modal on page unload
-    const handleUnload = () => {
-      document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+    // Also set up a trigger for the feedback modal when navigating away
+    const handleBeforeUnload = () => {
+      if (!feedbackTriggeredRef.current) {
+        console.log("Page unload detected, triggering feedback modal");
+        document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+        feedbackTriggeredRef.current = true;
+        
+        // We need a small delay to allow the event to be processed
+        const now = Date.now();
+        while(Date.now() - now < 100) {
+          // Wait for event to be processed
+        }
+      }
     };
 
-    window.addEventListener('beforeunload', handleUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
     
     return () => {
-      window.removeEventListener('beforeunload', handleUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      clearTimeout(feedbackTimer);
     };
   }, []);
 
