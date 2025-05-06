@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 
 interface VideoSectionProps {
@@ -23,138 +24,51 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   title,
   videoId,
   videoSource,
-  poster = "/lovable-uploads/f583848a-2f31-4283-9f10-9b4b82b71127.png",
+  poster = "assets/video-poster.jpg",
   keyPointText,
   englishCaptions,
   spanishCaptions,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const playerRef = useRef<any>(null);
-  
-  // Check if the video source is a complete URL or needs to be made relative
-  const getRelativePath = (path: string) => {
-    if (!path) return "";
-    
-    // If it's already a complete URL with protocol, return it as is
-    if (path.startsWith('http')) {
-      return path;
-    }
-    
-    // If it's already a relative path starting with / or ./, return it as is
-    if (path.startsWith('/') || path.startsWith('./')) {
-      return path;
-    }
-    
-    // Otherwise, make it relative to the current location
-    return `./${path}`;
-  };
-
-  // Get the correct video source path
-  const processedVideoSource = getRelativePath(videoSource);
-  
-  // Get correct poster path
-  const processedPoster = getRelativePath(poster);
-
-  // Process caption paths if they exist
-  const processedEnglishCaptions = englishCaptions ? getRelativePath(englishCaptions) : undefined;
-  const processedSpanishCaptions = spanishCaptions ? getRelativePath(spanishCaptions) : undefined;
 
   useEffect(() => {
-    // Create a flag to track component mount state
-    let isMounted = true;
-    let attempts = 0;
-    const maxAttempts = 10;
-    
-    const initializePlayer = () => {
-      // Check if component is still mounted
-      if (!isMounted) return;
-      
-      // Check if videojs is available and the video element exists
-      if (typeof window.videojs === 'function' && videoRef.current && attempts < maxAttempts) {
-        try {
-          // Make sure we dispose any previous instance first
-          if (playerRef.current) {
-            playerRef.current.dispose();
-            playerRef.current = null;
-          }
-          
-          // Initialize video.js player
-          console.log(`Initializing video player for ${videoId} with source ${processedVideoSource}`);
-          playerRef.current = window.videojs(videoRef.current, {
-            playbackRates: [0.75, 1, 1.25, 1.5, 2],
-            responsive: true,
-            fluid: true,
-            controls: true,
-            preload: "auto"
-          });
-          
-          // Add error event handler
-          playerRef.current.on('error', (e: any) => {
-            if (isMounted) {
-              console.error(`Video player error for ${videoId}:`, playerRef.current.error());
-            }
-          });
-          
-          console.log(`Video player for ${videoId} initialized successfully`);
-        } catch (error) {
-          console.error(`Error initializing video player for ${videoId}:`, error);
-          attempts++;
-          if (attempts < maxAttempts && isMounted) {
-            // Try again after a delay
-            setTimeout(initializePlayer, 1500); 
-          }
-        }
-      } else if (attempts < maxAttempts && isMounted) {
-        console.warn(`VideoJS or video element for ${videoId} not found, will retry (attempt ${attempts + 1}/${maxAttempts})`);
-        attempts++;
-        setTimeout(initializePlayer, 1500); // retry with a longer delay
-      } else if (isMounted) {
-        console.error(`Failed to initialize video player for ${videoId} after ${maxAttempts} attempts.`);
-      }
-    };
-    
-    // Check if videojs is already available before setting up
-    if (window.videojs) {
-      // Start initialization after a short delay to ensure DOM is ready
-      const initTimer = setTimeout(initializePlayer, 500);
-    } else {
-      // If videojs isn't available, listen for it to load
-      console.log(`Waiting for VideoJS to load for video ${videoId}...`);
-      const checkVideoJs = setInterval(() => {
-        if (window.videojs) {
-          clearInterval(checkVideoJs);
-          initializePlayer();
-        }
-      }, 500);
-      
-      // Safety timeout to clear interval if videojs never loads
-      setTimeout(() => {
-        clearInterval(checkVideoJs);
-        console.error(`VideoJS failed to load for video ${videoId} after timeout`);
-      }, 10000);
-    }
+    // Initialize the video player when the component mounts
+    if (window.videojs && document.getElementById(videoId)) {
+      try {
+        const player = window.videojs(videoId, {
+          playbackRates: [0.75, 1, 1.25, 1.5, 2],
+          responsive: true,
+        });
 
-    // Clean up on unmount
-    return () => {
-      isMounted = false;
-      if (playerRef.current) {
-        try {
-          playerRef.current.dispose();
-          playerRef.current = null;
-        } catch (e) {
-          console.error(`Error disposing video player for ${videoId}:`, e);
-        }
+        // Cleanup on unmount
+        return () => {
+          if (player) {
+            player.dispose();
+          }
+        };
+      } catch (error) {
+        console.error(`Error initializing video player for ${videoId}:`, error);
       }
-    };
-  }, [videoId, processedVideoSource]);
+    } else {
+      console.warn(`VideoJS or video element ${videoId} not found`);
+    }
+  }, [videoId]);
 
   // Determine if the video is an HLS stream or a regular MP4
-  const isHLS = processedVideoSource.includes('.m3u8');
+  const isHLS = videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
 
-  // Handle separate error for when video fails to load
-  const handleVideoError = () => {
-    console.error(`Error loading video source: ${processedVideoSource}`);
+  // Function to handle capturing poster image when no poster is provided
+  const handleCapturePoster = () => {
+    if (videoRef.current && !poster && videoRef.current.duration > 0) {
+      // Seek to 5% of the video (to avoid black frames at the beginning)
+      try {
+        videoRef.current.currentTime = videoRef.current.duration * 0.05;
+        console.log("Attempting to capture poster frame from video");
+      } catch (error) {
+        console.error("Error seeking video for poster capture:", error);
+      }
+    }
   };
 
   return (
@@ -163,35 +77,32 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       <div className="content-block">
         <div className="video-container">
           <video
-            ref={videoRef}
             id={videoId}
+            ref={videoRef}
             className="video-js vjs-16-9 vjs-big-play-centered"
             controls
             preload="auto"
-            poster={processedPoster}
+            poster={poster}
             data-setup="{}"
-            onError={handleVideoError}
+            onLoadedMetadata={handleCapturePoster}
           >
-            <source src={processedVideoSource} type={videoType} />
-            
-            {processedEnglishCaptions && (
+            <source src={videoSource} type={videoType} />
+            {englishCaptions && (
               <track
                 kind="subtitles"
-                src={processedEnglishCaptions}
+                src={englishCaptions}
                 srcLang="en"
                 label="English"
               />
             )}
-            
-            {processedSpanishCaptions && (
+            {spanishCaptions && (
               <track
                 kind="subtitles"
-                src={processedSpanishCaptions}
+                src={spanishCaptions}
                 srcLang="es"
                 label="Spanish"
               />
             )}
-            
             <p className="vjs-no-js">
               To view this video please enable JavaScript, and consider upgrading
               to a web browser that{" "}
