@@ -23,17 +23,3 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-/* Video poster styles */
-.video-js .vjs-poster {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Ensure poster fills the container properly */
-.video-js .vjs-poster img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
