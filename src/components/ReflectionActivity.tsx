@@ -13,17 +13,18 @@ const reflectionQuestions = [
   "What methods mentioned in the article \"Your Journey to Self-Discovery\" resonate with you most as you embark on your path of self-discovery?"
 ];
 
+// Properly type the form values
 type ReflectionAnswers = {
-  [key: number]: string;
+  [key: string]: string; // Changed from [key: number]: string to use string keys
 };
 
 export default function ReflectionActivity() {
   // Store the character counts for each question
-  const [charCounts, setCharCounts] = useState<{ [key: number]: number }>({});
+  const [charCounts, setCharCounts] = useState<{ [key: string]: number }>({});
   
   const form = useForm<ReflectionAnswers>({
     defaultValues: reflectionQuestions.reduce((acc, _, index) => {
-      acc[index] = "";
+      acc[index.toString()] = ""; // Convert index to string
       return acc;
     }, {} as ReflectionAnswers)
   });
@@ -31,7 +32,7 @@ export default function ReflectionActivity() {
   const handleTextChange = (index: number, value: string) => {
     setCharCounts(prev => ({
       ...prev,
-      [index]: value.length
+      [index.toString()]: value.length // Convert index to string
     }));
     form.setValue(index.toString(), value);
   };
@@ -40,7 +41,7 @@ export default function ReflectionActivity() {
     form.setValue(index.toString(), "");
     setCharCounts(prev => ({
       ...prev,
-      [index]: 0
+      [index.toString()]: 0 // Convert index to string
     }));
   };
 
@@ -92,7 +93,7 @@ export default function ReflectionActivity() {
 
               <div className="flex justify-between items-center mt-2">
                 <span className="text-sm text-gray-500">
-                  {charCounts[index] || 0} of 1500 characters
+                  {charCounts[index.toString()] || 0} of 1500 characters
                 </span>
                 <div className="flex gap-2">
                   <Button
