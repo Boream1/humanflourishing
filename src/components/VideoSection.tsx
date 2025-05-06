@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 
 interface VideoSectionProps {
@@ -31,52 +30,98 @@ const VideoSection: React.FC<VideoSectionProps> = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
+  
+  // Check if the video source is a complete URL or needs to be made relative
+  const getRelativePath = (path: string) => {
+    // If it's already a relative path or a complete URL with protocol, return it as is
+    if (path.startsWith('/') || path.startsWith('./') || path.startsWith('http')) {
+      return path;
+    }
+    // Otherwise, make it relative to the current location
+    return `./${path}`;
+  };
+
+  // Get the correct video source path
+  const processedVideoSource = getRelativePath(videoSource);
+  
+  // Get correct poster path
+  const processedPoster = getRelativePath(poster);
+
+  // Process caption paths if they exist
+  const processedEnglishCaptions = englishCaptions ? getRelativePath(englishCaptions) : undefined;
+  const processedSpanishCaptions = spanishCaptions ? getRelativePath(spanishCaptions) : undefined;
 
   useEffect(() => {
+    let attempts = 0;
+    const maxAttempts = 5;
+    
     // Wait for DOM to be ready and videojs to be available
     const initializePlayer = () => {
-      if (window.videojs && videoRef.current) {
+      if (window.videojs && videoRef.current && attempts < maxAttempts) {
         try {
           // Make sure we dispose any previous instance first
           if (playerRef.current) {
             playerRef.current.dispose();
+            playerRef.current = null;
           }
           
-          // Initialize the player
+          // Initialize the player with error handling
           playerRef.current = window.videojs(videoRef.current, {
             playbackRates: [0.75, 1, 1.25, 1.5, 2],
             responsive: true,
             fluid: true,
+            controls: true,
+            preload: "auto",
+          });
+          
+          // Add error event handler
+          playerRef.current.on('error', (e: any) => {
+            console.log(`Video player error for ${videoId}:`, playerRef.current.error());
           });
           
           console.log(`Video player for ${videoId} initialized successfully`);
         } catch (error) {
           console.error(`Error initializing video player for ${videoId}:`, error);
+          attempts++;
+          if (attempts < maxAttempts) {
+            // Try again after a delay
+            setTimeout(initializePlayer, 1000); 
+          }
         }
+      } else if (attempts < maxAttempts) {
+        console.warn(`VideoJS or video element for ${videoId} not found, will retry (attempt ${attempts + 1}/${maxAttempts})`);
+        attempts++;
+        setTimeout(initializePlayer, 1000); // retry after a delay
       } else {
-        console.warn(`VideoJS or video element for ${videoId} not found, will retry`);
-        setTimeout(initializePlayer, 500); // retry after a delay
+        console.error(`Failed to initialize video player for ${videoId} after ${maxAttempts} attempts.`);
       }
     };
 
-    // Start initialization
-    setTimeout(initializePlayer, 100);
+    // Start initialization with a small delay to ensure DOM is ready
+    const initTimer = setTimeout(initializePlayer, 500);
 
     // Clean up on unmount
     return () => {
+      clearTimeout(initTimer);
       if (playerRef.current) {
         try {
           playerRef.current.dispose();
+          playerRef.current = null;
         } catch (e) {
-          console.error("Error disposing video player:", e);
+          console.error(`Error disposing video player for ${videoId}:`, e);
         }
       }
     };
   }, [videoId]);
 
   // Determine if the video is an HLS stream or a regular MP4
-  const isHLS = videoSource.includes('.m3u8');
+  const isHLS = processedVideoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
+
+  // Handle separate error for when video fails to load
+  const handleVideoError = () => {
+    console.error(`Error loading video source: ${processedVideoSource}`);
+  };
 
   return (
     <section className="lesson-section" id={id}>
@@ -89,24 +134,25 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             className="video-js vjs-16-9 vjs-big-play-centered"
             controls
             preload="auto"
-            poster={poster}
+            poster={processedPoster}
             data-setup="{}"
+            onError={handleVideoError}
           >
-            <source src={videoSource} type={videoType} />
+            <source src={processedVideoSource} type={videoType} />
             
-            {englishCaptions && (
+            {processedEnglishCaptions && (
               <track
                 kind="subtitles"
-                src={englishCaptions}
+                src={processedEnglishCaptions}
                 srcLang="en"
                 label="English"
               />
             )}
             
-            {spanishCaptions && (
+            {processedSpanishCaptions && (
               <track
                 kind="subtitles"
-                src={spanishCaptions}
+                src={processedSpanishCaptions}
                 srcLang="es"
                 label="Spanish"
               />
