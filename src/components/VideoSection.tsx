@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface VideoSectionProps {
   id: string;
@@ -29,6 +29,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   englishCaptions,
   spanishCaptions,
 }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     // Initialize the video player when the component mounts
     if (window.videojs && document.getElementById(videoId)) {
@@ -56,6 +58,19 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const isHLS = videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
 
+  // Function to handle capturing poster image when no poster is provided
+  const handleCapturePoster = () => {
+    if (videoRef.current && !poster && videoRef.current.duration > 0) {
+      // Seek to 5% of the video (to avoid black frames at the beginning)
+      try {
+        videoRef.current.currentTime = videoRef.current.duration * 0.05;
+        console.log("Attempting to capture poster frame from video");
+      } catch (error) {
+        console.error("Error seeking video for poster capture:", error);
+      }
+    }
+  };
+
   return (
     <section className="lesson-section" id={id}>
       <h2 className="section-heading">{title}</h2>
@@ -63,11 +78,13 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         <div className="video-container">
           <video
             id={videoId}
+            ref={videoRef}
             className="video-js vjs-16-9 vjs-big-play-centered"
             controls
             preload="auto"
             poster={poster}
             data-setup="{}"
+            onLoadedMetadata={handleCapturePoster}
           >
             <source src={videoSource} type={videoType} />
             {englishCaptions && (
