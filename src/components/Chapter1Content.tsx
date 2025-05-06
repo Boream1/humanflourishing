@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -5,6 +6,7 @@ import LearningObjectives from "./LearningObjectives";
 import ChapterNavigation from "./ChapterNavigation";
 import { createRoot } from "react-dom/client";
 import ReflectionActivity from "./ReflectionActivity";
+
 const Chapter1Content: React.FC = () => {
   const learningObjectives = ["Appreciate the complexity of human beings", "Understand the human need for social connection", "Evaluate the role and paradox of human biases"];
   const readings = [{
@@ -21,6 +23,7 @@ const Chapter1Content: React.FC = () => {
     title: "Human Connection in the Age of AI",
     url: "https://www.ie.edu/insights/articles/human-connection-in-the-age-of-ai/"
   }];
+
   useEffect(() => {
     // Mount the reflection activity component
     const reflectionRoot = document.getElementById("reflection-activity-root");
@@ -33,14 +36,31 @@ const Chapter1Content: React.FC = () => {
     }
 
     // Add event to dispatch feedback when user reaches the end
-    const lastVideo = document.getElementById("video-1-6");
-    if (lastVideo && window.videojs) {
-      window.videojs(lastVideo).on("ended", function () {
-        // Only trigger the feedback modal when the last video ends
-        document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
-      });
-    }
+    const configureLastVideo = () => {
+      const lastVideo = document.getElementById("video-1-6");
+      if (lastVideo && window.videojs) {
+        console.log("Configuring last video events");
+        try {
+          const player = window.videojs(lastVideo);
+          player.on("ended", function () {
+            console.log("Last video ended, triggering feedback modal");
+            // Only trigger the feedback modal when the last video ends
+            document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+          });
+        } catch (error) {
+          console.error("Error setting up video end event:", error);
+        }
+      } else {
+        console.warn("Last video element or videojs not found, will retry");
+        // Try again in a moment as the video might not be fully initialized
+        setTimeout(configureLastVideo, 1000);
+      }
+    };
+
+    // Start checking for the last video after components have rendered
+    setTimeout(configureLastVideo, 500);
   }, []);
+
   return <>
       <section className="chapter-header">
         <h1 className="chapter-title text-left">LESSON 1: Being Human</h1>
@@ -75,4 +95,5 @@ const Chapter1Content: React.FC = () => {
       <ChapterNavigation prevLink="index.html" prevText="Back to Home" nextLink="chapter2.html" nextText="Next Chapter" />
     </>;
 };
+
 export default Chapter1Content;

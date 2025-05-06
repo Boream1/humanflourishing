@@ -47,8 +47,17 @@
   <script src="scripts/main.js"></script>
   <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
   <script type="module">
-    // Import React app to render the chapter content
-    import('/src/main-chapter1.tsx').catch(e => console.error('Error loading React app:', e));
+    // Make sure VideoJS is available globally before loading the React app
+    window.addEventListener('DOMContentLoaded', () => {
+      // Wait until VideoJS is fully loaded
+      if (window.videojs) {
+        console.log('VideoJS loaded successfully');
+        // Import React app to render the chapter content
+        import('/src/main-chapter1.tsx').catch(e => console.error('Error loading React app:', e));
+      } else {
+        console.error('VideoJS not loaded properly');
+      }
+    });
     
     // Dynamic copyright year
     document.getElementById('copyright-year').textContent = new Date().getFullYear();

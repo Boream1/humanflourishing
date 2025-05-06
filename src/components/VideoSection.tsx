@@ -12,6 +12,13 @@ interface VideoSectionProps {
   spanishCaptions?: string;
 }
 
+// Declare videojs as a property of the window object
+declare global {
+  interface Window {
+    videojs: any;
+  }
+}
+
 const VideoSection: React.FC<VideoSectionProps> = ({
   id,
   title,
@@ -25,17 +32,23 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   useEffect(() => {
     // Initialize the video player when the component mounts
     if (window.videojs && document.getElementById(videoId)) {
-      const player = window.videojs(videoId, {
-        playbackRates: [0.75, 1, 1.25, 1.5, 2],
-        responsive: true,
-      });
+      try {
+        const player = window.videojs(videoId, {
+          playbackRates: [0.75, 1, 1.25, 1.5, 2],
+          responsive: true,
+        });
 
-      // Cleanup on unmount
-      return () => {
-        if (player) {
-          player.dispose();
-        }
-      };
+        // Cleanup on unmount
+        return () => {
+          if (player) {
+            player.dispose();
+          }
+        };
+      } catch (error) {
+        console.error(`Error initializing video player for ${videoId}:`, error);
+      }
+    } else {
+      console.warn(`VideoJS or video element ${videoId} not found`);
     }
   }, [videoId]);
 
