@@ -24,7 +24,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   title,
   videoId,
   videoSource,
-  poster = "assets/video-poster.jpg",
+  poster = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png",
   keyPointText,
   englishCaptions,
   spanishCaptions,
