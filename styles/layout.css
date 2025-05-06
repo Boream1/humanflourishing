@@ -1,0 +1,46 @@
+
+/* Main container */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.main-header {
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.ie-logo {
+  max-height: 40px;
+  width: auto;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 5% 5%;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Footer */
+.main-footer {
+  background-color: var(--soft-gray);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-top: auto;
+}

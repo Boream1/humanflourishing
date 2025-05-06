@@ -49,10 +49,14 @@
     </main>
 
     <footer class="main-footer">
-      <p>&copy; 2025 Mi Curso Online. Todos los derechos reservados.</p>
+      <p>&copy; <span id="copyright-year"></span> Mi Curso Online. Todos los derechos reservados.</p>
     </footer>
   </div>
 
   <script src="scripts/main.js"></script>
+  <script>
+    // Dynamic copyright year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
