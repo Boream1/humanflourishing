@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 
 interface VideoSectionProps {
@@ -23,7 +24,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   title,
   videoId,
   videoSource,
-  poster = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png",
+  poster = "/lovable-uploads/f583848a-2f31-4283-9f10-9b4b82b71127.png",
   keyPointText,
   englishCaptions,
   spanishCaptions,
@@ -52,11 +53,16 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const processedSpanishCaptions = spanishCaptions ? getRelativePath(spanishCaptions) : undefined;
 
   useEffect(() => {
+    // Create a flag to track component mount state
+    let isMounted = true;
     let attempts = 0;
-    const maxAttempts = 5;
+    const maxAttempts = 10;
     
     // Wait for DOM to be ready and videojs to be available
     const initializePlayer = () => {
+      // Check if component is still mounted
+      if (!isMounted) return;
+      
       if (window.videojs && videoRef.current && attempts < maxAttempts) {
         try {
           // Make sure we dispose any previous instance first
@@ -71,37 +77,40 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             responsive: true,
             fluid: true,
             controls: true,
-            preload: "auto",
+            preload: "auto"
           });
           
           // Add error event handler
           playerRef.current.on('error', (e: any) => {
-            console.log(`Video player error for ${videoId}:`, playerRef.current.error());
+            if (isMounted) {
+              console.log(`Video player error for ${videoId}:`, playerRef.current.error());
+            }
           });
           
           console.log(`Video player for ${videoId} initialized successfully`);
         } catch (error) {
           console.error(`Error initializing video player for ${videoId}:`, error);
           attempts++;
-          if (attempts < maxAttempts) {
+          if (attempts < maxAttempts && isMounted) {
             // Try again after a delay
-            setTimeout(initializePlayer, 1000); 
+            setTimeout(initializePlayer, 1500); 
           }
         }
-      } else if (attempts < maxAttempts) {
+      } else if (attempts < maxAttempts && isMounted) {
         console.warn(`VideoJS or video element for ${videoId} not found, will retry (attempt ${attempts + 1}/${maxAttempts})`);
         attempts++;
-        setTimeout(initializePlayer, 1000); // retry after a delay
-      } else {
+        setTimeout(initializePlayer, 1500); // retry with a longer delay
+      } else if (isMounted) {
         console.error(`Failed to initialize video player for ${videoId} after ${maxAttempts} attempts.`);
       }
     };
 
-    // Start initialization with a small delay to ensure DOM is ready
-    const initTimer = setTimeout(initializePlayer, 500);
+    // Start initialization with a delay to ensure DOM is ready
+    const initTimer = setTimeout(initializePlayer, 1000);
 
     // Clean up on unmount
     return () => {
+      isMounted = false;
       clearTimeout(initTimer);
       if (playerRef.current) {
         try {

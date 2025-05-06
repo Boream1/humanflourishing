@@ -7,6 +7,7 @@
   border-radius: 8px;
   overflow: hidden;
   background-color: #000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .video-js {
@@ -33,8 +34,11 @@
 }
 
 .video-js .vjs-big-play-button {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: rgba(43, 51, 63, 0.7);
+  border-color: #fff;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -43,8 +47,7 @@
 }
 
 .video-js:hover .vjs-big-play-button {
-  background-color: var(--accent-color);
-  opacity: 0.9;
+  background-color: rgba(43, 51, 63, 0.9);
   transform: translate(-50%, -50%) scale(1.1);
 }
 
@@ -93,4 +96,17 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+/* Add loading spinner styles */
+.video-js .vjs-loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+}
+
+/* Fix for iOS specific video playback */
+@supports (-webkit-touch-callout: none) {
+  .video-js .vjs-tech {
+    object-fit: cover;
+  }
 }
