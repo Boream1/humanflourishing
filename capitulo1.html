@@ -7,6 +7,9 @@
   <title>Capítulo 1 - Mi Curso Online</title>
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+  <!-- Added for React components -->
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
 </head>
 <body>
   <div class="page-container">
@@ -37,6 +40,9 @@
       <section class="chapter-body">
         <article class="lesson-content">
           <!-- Aquí irá el contenido del capítulo -->
+          <section class="lesson-section" id="activity">
+            <div id="reflection-activity-root"></div>
+          </section>
         </article>
       </section>
 
@@ -54,5 +60,10 @@
   </div>
 
   <script src="scripts/main.js"></script>
+  <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+  <script type="module">
+    // Import React app to render the reflection activity
+    import('/src/main.tsx').catch(e => console.error('Error loading React app:', e));
+  </script>
 </body>
 </html>
