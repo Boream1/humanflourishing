@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormControl } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { FileText } from "lucide-react";
 
@@ -15,7 +15,7 @@ const reflectionQuestions = [
 
 // Properly type the form values
 type ReflectionAnswers = {
-  [key: string]: string; // Changed from [key: number]: string to use string keys
+  [key: string]: string;
 };
 
 export default function ReflectionActivity() {
@@ -24,7 +24,7 @@ export default function ReflectionActivity() {
   
   const form = useForm<ReflectionAnswers>({
     defaultValues: reflectionQuestions.reduce((acc, _, index) => {
-      acc[index.toString()] = ""; // Convert index to string
+      acc[index.toString()] = "";
       return acc;
     }, {} as ReflectionAnswers)
   });
@@ -32,7 +32,7 @@ export default function ReflectionActivity() {
   const handleTextChange = (index: number, value: string) => {
     setCharCounts(prev => ({
       ...prev,
-      [index.toString()]: value.length // Convert index to string
+      [index.toString()]: value.length
     }));
     form.setValue(index.toString(), value);
   };
@@ -41,7 +41,7 @@ export default function ReflectionActivity() {
     form.setValue(index.toString(), "");
     setCharCounts(prev => ({
       ...prev,
-      [index.toString()]: 0 // Convert index to string
+      [index.toString()]: 0
     }));
   };
 
@@ -95,30 +95,15 @@ export default function ReflectionActivity() {
                 <span className="text-sm text-gray-500">
                   {charCounts[index.toString()] || 0} of 1500 characters
                 </span>
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => resetQuestion(index)}
-                  >
-                    Reset
-                  </Button>
-                  {index === reflectionQuestions.length - 1 && (
-                    <Button type="submit" className="bg-primary text-white">
-                      Submit
-                    </Button>
-                  )}
-                </div>
+                <Button
+                  type="submit"
+                  className="bg-primary text-white"
+                >
+                  Submit
+                </Button>
               </div>
             </div>
           ))}
-          
-          {/* Submit button outside of the questions loop */}
-          <div className="flex justify-end">
-            <Button type="submit" className="bg-primary text-white">
-              Submit All Responses
-            </Button>
-          </div>
         </form>
       </Form>
     </div>
