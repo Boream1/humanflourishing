@@ -52,6 +52,10 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     }
   }, [videoId]);
 
+  // Determine if the video is an HLS stream or a regular MP4
+  const isHLS = videoSource.includes('.m3u8');
+  const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
+
   return (
     <section className="lesson-section" id={id}>
       <h2 className="section-heading">{title}</h2>
@@ -65,7 +69,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             poster={poster}
             data-setup="{}"
           >
-            <source src={videoSource} type="video/mp4" />
+            <source src={videoSource} type={videoType} />
             {englishCaptions && (
               <track
                 kind="subtitles"

@@ -70,7 +70,15 @@ const Chapter1Content: React.FC = () => {
         <article className="lesson-content">
           <LearningObjectives objectives={learningObjectives} />
 
-          <VideoSection id="what-does-it-mean" title="What Does It Mean to Be Human?" videoId="video-1-1" videoSource="videos/w1v01-what-does-it-mean-to-be-human.mp4" englishCaptions="videos/captions/en/w1v01-what-does-it-mean-to-be-human.vtt" spanishCaptions="videos/captions/es/w1v01-what-does-it-mean-to-be-human.vtt" keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." />
+          <VideoSection 
+            id="what-does-it-mean" 
+            title="What Does It Mean to Be Human?" 
+            videoId="video-1-1" 
+            videoSource="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4" 
+            englishCaptions="videos/captions/en/w1v01-what-does-it-mean-to-be-human.vtt" 
+            spanishCaptions="videos/captions/es/w1v01-what-does-it-mean-to-be-human.vtt" 
+            keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." 
+          />
 
           <VideoSection id="interconnection" title="Being Human: The Interconnection of Body, Mind, and Soul" videoId="video-1-2" videoSource="videos/w1v02-being-human-the-interconnection-of-body-mind-and-soul.mp4" englishCaptions="videos/captions/en/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" spanishCaptions="videos/captions/es/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health." />
 
