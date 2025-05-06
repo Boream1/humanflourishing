@@ -1,62 +1,72 @@
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Curso Online</title>
+  <title>Online Course - IE University</title>
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
 </head>
 <body>
   <div class="page-container">
     <header class="main-header">
       <div class="logo">
-        <h1>Mi Curso Online</h1>
+        <a href="https://www.ie.edu" target="_blank">
+          <img src="assets/ie-logo-blue.svg" alt="IE University Logo" class="ie-logo">
+        </a>
       </div>
       <nav class="main-nav">
-        <button class="menu-toggle" id="menuToggle" aria-label="Menú de navegación">
+        <button class="menu-toggle" id="menuToggle" aria-label="Navigation Menu">
           <span></span>
           <span></span>
           <span></span>
         </button>
         <ul class="nav-list" id="navList">
-          <li class="nav-item"><a href="index.html" class="nav-link active">Inicio</a></li>
-          <li class="nav-item"><a href="capitulo1.html" class="nav-link">Capítulo 1</a></li>
-          <li class="nav-item"><a href="capitulo2.html" class="nav-link">Capítulo 2</a></li>
+          <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="chapter1.html" class="nav-link">Chapter 1</a></li>
+          <li class="nav-item"><a href="chapter2.html" class="nav-link">Chapter 2</a></li>
         </ul>
       </nav>
     </header>
 
     <main class="main-content">
       <section class="hero-section">
-        <h2 class="hero-title">Bienvenido al Curso</h2>
-        <p class="hero-description">Aquí irá una breve descripción del curso.</p>
-        <a href="capitulo1.html" class="cta-button">Comenzar el curso</a>
+        <h2 class="hero-title">Welcome to the Course</h2>
+        <p class="hero-description">Brief description of the course and its objectives.</p>
+        <a href="chapter1.html" class="cta-button">Begin Course</a>
       </section>
 
       <section class="course-overview">
-        <h2 class="section-title">Contenido del Curso</h2>
+        <h2 class="section-title">Course Content</h2>
         <div class="chapter-cards">
           <div class="chapter-card">
-            <h3 class="chapter-title">Capítulo 1</h3>
-            <p class="chapter-preview">Breve descripción del primer capítulo.</p>
-            <a href="capitulo1.html" class="chapter-link">Ver capítulo</a>
+            <h3 class="chapter-title">Chapter 1</h3>
+            <p class="chapter-preview">Brief description of the first chapter.</p>
+            <a href="chapter1.html" class="chapter-link">View Chapter</a>
           </div>
           <div class="chapter-card">
-            <h3 class="chapter-title">Capítulo 2</h3>
-            <p class="chapter-preview">Breve descripción del segundo capítulo.</p>
-            <a href="capitulo2.html" class="chapter-link">Ver capítulo</a>
+            <h3 class="chapter-title">Chapter 2</h3>
+            <p class="chapter-preview">Brief description of the second chapter.</p>
+            <a href="chapter2.html" class="chapter-link">View Chapter</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="main-footer">
-      <p>&copy; 2025 Mi Curso Online. Todos los derechos reservados.</p>
+      <p>&copy; <span id="copyright-year"></span> IE University. All rights reserved.</p>
+      <!-- SurveyAppProperties {"position":"right", "variant":"LateralAndPopUp"} SurveyAppProperties -->
+      <!-- InjectionCode SurveyApp -->
     </footer>
   </div>
 
   <script src="scripts/main.js"></script>
+  <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+  <script>
+    // Dynamic copyright year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

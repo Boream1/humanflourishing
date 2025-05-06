@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1 - IE University Course</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="page-container">
+    <header class="main-header">
+      <div class="logo">
+        <a href="https://www.ie.edu" target="_blank">
+          <img src="assets/ie-logo-blue.svg" alt="IE University Logo" class="ie-logo">
+        </a>
+      </div>
+      <nav class="main-nav">
+        <button class="menu-toggle" id="menuToggle" aria-label="Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-list" id="navList">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="chapter1.html" class="nav-link active">Chapter 1</a></li>
+          <li class="nav-item"><a href="chapter2.html" class="nav-link">Chapter 2</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content chapter-content">
+      <section class="chapter-header">
+        <h2 class="chapter-title">Chapter 1</h2>
+        <p class="chapter-description">Introduction to the first chapter.</p>
+      </section>
+
+      <section class="chapter-body">
+        <article class="lesson-content">
+          <!-- Video player implementation example -->
+          <div class="video-container">
+            <video id="chapter1-video" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" poster="assets/video-poster.jpg" data-setup="{}">
+              <source src="example-path/video.mp4" type="video/mp4">
+              <track kind="subtitles" src="example-path/captions.en.vtt" srclang="en" label="English">
+              <track kind="subtitles" src="example-path/captions.es.vtt" srclang="es" label="Spanish">
+              <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+              </p>
+            </video>
+          </div>
+          
+          <!-- Chapter content will go here -->
+        </article>
+      </section>
+
+      <section class="chapter-navigation">
+        <div class="nav-buttons">
+          <a href="index.html" class="nav-button prev">← Back to Home</a>
+          <a href="chapter2.html" class="nav-button next">Next Chapter →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; <span id="copyright-year"></span> IE University. All rights reserved.</p>
+      <!-- SurveyAppProperties {"position":"right", "variant":"LateralAndPopUp"} SurveyAppProperties -->
+      <!-- InjectionCode SurveyApp -->
+    </footer>
+  </div>
+
+  <script src="scripts/main.js"></script>
+  <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+  <script>
+    // Dynamic copyright year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    
+    // Initialize video player with options
+    var player = videojs('chapter1-video', {
+      playbackRates: [0.75, 1, 1.25, 1.5, 2]
+    });
+  </script>
+</body>
+</html>

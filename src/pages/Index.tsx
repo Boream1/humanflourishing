@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   useEffect(() => {
-    // Redirigir al HTML
+    // Redirect to the HTML version
     window.location.href = "./index.html";
   }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Redirigiendo...</h1>
+        <h1 className="text-4xl font-bold mb-4">Redirecting...</h1>
         <p className="text-xl text-gray-600 mb-4">
-          Por favor espera un momento mientras te redirigimos.
+          Please wait while we redirect you to the course.
         </p>
         <Link to="/" className="text-blue-500 hover:underline">
-          Haz clic aquí si no eres redirigido
+          Click here if you are not redirected
         </Link>
       </div>
     </div>
