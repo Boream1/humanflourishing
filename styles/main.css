@@ -138,7 +138,7 @@ a:focus-visible {
 .main-content {
   flex: 1;
   padding: 2rem 1rem;
-  max-width: 1200px;
+  max-width: 1400px; /* Increased from 1200px */
   margin: 0 auto;
   width: 100%;
 }
@@ -264,7 +264,7 @@ a:focus-visible {
 
 /* Chapter content styles */
 .chapter-content {
-  max-width: 800px;
+  max-width: 1200px; /* Increased from 800px */
 }
 
 .chapter-header {
@@ -289,6 +289,7 @@ a:focus-visible {
   border-radius: 8px;
   margin-bottom: 2rem;
   min-height: 300px;
+  width: 100%; /* Ensure it takes full width of container */
 }
 
 /* Lesson section styles */
@@ -513,7 +514,7 @@ a:focus-visible {
   .main-content {
     padding: 2rem;
     margin: 0 auto;
-    max-width: 90%;
+    max-width: 95%; /* Increased from 90% */
   }
 }
 
