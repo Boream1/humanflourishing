@@ -1,11 +1,10 @@
-
 import React, { useEffect, useRef } from "react";
 
 interface VideoSectionProps {
   id: string;
   title: string;
   videoId: string;
-  videoSource: string;
+  videoSource?: string;
   poster?: string;
   keyPointText?: string;
   englishCaptions?: string;
@@ -24,7 +23,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   title,
   videoId,
   videoSource,
-  poster = "/lovable-uploads/f583848a-2f31-4283-9f10-9b4b82b71127.png",
+  poster = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png",
   keyPointText,
   englishCaptions,
   spanishCaptions,
@@ -32,23 +31,24 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
   
-  // Check if the video source is a complete URL or needs to be made relative
+  // Set the default video source to be used for all videos
+  const defaultVideoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
+  const defaultPoster = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
+  
+  // Use the default video source and poster for consistency
+  const processedVideoSource = defaultVideoSource;
+  const processedPoster = defaultPoster;
+
+  // Process caption paths if they exist
   const getRelativePath = (path: string) => {
     // If it's already a relative path or a complete URL with protocol, return it as is
-    if (path.startsWith('/') || path.startsWith('./') || path.startsWith('http')) {
+    if (path && (path.startsWith('/') || path.startsWith('./') || path.startsWith('http'))) {
       return path;
     }
     // Otherwise, make it relative to the current location
-    return `./${path}`;
+    return path ? `./${path}` : undefined;
   };
 
-  // Get the correct video source path
-  const processedVideoSource = getRelativePath(videoSource);
-  
-  // Get correct poster path
-  const processedPoster = getRelativePath(poster);
-
-  // Process caption paths if they exist
   const processedEnglishCaptions = englishCaptions ? getRelativePath(englishCaptions) : undefined;
   const processedSpanishCaptions = spanishCaptions ? getRelativePath(spanishCaptions) : undefined;
 

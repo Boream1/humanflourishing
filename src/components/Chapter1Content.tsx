@@ -99,19 +99,16 @@ const Chapter1Content: React.FC = () => {
           <VideoSection 
             id="what-does-it-mean" 
             title="What Does It Mean to Be Human?" 
-            videoId="video-1-1" 
-            videoSource="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4"
-            poster="/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png"
-            englishCaptions="./videos/captions/en/w1v01-what-does-it-mean-to-be-human.vtt" 
-            spanishCaptions="./videos/captions/es/w1v01-what-does-it-mean-to-be-human.vtt" 
+            videoId="video-1-1"
             keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." 
+            englishCaptions="./videos/captions/en/w1v01-what-does-it-mean-to-be-human.vtt"
+            spanishCaptions="./videos/captions/es/w1v01-what-does-it-mean-to-be-human.vtt"
           />
 
           <VideoSection 
             id="interconnection" 
             title="Being Human: The Interconnection of Body, Mind, and Soul" 
-            videoId="video-1-2" 
-            videoSource="./videos/w1v02-being-human-the-interconnection-of-body-mind-and-soul.mp4" 
+            videoId="video-1-2"
             englishCaptions="./videos/captions/en/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" 
             spanishCaptions="./videos/captions/es/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" 
             keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health." 
@@ -120,8 +117,7 @@ const Chapter1Content: React.FC = () => {
           <VideoSection 
             id="social-connection" 
             title="The Importance of Human Social Connection" 
-            videoId="video-1-3" 
-            videoSource="./videos/w1v03-the-importance-of-human-social-connection.mp4" 
+            videoId="video-1-3"
             englishCaptions="./videos/captions/en/w1v03-the-importance-of-human-social-connection.vtt" 
             spanishCaptions="./videos/captions/es/w1v03-the-importance-of-human-social-connection.vtt" 
             keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being." 
@@ -136,8 +132,7 @@ const Chapter1Content: React.FC = () => {
           <VideoSection 
             id="human-biases" 
             title="Human Biases" 
-            videoId="video-1-4" 
-            videoSource="./videos/w1v04-human-biases.mp4" 
+            videoId="video-1-4"
             englishCaptions="./videos/captions/en/w1v04-human-biases.vtt" 
             spanishCaptions="./videos/captions/es/w1v04-human-biases.vtt" 
             keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing." 
@@ -146,8 +141,7 @@ const Chapter1Content: React.FC = () => {
           <VideoSection 
             id="leading-self" 
             title="Leading Self for Greater Impact in What We Do" 
-            videoId="video-1-5" 
-            videoSource="./videos/w6v02-leadingself-for-greater-impact-in-what-we-do.mp4" 
+            videoId="video-1-5"
             englishCaptions="./videos/captions/en/w6v02-leadingself-for-greater-impact-in-what-we-do.vtt" 
             spanishCaptions="./videos/captions/es/w6v02-leadingself-for-greater-impact-in-what-we-do.vtt" 
           />
@@ -155,8 +149,7 @@ const Chapter1Content: React.FC = () => {
           <VideoSection 
             id="closing-meditation" 
             title="Closing Meditation: Lesson 1" 
-            videoId="video-1-6" 
-            videoSource="./videos/w7v01-embracing-the-fullness-of-being-human.mp4" 
+            videoId="video-1-6"
             englishCaptions="./videos/captions/en/w7v01-embracing-the-fullness-of-being-human.vtt" 
             spanishCaptions="./videos/captions/es/w7v01-embracing-the-fullness-of-being-human.vtt" 
           />
