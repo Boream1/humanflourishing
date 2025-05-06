@@ -6,6 +6,7 @@ import { Form, FormField, FormItem, FormControl } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { FileText, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 // Define the questions for the reflection activity
 const reflectionQuestions = [
@@ -47,31 +48,24 @@ export default function ReflectionActivity() {
     }));
   };
 
-  const onSubmit = (data: ReflectionAnswers) => {
-    console.log("Submitted answers:", data);
-    // Here you would typically send the data to a server or process it further
+  const handleSubmitQuestion = (index: number) => {
+    const answer = form.getValues()[index.toString()];
     
-    let hasEmptyResponse = false;
-    for (const key in data) {
-      if (data[key].trim() === "") {
-        hasEmptyResponse = true;
-        toast({
-          title: "Empty Response",
-          description: "Please write your answer before submitting.",
-          variant: "destructive",
-          duration: 3000,
-        });
-        break;
-      }
-    }
-    
-    if (!hasEmptyResponse) {
+    if (!answer || answer.trim() === "") {
       toast({
-        title: "Success!",
-        description: "Your reflection has been submitted successfully!",
+        title: "Empty Response",
+        description: "Please write your answer before submitting.",
+        variant: "destructive",
         duration: 3000,
       });
+      return;
     }
+
+    toast({
+      title: "Success!",
+      description: "Your reflection has been submitted successfully!",
+      duration: 3000,
+    });
   };
 
   return (
@@ -85,7 +79,7 @@ export default function ReflectionActivity() {
       </p>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form className="space-y-8">
           {reflectionQuestions.map((question, index) => (
             <div 
               key={index} 
@@ -119,8 +113,9 @@ export default function ReflectionActivity() {
                   {charCounts[index.toString()] || 0} of 1500 characters
                 </span>
                 <Button
-                  type="submit"
+                  type="button"
                   className="bg-primary text-white"
+                  onClick={() => handleSubmitQuestion(index)}
                 >
                   Submit
                 </Button>
@@ -129,6 +124,8 @@ export default function ReflectionActivity() {
           ))}
         </form>
       </Form>
+
+      <Toaster />
     </div>
   );
 }
