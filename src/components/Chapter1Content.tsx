@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
 import LearningObjectives from "./LearningObjectives";
@@ -23,45 +23,88 @@ const Chapter1Content: React.FC = () => {
     title: "Human Connection in the Age of AI",
     url: "https://www.ie.edu/insights/articles/human-connection-in-the-age-of-ai/"
   }];
+  
+  // Create a ref to store the React root for the reflection activity
+  const reflectionRootRef = useRef<any>(null);
+  const feedbackTriggeredRef = useRef<boolean>(false);
 
   useEffect(() => {
     // Mount the reflection activity component
     const reflectionRoot = document.getElementById("reflection-activity-root");
-    if (reflectionRoot) {
+    if (reflectionRoot && !reflectionRootRef.current) {
       console.log("Mounting ReflectionActivity component");
-      const root = createRoot(reflectionRoot);
-      root.render(<ReflectionActivity />);
-    } else {
-      console.error("Reflection activity root element not found");
+      try {
+        reflectionRootRef.current = createRoot(reflectionRoot);
+        reflectionRootRef.current.render(<ReflectionActivity />);
+      } catch (error) {
+        console.error("Error rendering ReflectionActivity:", error);
+      }
     }
 
-    // Add event to dispatch feedback when user reaches the end
-    const configureLastVideo = () => {
-      const lastVideo = document.getElementById("video-1-6");
-      if (lastVideo && window.videojs) {
-        console.log("Configuring last video events");
+    // Configure feedback modal trigger when last video ends
+    const configureLastVideoFeedback = () => {
+      console.log("Attempting to configure feedback trigger for last video");
+      
+      // Wait for VideoJS to be initialized
+      if (window.videojs) {
         try {
-          const player = window.videojs(lastVideo);
-          player.on("ended", function () {
-            console.log("Last video ended, triggering feedback modal");
-            // Only trigger the feedback modal when the last video ends
-            document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
-          });
+          // Try to get the last video player
+          const lastVideoId = "video-1-6";
+          const lastVideo = window.videojs.getPlayer(lastVideoId);
+          
+          if (lastVideo) {
+            console.log("Successfully found last video, configuring feedback event");
+            
+            // Set up the ended event handler
+            lastVideo.on("ended", function() {
+              if (!feedbackTriggeredRef.current) {
+                console.log("Last video ended, triggering feedback modal");
+                document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+                feedbackTriggeredRef.current = true;
+              }
+            });
+          } else {
+            console.warn("Last video element not found yet, will retry");
+            setTimeout(configureLastVideoFeedback, 2000);
+          }
         } catch (error) {
           console.error("Error setting up video end event:", error);
+          setTimeout(configureLastVideoFeedback, 2000);
         }
       } else {
-        console.warn("Last video element or videojs not found, will retry");
-        // Try again in a moment as the video might not be fully initialized
-        setTimeout(configureLastVideo, 1000);
+        console.warn("VideoJS not available, will retry");
+        setTimeout(configureLastVideoFeedback, 2000);
       }
     };
 
-    // Start checking for the last video after components have rendered
-    setTimeout(configureLastVideo, 500);
+    // Start checking for the last video after a delay to ensure the component has rendered
+    const feedbackTimer = setTimeout(configureLastVideoFeedback, 3000);
+
+    // Also set up a trigger for the feedback modal when navigating away
+    const handleBeforeUnload = () => {
+      if (!feedbackTriggeredRef.current) {
+        console.log("Page unload detected, triggering feedback modal");
+        document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+        feedbackTriggeredRef.current = true;
+        
+        // We need a small delay to allow the event to be processed
+        const now = Date.now();
+        while(Date.now() - now < 100) {
+          // Wait for event to be processed
+        }
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      clearTimeout(feedbackTimer);
+    };
   }, []);
 
-  return <>
+  return (
+    <>
       <section className="chapter-header">
         <h1 className="chapter-title text-left">LESSON 1: Being Human</h1>
       </section>
@@ -70,11 +113,36 @@ const Chapter1Content: React.FC = () => {
         <article className="lesson-content">
           <LearningObjectives objectives={learningObjectives} />
 
-          <VideoSection id="what-does-it-mean" title="What Does It Mean to Be Human?" videoId="video-1-1" videoSource="videos/w1v01-what-does-it-mean-to-be-human.mp4" englishCaptions="videos/captions/en/w1v01-what-does-it-mean-to-be-human.vtt" spanishCaptions="videos/captions/es/w1v01-what-does-it-mean-to-be-human.vtt" keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." />
+          <VideoSection 
+            id="what-does-it-mean" 
+            title="What Does It Mean to Be Human?" 
+            videoId="video-1-1" 
+            videoSource="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4"
+            poster="/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png"
+            englishCaptions="./videos/captions/en/w1v01-what-does-it-mean-to-be-human.vtt" 
+            spanishCaptions="./videos/captions/es/w1v01-what-does-it-mean-to-be-human.vtt" 
+            keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." 
+          />
 
-          <VideoSection id="interconnection" title="Being Human: The Interconnection of Body, Mind, and Soul" videoId="video-1-2" videoSource="videos/w1v02-being-human-the-interconnection-of-body-mind-and-soul.mp4" englishCaptions="videos/captions/en/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" spanishCaptions="videos/captions/es/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health." />
+          <VideoSection 
+            id="interconnection" 
+            title="Being Human: The Interconnection of Body, Mind, and Soul" 
+            videoId="video-1-2" 
+            videoSource="./videos/w1v02-being-human-the-interconnection-of-body-mind-and-soul.mp4" 
+            englishCaptions="./videos/captions/en/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" 
+            spanishCaptions="./videos/captions/es/w1v02-being-human-the-interconnection-of-body-mind-and-soul.vtt" 
+            keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health." 
+          />
 
-          <VideoSection id="social-connection" title="The Importance of Human Social Connection" videoId="video-1-3" videoSource="videos/w1v03-the-importance-of-human-social-connection.mp4" englishCaptions="videos/captions/en/w1v03-the-importance-of-human-social-connection.vtt" spanishCaptions="videos/captions/es/w1v03-the-importance-of-human-social-connection.vtt" keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being." />
+          <VideoSection 
+            id="social-connection" 
+            title="The Importance of Human Social Connection" 
+            videoId="video-1-3" 
+            videoSource="./videos/w1v03-the-importance-of-human-social-connection.mp4" 
+            englishCaptions="./videos/captions/en/w1v03-the-importance-of-human-social-connection.vtt" 
+            spanishCaptions="./videos/captions/es/w1v03-the-importance-of-human-social-connection.vtt" 
+            keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being." 
+          />
 
           <ReadingSection title="Readings" introduction="Please complete the readings below to engage with the following activities:" links={readings} />
 
@@ -82,18 +150,41 @@ const Chapter1Content: React.FC = () => {
             <div id="reflection-activity-root"></div>
           </section>
 
-          <VideoSection id="human-biases" title="Human Biases" videoId="video-1-4" videoSource="videos/w1v04-human-biases.mp4" englishCaptions="videos/captions/en/w1v04-human-biases.vtt" spanishCaptions="videos/captions/es/w1v04-human-biases.vtt" keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing." />
+          <VideoSection 
+            id="human-biases" 
+            title="Human Biases" 
+            videoId="video-1-4" 
+            videoSource="./videos/w1v04-human-biases.mp4" 
+            englishCaptions="./videos/captions/en/w1v04-human-biases.vtt" 
+            spanishCaptions="./videos/captions/es/w1v04-human-biases.vtt" 
+            keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing." 
+          />
 
-          <VideoSection id="leading-self" title="Leading Self for Greater Impact in What We Do" videoId="video-1-5" videoSource="videos/w6v02-leadingself-for-greater-impact-in-what-we-do.mp4" englishCaptions="videos/captions/en/w6v02-leadingself-for-greater-impact-in-what-we-do.vtt" spanishCaptions="videos/captions/es/w6v02-leadingself-for-greater-impact-in-what-we-do.vtt" />
+          <VideoSection 
+            id="leading-self" 
+            title="Leading Self for Greater Impact in What We Do" 
+            videoId="video-1-5" 
+            videoSource="./videos/w6v02-leadingself-for-greater-impact-in-what-we-do.mp4" 
+            englishCaptions="./videos/captions/en/w6v02-leadingself-for-greater-impact-in-what-we-do.vtt" 
+            spanishCaptions="./videos/captions/es/w6v02-leadingself-for-greater-impact-in-what-we-do.vtt" 
+          />
 
-          <VideoSection id="closing-meditation" title="Closing Meditation: Lesson 1" videoId="video-1-6" videoSource="videos/w7v01-embracing-the-fullness-of-being-human.mp4" englishCaptions="videos/captions/en/w7v01-embracing-the-fullness-of-being-human.vtt" spanishCaptions="videos/captions/es/w7v01-embracing-the-fullness-of-being-human.vtt" />
+          <VideoSection 
+            id="closing-meditation" 
+            title="Closing Meditation: Lesson 1" 
+            videoId="video-1-6" 
+            videoSource="./videos/w7v01-embracing-the-fullness-of-being-human.mp4" 
+            englishCaptions="./videos/captions/en/w7v01-embracing-the-fullness-of-being-human.vtt" 
+            spanishCaptions="./videos/captions/es/w7v01-embracing-the-fullness-of-being-human.vtt" 
+          />
 
           <ReadingSection title="Optional Reading" introduction="Please complete the following readings if they are of interest to you!" links={optionalReadings} isOptional={true} />
         </article>
       </section>
 
       <ChapterNavigation prevLink="index.html" prevText="Back to Home" nextLink="chapter2.html" nextText="Next Chapter" />
-    </>;
+    </>
+  );
 };
 
 export default Chapter1Content;
