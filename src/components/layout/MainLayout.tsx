@@ -10,12 +10,20 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
+  React.useEffect(() => {
+    // Set copyright year dynamically
+    const copyrightYearElement = document.getElementById('copyright-year');
+    if (copyrightYearElement) {
+      copyrightYearElement.textContent = new Date().getFullYear().toString();
+    }
+  }, []);
+
   return (
     <div className="page-container">
       <header className="main-header">
         <div className="logo">
           <a href="https://www.ie.edu" target="_blank" rel="noreferrer">
-            <img src="/assets/ie-logo-blue.svg" alt="IE University Logo" className="ie-logo" />
+            <img src="/assets/IE_University_logo.svg" alt="IE University Logo" className="ie-logo" />
           </a>
         </div>
         <nav className="main-nav">
