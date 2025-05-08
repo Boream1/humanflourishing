@@ -1,0 +1,72 @@
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Color palette */
+  --neutral-gray: #8E9196;
+  --soft-gray: #F1F0FB;
+  --dark-gray: #1A1F2C;
+  --accent-color: #9b87f5;
+  --background-color: #ffffff;
+  --text-color: #1A1F2C;
+  --text-light: #8E9196;
+  --border-color: #e1e5eb;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover, a:focus {
+  color: var(--dark-gray);
+  outline: none;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Accessibility styles */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* High contrast support */
+@media (forced-colors: active) {
+  .nav-link.active::after {
+    background-color: CanvasText;
+  }
+  
+  .cta-button,
+  .nav-button:hover,
+  .nav-button:focus {
+    border: 1px solid CanvasText;
+  }
+}
