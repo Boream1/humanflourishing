@@ -1,3 +1,4 @@
+
 /**
  * Utility functions for working with VideoJS
  */
@@ -32,6 +33,11 @@ export const getDefaultVideoConfig = () => ({
 
 // Helper function to ensure URLs are absolute regardless of router path
 export const ensureAbsolutePath = (path: string): string => {
+  // Handle empty paths
+  if (!path) {
+    return '';
+  }
+
   // If it's already absolute (starts with http or /), return as is
   if (path.startsWith('http') || path.startsWith('/')) {
     return path;
@@ -43,5 +49,5 @@ export const ensureAbsolutePath = (path: string): string => {
 // Constants for default values
 export const DEFAULT_VIDEO_SOURCE = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
 
-// Ensure the poster path is correct by using the absolute path
-export const DEFAULT_POSTER = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
+// Default poster with uploaded image - using the newly uploaded image
+export const DEFAULT_POSTER = "/lovable-uploads/3e5fe53a-d9c8-4204-8e14-c0874ad02f9b.png";

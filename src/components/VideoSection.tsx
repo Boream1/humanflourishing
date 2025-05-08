@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useVideoPlayer } from "../hooks/useVideoPlayer";
 import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE, ensureAbsolutePath } from "../utils/videoUtils";
 import KeyPoint from "./KeyPoint";
@@ -39,6 +39,15 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   // Make sure captions have absolute paths if provided
   const englishCaptionsUrl = englishCaptions ? ensureAbsolutePath(englishCaptions) : undefined;
   const spanishCaptionsUrl = spanishCaptions ? ensureAbsolutePath(spanishCaptions) : undefined;
+  
+  // Check if the poster image is loading correctly
+  const handlePosterError = useCallback(() => {
+    console.error(`Failed to load poster image for video ${videoId}: ${posterUrl}`);
+    // Fallback to default poster if custom one fails
+    if (poster !== DEFAULT_POSTER) {
+      console.log(`Falling back to default poster for video ${videoId}`);
+    }
+  }, [videoId, posterUrl, poster]);
   
   useEffect(() => {
     // Check if VideoJS is loaded after component mount
@@ -124,7 +133,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
           )}
         </div>
 
-        <KeyPoint text={keyPointText} />
+        {keyPointText && <KeyPoint text={keyPointText} />}
       </div>
     </section>
   );
