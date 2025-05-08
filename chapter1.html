@@ -52,41 +52,47 @@
   <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
   <!-- Then load general scripts -->
   <script src="scripts/main.js"></script>
-  <!-- Then load the React app with a delay to ensure VideoJS is ready -->
+  <!-- Then load the React app -->
   <script>
     // Dynamic copyright year
     document.getElementById('copyright-year').textContent = new Date().getFullYear();
     
-    // Ensure VideoJS has fully loaded before loading React app
-    window.addEventListener('load', () => {
-      console.log('Window fully loaded, checking for VideoJS');
+    // Ensure everything is loaded before starting the app
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM content loaded, checking for VideoJS');
       
-      // Check if VideoJS is loaded
-      if (typeof videojs !== 'undefined') {
-        console.log('VideoJS loaded successfully, loading chapter content');
+      // Ensure VideoJS is loaded
+      const ensureVideoJSLoaded = (attempts = 0, maxAttempts = 20) => {
+        if (attempts >= maxAttempts) {
+          console.error('Max attempts reached. VideoJS not available.');
+          return;
+        }
         
-        // Import React app with an increased delay to ensure everything is ready
-        setTimeout(() => {
-          console.log('Loading React app for chapter 1');
+        if (typeof window.videojs !== 'undefined') {
+          console.log('VideoJS loaded successfully, loading chapter content');
+          // Import React app
           import('/src/main-chapter1.tsx')
             .then(() => console.log('Chapter 1 module loaded successfully'))
             .catch(e => console.error('Error loading React app:', e));
-        }, 1000);
-      } else {
-        console.error('VideoJS not loaded properly');
-        // Attempt to load it again
-        const script = document.createElement('script');
-        script.src = "https://vjs.zencdn.net/8.6.1/video.min.js";
-        script.onload = () => {
-          console.log('VideoJS loaded via fallback');
-          setTimeout(() => {
-            import('/src/main-chapter1.tsx')
-              .then(() => console.log('Chapter 1 module loaded via fallback'))
-              .catch(e => console.error('Error loading React app via fallback:', e));
-          }, 1000);
-        };
-        document.body.appendChild(script);
-      }
+        } else {
+          console.log(`Waiting for VideoJS to load (attempt ${attempts + 1}/${maxAttempts})...`);
+          setTimeout(() => ensureVideoJSLoaded(attempts + 1, maxAttempts), 300);
+        }
+      };
+      
+      // Start checking for VideoJS
+      ensureVideoJSLoaded();
+    });
+
+    // Additional fallback to load the app if everything else fails
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (!document.querySelector('#chapter1-content > *:not(.loading-indicator)')) {
+          console.log('Fallback loading of React app');
+          import('/src/main-chapter1.tsx')
+            .catch(e => console.error('Error in fallback load:', e));
+        }
+      }, 3000);
     });
   </script>
 </body>

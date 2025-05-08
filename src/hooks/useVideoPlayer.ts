@@ -13,8 +13,8 @@ interface UseVideoPlayerOptions {
  */
 export const useVideoPlayer = ({ 
   videoId, 
-  maxAttempts = 15, 
-  attemptInterval = 1000 
+  maxAttempts = 30,  // Increased maximum attempts
+  attemptInterval = 500  // Decreased interval time
 }: UseVideoPlayerOptions) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
@@ -27,6 +27,12 @@ export const useVideoPlayer = ({
     
     const initializePlayer = () => {
       if (!mountedRef.current) return;
+      
+      // Make sure DOM is fully loaded
+      if (document.readyState !== 'complete') {
+        initAttemptsRef.current++;
+        return;
+      }
       
       // Check if VideoJS is available
       if (!isVideoJSAvailable()) {
@@ -48,9 +54,10 @@ export const useVideoPlayer = ({
           playerRef.current = null;
         }
         
-        // Ensure the video element exists
-        if (!videoRef.current) {
-          console.error(`Video element ref not available for ${videoId}`);
+        // Ensure the video element exists and is in the DOM
+        if (!videoRef.current || !document.body.contains(videoRef.current)) {
+          console.warn(`Video element ref not available or not in DOM for ${videoId}`);
+          initAttemptsRef.current++;
           return;
         }
         
@@ -82,24 +89,29 @@ export const useVideoPlayer = ({
       }
     };
     
-    // First attempt immediately
-    initializePlayer();
-    
-    // Set up interval for retries
-    initTimerRef.current = window.setInterval(() => {
-      if (initAttemptsRef.current >= maxAttempts) {
-        console.error(`Failed to initialize video player ${videoId} after ${maxAttempts} attempts`);
-        clearInterval(initTimerRef.current);
-        initTimerRef.current = undefined;
-        return;
-      }
-      
+    // Small delay before first attempt to ensure DOM is ready
+    const initialDelay = setTimeout(() => {
+      // First attempt after short delay
       initializePlayer();
-    }, attemptInterval) as unknown as number;
+      
+      // Set up interval for retries
+      initTimerRef.current = window.setInterval(() => {
+        if (initAttemptsRef.current >= maxAttempts) {
+          console.error(`Failed to initialize video player ${videoId} after ${maxAttempts} attempts`);
+          clearInterval(initTimerRef.current);
+          initTimerRef.current = undefined;
+          return;
+        }
+        
+        initializePlayer();
+      }, attemptInterval) as unknown as number;
+    }, 100);
     
     // Clean up on unmount
     return () => {
       mountedRef.current = false;
+      
+      clearTimeout(initialDelay);
       
       if (initTimerRef.current) {
         clearInterval(initTimerRef.current);
