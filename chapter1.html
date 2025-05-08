@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chapter 1: Being Human - IE University Course</title>
   <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/media.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
   <!-- VideoJS CSS must be loaded before any scripts -->
   <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
   <!-- Added for React components -->
   <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
 </head>
@@ -49,25 +48,44 @@
 
   <div id="toast-container"></div>
 
-  <!-- Load scripts in the correct order -->
-  <script src="scripts/main.js"></script>
+  <!-- Load VideoJS first -->
   <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
-  <script type="module">
+  <!-- Then load general scripts -->
+  <script src="scripts/main.js"></script>
+  <!-- Then load the React app with a delay to ensure VideoJS is ready -->
+  <script>
     // Dynamic copyright year
     document.getElementById('copyright-year').textContent = new Date().getFullYear();
     
-    // Wait to ensure VideoJS is fully loaded before loading React app
+    // Ensure VideoJS has fully loaded before loading React app
     window.addEventListener('load', () => {
-      if (window.videojs) {
+      console.log('Window fully loaded, checking for VideoJS');
+      
+      // Check if VideoJS is loaded
+      if (typeof videojs !== 'undefined') {
         console.log('VideoJS loaded successfully, loading chapter content');
-        // Import React app to render the chapter content with a slight delay
+        
+        // Import React app with an increased delay to ensure everything is ready
         setTimeout(() => {
+          console.log('Loading React app for chapter 1');
           import('/src/main-chapter1.tsx')
             .then(() => console.log('Chapter 1 module loaded successfully'))
             .catch(e => console.error('Error loading React app:', e));
-        }, 800);
+        }, 1000);
       } else {
         console.error('VideoJS not loaded properly');
+        // Attempt to load it again
+        const script = document.createElement('script');
+        script.src = "https://vjs.zencdn.net/8.6.1/video.min.js";
+        script.onload = () => {
+          console.log('VideoJS loaded via fallback');
+          setTimeout(() => {
+            import('/src/main-chapter1.tsx')
+              .then(() => console.log('Chapter 1 module loaded via fallback'))
+              .catch(e => console.error('Error loading React app via fallback:', e));
+          }, 1000);
+        };
+        document.body.appendChild(script);
       }
     });
   </script>

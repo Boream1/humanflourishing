@@ -22,7 +22,7 @@ function App() {
       }
     }
     
-    // Set copyright year on all pages
+    // Set copyright year on all pages with retries to ensure it's set
     const setCopyrightYear = () => {
       const copyrightElements = document.querySelectorAll('#copyright-year');
       const currentYear = new Date().getFullYear().toString();
@@ -34,9 +34,10 @@ function App() {
       });
     };
     
-    // Run copyright update immediately and after a delay to ensure it's set
+    // Run copyright update on a schedule to ensure it's set
     setCopyrightYear();
-    setTimeout(setCopyrightYear, 1500);
+    const copyrightInterval = setInterval(setCopyrightYear, 1000);
+    setTimeout(() => clearInterval(copyrightInterval), 10000);
     
     // Set up survey app event listener for feedback
     const setupSurveyFeedback = () => {
@@ -66,7 +67,10 @@ function App() {
       };
     };
     
-    return setupSurveyFeedback();
+    return () => {
+      setupSurveyFeedback();
+      clearInterval(copyrightInterval);
+    };
   }, []);
 
   return null;

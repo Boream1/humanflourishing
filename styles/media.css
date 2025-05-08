@@ -88,6 +88,19 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+/* Error message styles */
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #dc2626;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 80%;
+}
+
 /* Optimize poster for different screen sizes */
 @media screen and (max-width: 768px) {
   .video-js .vjs-poster {
@@ -104,7 +117,8 @@
     max-height: 300px;
   }
   
-  .loading-indicator {
+  .loading-indicator,
+  .error-message {
     padding: 2rem 1rem;
     min-height: 150px;
     margin: 1rem auto;

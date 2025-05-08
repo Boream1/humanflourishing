@@ -36,113 +36,115 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const playerRef = useRef<any>(null);
   const initAttemptsRef = useRef<number>(0);
   const mountedRef = useRef<boolean>(true);
+  const initTimerRef = useRef<number | undefined>(undefined);
   
   useEffect(() => {
     mountedRef.current = true;
     
-    // Make sure VideoJS is available
-    if (!window.videojs) {
-      console.error(`VideoJS not available for ${videoId}`);
-      return;
-    }
-    
-    const maxAttempts = 5;
-    let initInterval: number | undefined;
-    
-    // Initialize video player
     const initializePlayer = () => {
       if (!mountedRef.current) return;
       
-      if (window.videojs && videoRef.current && initAttemptsRef.current < maxAttempts) {
+      // Check if VideoJS is available
+      if (typeof window.videojs === 'undefined') {
+        console.warn(`VideoJS not available for ${videoId}, attempt ${initAttemptsRef.current + 1}`);
+        initAttemptsRef.current++;
+        return; // Continue retrying
+      }
+      
+      try {
+        // Clean up existing players to prevent conflicts
         try {
-          // Check if the player already exists
-          let existingPlayer;
-          try {
-            existingPlayer = window.videojs.getPlayer(videoId);
-          } catch (err) {
-            // Player doesn't exist, which is what we want
-          }
-          
-          // Clean up existing player if it exists
+          const existingPlayer = window.videojs.getPlayer(videoId);
           if (existingPlayer) {
-            try {
-              existingPlayer.dispose();
-            } catch (err) {
-              console.warn(`Error disposing existing player for ${videoId}:`, err);
-            }
+            existingPlayer.dispose();
           }
-          
-          if (playerRef.current) {
-            try {
-              playerRef.current.dispose();
-            } catch (err) {
-              console.warn(`Error disposing player ref for ${videoId}:`, err);
-            }
-            playerRef.current = null;
+        } catch (e) {
+          // Player doesn't exist yet, which is fine
+        }
+        
+        if (playerRef.current) {
+          try {
+            playerRef.current.dispose();
+          } catch (e) {
+            // Failed to dispose, but we'll create a new one anyway
           }
-          
-          // Create new player instance with a short delay
-          setTimeout(() => {
-            if (!mountedRef.current) return;
-            
-            try {
-              playerRef.current = window.videojs(videoRef.current, {
-                playbackRates: [0.75, 1, 1.25, 1.5, 2],
-                responsive: true,
-                fluid: true,
-                controls: true,
-                preload: "auto"
-              });
-              
-              // Register error handler
-              playerRef.current.on('error', () => {
-                if (mountedRef.current && playerRef.current) {
-                  console.error(`Video player error for ${videoId}:`, playerRef.current.error());
-                }
-              });
-              
-              console.log(`Video player ${videoId} initialized successfully`);
-              
-              // Clear interval after successful initialization
-              if (initInterval) {
-                clearInterval(initInterval);
-              }
-            } catch (error) {
-              console.error(`Error initializing video player ${videoId}:`, error);
-              initAttemptsRef.current++;
-            }
-          }, 100);
-        } catch (error) {
-          console.error(`Error in video player initialization process for ${videoId}:`, error);
-          initAttemptsRef.current++;
+          playerRef.current = null;
         }
-      } else if (initAttemptsRef.current >= maxAttempts) {
-        console.error(`Failed to initialize video player ${videoId} after ${maxAttempts} attempts`);
-        if (initInterval) {
-          clearInterval(initInterval);
+        
+        // Ensure the video element exists
+        if (!videoRef.current) {
+          console.error(`Video element ref not available for ${videoId}`);
+          return;
         }
+        
+        // Initialize the video player
+        console.log(`Initializing video player ${videoId}`);
+        playerRef.current = window.videojs(videoRef.current, {
+          playbackRates: [0.75, 1, 1.25, 1.5, 2],
+          responsive: true,
+          fluid: true,
+          controls: true,
+          preload: "auto"
+        });
+        
+        // Register event handlers
+        playerRef.current.on('ready', () => {
+          console.log(`Video player ${videoId} is ready`);
+        });
+        
+        playerRef.current.on('error', () => {
+          if (mountedRef.current && playerRef.current) {
+            console.error(`Video player error for ${videoId}:`, playerRef.current.error());
+          }
+        });
+        
+        console.log(`Video player ${videoId} initialized successfully`);
+        
+        // Clear interval since we succeeded
+        if (initTimerRef.current) {
+          clearInterval(initTimerRef.current);
+          initTimerRef.current = undefined;
+        }
+      } catch (error) {
+        console.error(`Error initializing video player ${videoId}:`, error);
+        initAttemptsRef.current++;
       }
     };
     
-    // Start initialization attempts with a small delay to ensure DOM is ready
-    setTimeout(() => {
-      initInterval = window.setInterval(initializePlayer, 1000);
-    }, 500);
+    // Start initialization attempts
+    const maxAttempts = 10;
+    
+    // First attempt immediately
+    initializePlayer();
+    
+    // Set up interval for retries
+    initTimerRef.current = window.setInterval(() => {
+      if (initAttemptsRef.current >= maxAttempts) {
+        console.error(`Failed to initialize video player ${videoId} after ${maxAttempts} attempts`);
+        clearInterval(initTimerRef.current);
+        initTimerRef.current = undefined;
+        return;
+      }
+      
+      initializePlayer();
+    }, 1000) as unknown as number;
     
     // Clean up on unmount
     return () => {
       mountedRef.current = false;
-      if (initInterval) {
-        clearInterval(initInterval);
+      
+      if (initTimerRef.current) {
+        clearInterval(initTimerRef.current);
+        initTimerRef.current = undefined;
       }
       
       if (playerRef.current) {
         try {
           playerRef.current.dispose();
-          playerRef.current = null;
         } catch (e) {
           console.error(`Error disposing video player ${videoId}:`, e);
         }
+        playerRef.current = null;
       }
     };
   }, [videoId]);
