@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
   <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+  <!-- Added for React components -->
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
 </head>
 <body>
   <div class="page-container">
@@ -41,8 +43,8 @@
         <article class="lesson-content">
           <!-- Video player implementation example -->
           <div class="video-container">
-            <video id="chapter2-video" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" poster="assets/video-poster.jpg" data-setup="{}">
-              <source src="example-path/video.mp4" type="video/mp4">
+            <video id="chapter2-video" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" poster="/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png" data-setup="{}">
+              <source src="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4" type="video/mp4">
               <track kind="subtitles" src="example-path/captions.en.vtt" srclang="en" label="English">
               <track kind="subtitles" src="example-path/captions.es.vtt" srclang="es" label="Spanish">
               <p class="vjs-no-js">
@@ -71,6 +73,8 @@
     </footer>
   </div>
 
+  <div id="toast-container"></div>
+
   <script src="scripts/main.js"></script>
   <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
   <script>
@@ -78,15 +82,30 @@
     document.getElementById('copyright-year').textContent = new Date().getFullYear();
     
     // Initialize video player with options
-    var player = videojs('chapter2-video', {
-      playbackRates: [0.75, 1, 1.25, 1.5, 2]
-    });
-    
-    // Add event listener for the feedback widget when content is complete
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('.nav-button.next').addEventListener('click', function() {
-        document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
-      });
+      if (window.videojs) {
+        try {
+          var player = videojs('chapter2-video', {
+            playbackRates: [0.75, 1, 1.25, 1.5, 2]
+          });
+          
+          // Add event listener for the feedback widget when content is complete
+          player.on('ended', function() {
+            document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
+          });
+          
+          console.log('Video player initialized successfully');
+        } catch (error) {
+          console.error('Error initializing video player:', error);
+        }
+      } else {
+        console.error('VideoJS not loaded properly');
+      }
+    });
+
+    // Fallback for feedback widget
+    document.querySelector('.nav-button.next').addEventListener('click', function() {
+      document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
     });
   </script>
 </body>

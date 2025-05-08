@@ -10,14 +10,24 @@ function App() {
     if (!document.getElementById('chapter1-content')) {
       // Check if the reflection activity root element exists and mount the component
       const reflectionRoot = document.getElementById('reflection-activity-root');
-      if (reflectionRoot) {
+      if (reflectionRoot && !reflectionRoot.hasChildNodes()) {
         console.log('Mounting ReflectionActivity component from App.tsx');
-        const root = createRoot(reflectionRoot);
-        root.render(<ReflectionActivity />);
-      } else {
-        console.error('Reflection activity root element not found');
+        try {
+          const root = createRoot(reflectionRoot);
+          root.render(<ReflectionActivity />);
+        } catch (error) {
+          console.error('Error rendering ReflectionActivity:', error);
+        }
       }
     }
+    
+    // Set copyright year on all pages
+    const copyrightElements = document.querySelectorAll('#copyright-year');
+    copyrightElements.forEach(el => {
+      if (el && !el.textContent) {
+        el.textContent = new Date().getFullYear().toString();
+      }
+    });
   }, []);
 
   return null;

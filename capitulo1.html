@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capítulo 1 - Mi Curso Online</title>
+  <title>Capítulo 1 - IE University</title>
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
   <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
@@ -15,7 +15,9 @@
   <div class="page-container">
     <header class="main-header">
       <div class="logo">
-        <h1>Mi Curso Online</h1>
+        <a href="https://www.ie.edu" target="_blank">
+          <img src="assets/ie-logo-blue.svg" alt="IE University Logo" class="ie-logo">
+        </a>
       </div>
       <nav class="main-nav">
         <button class="menu-toggle" id="menuToggle" aria-label="Menú de navegación">
@@ -39,6 +41,19 @@
 
       <section class="chapter-body">
         <article class="lesson-content">
+          <!-- Video player implementation example -->
+          <div class="video-container">
+            <video id="chapter1-video" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" poster="/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png" data-setup="{}">
+              <source src="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4" type="video/mp4">
+              <track kind="subtitles" src="example-path/captions.en.vtt" srclang="en" label="Inglés">
+              <track kind="subtitles" src="example-path/captions.es.vtt" srclang="es" label="Español">
+              <p class="vjs-no-js">
+                Para ver este video, habilite JavaScript y considere actualizar a un
+                navegador web que <a href="https://videojs.com/html5-video-support/" target="_blank">admita video HTML5</a>
+              </p>
+            </video>
+          </div>
+          
           <!-- Aquí irá el contenido del capítulo -->
           <section class="lesson-section" id="activity">
             <div id="reflection-activity-root"></div>
@@ -55,7 +70,9 @@
     </main>
 
     <footer class="main-footer">
-      <p>&copy; 2025 Mi Curso Online. Todos los derechos reservados.</p>
+      <p>&copy; <span id="copyright-year"></span> IE University. Todos los derechos reservados.</p>
+      <!-- SurveyAppProperties {"position":"right", "variant":"LateralAndPopUp"} SurveyAppProperties -->
+      <!-- InjectionCode SurveyApp -->
     </footer>
   </div>
 
@@ -64,8 +81,27 @@
   <script src="scripts/main.js"></script>
   <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
   <script type="module">
+    // Initialize video player
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.videojs) {
+        try {
+          var player = videojs('chapter1-video', {
+            playbackRates: [0.75, 1, 1.25, 1.5, 2]
+          });
+          console.log('Video player initialized successfully');
+        } catch (error) {
+          console.error('Error initializing video player:', error);
+        }
+      } else {
+        console.error('VideoJS not loaded properly');
+      }
+    });
+    
     // Import React app to render the reflection activity
     import('/src/main.tsx').catch(e => console.error('Error loading React app:', e));
+    
+    // Dynamic copyright year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

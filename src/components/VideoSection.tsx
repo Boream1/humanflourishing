@@ -5,7 +5,7 @@ interface VideoSectionProps {
   id: string;
   title: string;
   videoId: string;
-  videoSource: string;
+  videoSource?: string;
   poster?: string;
   keyPointText?: string;
   englishCaptions?: string;
@@ -19,51 +19,44 @@ declare global {
   }
 }
 
+const DEFAULT_VIDEO_SOURCE = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
+const DEFAULT_POSTER = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
+
 const VideoSection: React.FC<VideoSectionProps> = ({
   id,
   title,
   videoId,
-  videoSource,
-  poster = "/lovable-uploads/f583848a-2f31-4283-9f10-9b4b82b71127.png",
+  videoSource = DEFAULT_VIDEO_SOURCE,
+  poster = DEFAULT_POSTER,
   keyPointText,
   englishCaptions,
   spanishCaptions,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
+  const initAttemptsRef = useRef<number>(0);
   
-  // Check if the video source is a complete URL or needs to be made relative
-  const getRelativePath = (path: string) => {
-    // If it's already a relative path or a complete URL with protocol, return it as is
-    if (path.startsWith('/') || path.startsWith('./') || path.startsWith('http')) {
-      return path;
-    }
-    // Otherwise, make it relative to the current location
-    return `./${path}`;
-  };
-
   // Get the correct video source path
-  const processedVideoSource = getRelativePath(videoSource);
+  const processedVideoSource = videoSource;
   
   // Get correct poster path
-  const processedPoster = getRelativePath(poster);
+  const processedPoster = poster;
 
   // Process caption paths if they exist
-  const processedEnglishCaptions = englishCaptions ? getRelativePath(englishCaptions) : undefined;
-  const processedSpanishCaptions = spanishCaptions ? getRelativePath(spanishCaptions) : undefined;
+  const processedEnglishCaptions = englishCaptions;
+  const processedSpanishCaptions = spanishCaptions;
 
   useEffect(() => {
     // Create a flag to track component mount state
     let isMounted = true;
-    let attempts = 0;
     const maxAttempts = 10;
     
-    // Wait for DOM to be ready and videojs to be available
+    // Function to initialize the video player
     const initializePlayer = () => {
       // Check if component is still mounted
       if (!isMounted) return;
       
-      if (window.videojs && videoRef.current && attempts < maxAttempts) {
+      if (window.videojs && videoRef.current && initAttemptsRef.current < maxAttempts) {
         try {
           // Make sure we dispose any previous instance first
           if (playerRef.current) {
@@ -90,15 +83,15 @@ const VideoSection: React.FC<VideoSectionProps> = ({
           console.log(`Video player for ${videoId} initialized successfully`);
         } catch (error) {
           console.error(`Error initializing video player for ${videoId}:`, error);
-          attempts++;
-          if (attempts < maxAttempts && isMounted) {
+          initAttemptsRef.current++;
+          if (initAttemptsRef.current < maxAttempts && isMounted) {
             // Try again after a delay
             setTimeout(initializePlayer, 1500); 
           }
         }
-      } else if (attempts < maxAttempts && isMounted) {
-        console.warn(`VideoJS or video element for ${videoId} not found, will retry (attempt ${attempts + 1}/${maxAttempts})`);
-        attempts++;
+      } else if (initAttemptsRef.current < maxAttempts && isMounted) {
+        console.warn(`VideoJS or video element for ${videoId} not found, will retry (attempt ${initAttemptsRef.current + 1}/${maxAttempts})`);
+        initAttemptsRef.current++;
         setTimeout(initializePlayer, 1500); // retry with a longer delay
       } else if (isMounted) {
         console.error(`Failed to initialize video player for ${videoId} after ${maxAttempts} attempts.`);
