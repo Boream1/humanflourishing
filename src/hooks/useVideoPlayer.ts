@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from 'react';
-import { cleanupExistingPlayer, getDefaultVideoConfig, isVideoJSAvailable } from '../utils/videoUtils';
+import { cleanupExistingPlayer, getDefaultVideoConfig, isVideoJSAvailable, applyPoster } from '../utils/videoUtils';
 
 interface UseVideoPlayerOptions {
   videoId: string;
@@ -13,8 +13,8 @@ interface UseVideoPlayerOptions {
  */
 export const useVideoPlayer = ({ 
   videoId, 
-  maxAttempts = 30,  // Increased maximum attempts
-  attemptInterval = 500  // Decreased interval time
+  maxAttempts = 30,
+  attemptInterval = 500
 }: UseVideoPlayerOptions) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
@@ -61,6 +61,9 @@ export const useVideoPlayer = ({
           return;
         }
         
+        // Store the poster URL before initializing VideoJS
+        const posterUrl = videoRef.current.getAttribute('poster');
+        
         // Initialize the video player
         console.log(`Initializing video player ${videoId}`);
         playerRef.current = window.videojs(videoRef.current, getDefaultVideoConfig());
@@ -68,6 +71,20 @@ export const useVideoPlayer = ({
         // Register event handlers
         playerRef.current.on('ready', () => {
           console.log(`Video player ${videoId} is ready`);
+          
+          // Ensure poster is applied correctly after player is ready
+          if (posterUrl) {
+            applyPoster(videoRef.current!, posterUrl);
+            
+            // Also ensure poster is visible when video pauses
+            playerRef.current.on('pause', () => {
+              setTimeout(() => {
+                if (videoRef.current) {
+                  applyPoster(videoRef.current, posterUrl);
+                }
+              }, 50);
+            });
+          }
         });
         
         playerRef.current.on('error', () => {

@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useVideoPlayer } from "../hooks/useVideoPlayer";
 import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE, ensureAbsolutePath } from "../utils/videoUtils";
 import KeyPoint from "./KeyPoint";
@@ -28,27 +28,45 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const { videoRef } = useVideoPlayer({ videoId });
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [posterFailed, setPosterFailed] = useState(false);
+  const posterImgRef = useRef<HTMLImageElement>(null);
   
   // Determine video type
   const isHLS = videoSource && videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
 
   // Ensure poster has correct absolute path
-  const posterUrl = ensureAbsolutePath(poster);
+  const posterUrl = posterFailed ? DEFAULT_POSTER : ensureAbsolutePath(poster);
   
   // Make sure captions have absolute paths if provided
   const englishCaptionsUrl = englishCaptions ? ensureAbsolutePath(englishCaptions) : undefined;
   const spanishCaptionsUrl = spanishCaptions ? ensureAbsolutePath(spanishCaptions) : undefined;
   
-  // Check if the poster image is loading correctly
+  // Handle poster image error
   const handlePosterError = useCallback(() => {
     console.error(`Failed to load poster image for video ${videoId}: ${posterUrl}`);
-    // Fallback to default poster if custom one fails
-    if (poster !== DEFAULT_POSTER) {
-      console.log(`Falling back to default poster for video ${videoId}`);
-    }
-  }, [videoId, posterUrl, poster]);
+    setPosterFailed(true);
+  }, [videoId, posterUrl]);
   
+  // Force poster to be visible after video is loaded
+  useEffect(() => {
+    if (!isLoading && videoRef.current) {
+      const videoElement = videoRef.current;
+      const forcePosterVisibility = () => {
+        const posterElement = videoElement.querySelector('.vjs-poster');
+        if (posterElement) {
+          posterElement.style.display = 'block';
+          posterElement.style.visibility = 'visible';
+          posterElement.style.opacity = '1';
+        }
+      };
+      
+      // Apply immediately and after a delay to ensure it takes effect
+      forcePosterVisibility();
+      setTimeout(forcePosterVisibility, 100);
+    }
+  }, [isLoading, videoRef]);
+
   useEffect(() => {
     // Check if VideoJS is loaded after component mount
     const checkVideoJS = () => {
@@ -67,7 +85,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  // Log the poster URL to help with debugging
+  // Log the poster URL for debugging
   useEffect(() => {
     console.log(`Video ${videoId} poster URL: ${posterUrl}`);
   }, [videoId, posterUrl]);
@@ -77,6 +95,15 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       <h2 className="section-heading">{title}</h2>
       <div className="content-block">
         <div className="video-container">
+          {/* Hidden image preload to ensure poster is loaded */}
+          <img 
+            ref={posterImgRef}
+            src={posterUrl}
+            alt=""
+            style={{ display: 'none' }}
+            onError={handlePosterError}
+          />
+          
           {hasError ? (
             <div className="video-error-message">
               <p>There was an error loading the video. Please try refreshing the page.</p>
