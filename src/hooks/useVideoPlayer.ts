@@ -79,11 +79,18 @@ export const useVideoPlayer = ({
             // Also ensure poster is visible when video pauses
             playerRef.current.on('pause', () => {
               setTimeout(() => {
-                if (videoRef.current) {
+                if (videoRef.current && mountedRef.current) {
                   applyPoster(videoRef.current, posterUrl);
                 }
               }, 50);
             });
+            
+            // Fix for poster not showing initially
+            setTimeout(() => {
+              if (videoRef.current && mountedRef.current) {
+                applyPoster(videoRef.current, posterUrl);
+              }
+            }, 100);
           }
         });
         

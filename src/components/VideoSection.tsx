@@ -35,8 +35,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const isHLS = videoSource && videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
 
-  // Ensure poster has correct absolute path
-  const posterUrl = posterFailed ? DEFAULT_POSTER : ensureAbsolutePath(poster);
+  // Use the uploaded image as the poster (or fallback)
+  const posterUrl = posterFailed ? DEFAULT_POSTER : (poster || "/lovable-uploads/bf6d331e-72a1-4f82-b450-d1c8ea071bf5.png");
   
   // Make sure captions have absolute paths if provided
   const englishCaptionsUrl = englishCaptions ? ensureAbsolutePath(englishCaptions) : undefined;
@@ -48,49 +48,21 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     setPosterFailed(true);
   }, [videoId, posterUrl]);
   
-  // Force poster to be visible after video is loaded
+  // Check if VideoJS is loaded and ready
   useEffect(() => {
-    if (!isLoading && videoRef.current) {
-      const videoElement = videoRef.current;
-      const forcePosterVisibility = () => {
-        const posterElement = videoElement.querySelector('.vjs-poster');
-        if (posterElement) {
-          // Fix: Cast the Element to HTMLElement to access style property
-          const posterHTMLElement = posterElement as HTMLElement;
-          posterHTMLElement.style.display = 'block';
-          posterHTMLElement.style.visibility = 'visible';
-          posterHTMLElement.style.opacity = '1';
-        }
-      };
-      
-      // Apply immediately and after a delay to ensure it takes effect
-      forcePosterVisibility();
-      setTimeout(forcePosterVisibility, 100);
-    }
-  }, [isLoading, videoRef]);
-
-  useEffect(() => {
-    // Check if VideoJS is loaded after component mount
     const checkVideoJS = () => {
       if (typeof window !== 'undefined' && window.videojs) {
         setIsLoading(false);
       }
     };
     
-    // Try immediately
+    // Try immediately and then set up an interval
     checkVideoJS();
-    
-    // Then set up an interval to check periodically
     const interval = setInterval(checkVideoJS, 1000);
     
     // Clean up
     return () => clearInterval(interval);
   }, []);
-
-  // Log the poster URL for debugging
-  useEffect(() => {
-    console.log(`Video ${videoId} poster URL: ${posterUrl}`);
-  }, [videoId, posterUrl]);
 
   return (
     <section className="lesson-section" id={id}>
