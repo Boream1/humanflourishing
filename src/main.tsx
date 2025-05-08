@@ -5,9 +5,17 @@ import App from './App.tsx';
 import './index.css';
 import './styles/media.css';
 
-const root = createRoot(document.getElementById("root")!);
-root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
+// Get the root element from our index.html
+const rootElement = document.getElementById("root");
+
+// Ensure the element exists before rendering
+if (!rootElement) {
+  console.error("Failed to find the root element");
+} else {
+  const root = createRoot(rootElement);
+  root.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
