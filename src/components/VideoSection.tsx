@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useVideoPlayer } from "../hooks/useVideoPlayer";
-import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE, ensureAbsolutePath } from "../utils/videoUtils";
+import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE, ensureAbsolutePath, forceShowPoster } from "../utils/videoUtils";
 import KeyPoint from "./KeyPoint";
 
 interface VideoSectionProps {
@@ -25,18 +25,19 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   englishCaptions,
   spanishCaptions,
 }) => {
-  const { videoRef } = useVideoPlayer({ videoId });
+  const { videoRef, playerReady } = useVideoPlayer({ videoId });
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [posterFailed, setPosterFailed] = useState(false);
   const posterImgRef = useRef<HTMLImageElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   // Determine video type
   const isHLS = videoSource && videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
 
   // Use the uploaded image as the poster (or fallback)
-  const posterUrl = posterFailed ? DEFAULT_POSTER : (poster || "/lovable-uploads/bf6d331e-72a1-4f82-b450-d1c8ea071bf5.png");
+  const posterUrl = posterFailed ? DEFAULT_POSTER : (poster || DEFAULT_POSTER);
   
   // Make sure captions have absolute paths if provided
   const englishCaptionsUrl = englishCaptions ? ensureAbsolutePath(englishCaptions) : undefined;
@@ -60,15 +61,30 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     checkVideoJS();
     const interval = setInterval(checkVideoJS, 1000);
     
+    // Force show the poster again after a delay
+    const forceShowPosterTimer = setTimeout(() => {
+      if (containerRef.current) {
+        forceShowPoster(videoId, posterUrl);
+      }
+    }, 1500);
+    
     // Clean up
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(forceShowPosterTimer);
+    };
+  }, [videoId, posterUrl, playerReady]);
+
+  const handleLoadStart = useCallback(() => {
+    // Force poster to show again when video starts loading
+    forceShowPoster(videoId, posterUrl);
+  }, [videoId, posterUrl]);
 
   return (
     <section className="lesson-section" id={id}>
       <h2 className="section-heading">{title}</h2>
       <div className="content-block">
-        <div className="video-container">
+        <div className="video-container" ref={containerRef}>
           {/* Hidden image preload to ensure poster is loaded */}
           <img 
             ref={posterImgRef}
@@ -77,6 +93,24 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             style={{ display: 'none' }}
             onError={handlePosterError}
           />
+          
+          {/* Custom poster overlay for better display */}
+          {isLoading && !playerReady && !hasError && (
+            <div 
+              className="video-custom-poster" 
+              style={{ 
+                backgroundImage: `url(${posterUrl})`,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: 5
+              }}
+            />
+          )}
           
           {hasError ? (
             <div className="video-error-message">
@@ -91,6 +125,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
               preload="auto"
               poster={posterUrl}
               data-setup="{}"
+              onLoadStart={handleLoadStart}
               onError={() => setHasError(true)}
             >
               <source src={videoSource} type={videoType} />
@@ -126,7 +161,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
               </p>
             </video>
           )}
-          {isLoading && (
+          {isLoading && !playerReady && (
             <div className="video-loading">
               <div className="loading-spinner"></div>
               <p>Loading video player...</p>

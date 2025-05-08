@@ -6,6 +6,7 @@ import LearningObjectives from "./LearningObjectives";
 import ChapterNavigation from "./ChapterNavigation";
 import { createRoot } from "react-dom/client";
 import ReflectionActivity from "./ReflectionActivity";
+import { DEFAULT_VIDEO_SOURCE, DEFAULT_POSTER } from "../utils/videoUtils";
 
 const Chapter1Content: React.FC = () => {
   const learningObjectives = ["Appreciate the complexity of human beings", "Understand the human need for social connection", "Evaluate the role and paradox of human biases"];
@@ -28,6 +29,10 @@ const Chapter1Content: React.FC = () => {
   const reflectionRootRef = useRef<any>(null);
   // Track if feedback event has been set up
   const feedbackSetupRef = useRef<boolean>(false);
+
+  // Default video source and poster
+  const videoSource = DEFAULT_VIDEO_SOURCE;
+  const posterImage = DEFAULT_POSTER;
 
   useEffect(() => {
     // Remove loading indicator if it still exists
@@ -117,6 +122,8 @@ const Chapter1Content: React.FC = () => {
             id="what-does-it-mean" 
             title="What Does It Mean to Be Human?" 
             videoId="video-1-1"
+            videoSource={videoSource}
+            poster={posterImage}
             keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." 
           />
 
@@ -124,6 +131,8 @@ const Chapter1Content: React.FC = () => {
             id="interconnection" 
             title="Being Human: The Interconnection of Body, Mind, and Soul" 
             videoId="video-1-2"
+            videoSource={videoSource}
+            poster={posterImage}
             keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health." 
           />
 
@@ -131,6 +140,8 @@ const Chapter1Content: React.FC = () => {
             id="social-connection" 
             title="The Importance of Human Social Connection" 
             videoId="video-1-3"
+            videoSource={videoSource}
+            poster={posterImage}
             keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being." 
           />
 
@@ -144,6 +155,8 @@ const Chapter1Content: React.FC = () => {
             id="human-biases" 
             title="Human Biases" 
             videoId="video-1-4"
+            videoSource={videoSource}
+            poster={posterImage}
             keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing." 
           />
 
@@ -151,12 +164,16 @@ const Chapter1Content: React.FC = () => {
             id="leading-self" 
             title="Leading Self for Greater Impact in What We Do" 
             videoId="video-1-5"
+            videoSource={videoSource}
+            poster={posterImage}
           />
 
           <VideoSection 
             id="closing-meditation" 
             title="Closing Meditation: Lesson 1" 
             videoId="video-1-6"
+            videoSource={videoSource}
+            poster={posterImage}
           />
 
           <ReadingSection title="Optional Reading" introduction="Please complete the following readings if they are of interest to you!" links={optionalReadings} isOptional={true} />

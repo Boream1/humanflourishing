@@ -1,3 +1,4 @@
+
 /**
  * Utility functions for working with VideoJS
  */
@@ -28,7 +29,6 @@ export const getDefaultVideoConfig = () => ({
   fluid: true,
   controls: true,
   preload: "auto",
-  // Show poster even after video starts playing
   poster: {
     showOnVideoEnd: true,
     showOnPause: true
@@ -54,7 +54,7 @@ export const ensureAbsolutePath = (path: string): string => {
 export const DEFAULT_VIDEO_SOURCE = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
 
 // Default poster with uploaded image
-export const DEFAULT_POSTER = "/lovable-uploads/3e5fe53a-d9c8-4204-8e14-c0874ad02f9b.png";
+export const DEFAULT_POSTER = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
 
 // Apply poster manually to video element
 export const applyPoster = (videoElement: HTMLVideoElement, posterUrl: string): void => {
@@ -78,3 +78,24 @@ export const applyPoster = (videoElement: HTMLVideoElement, posterUrl: string): 
     }
   }, 100);
 };
+
+// Function to force show the poster
+export const forceShowPoster = (playerId: string, posterUrl: string): void => {
+  if (!isVideoJSAvailable() || !posterUrl) return;
+  
+  setTimeout(() => {
+    try {
+      const playerElement = document.getElementById(playerId);
+      const posterElement = playerElement?.parentElement?.querySelector('.vjs-poster') as HTMLElement;
+      
+      if (posterElement) {
+        posterElement.style.backgroundImage = `url(${posterUrl})`;
+        posterElement.style.display = 'block';
+        posterElement.style.visibility = 'visible';
+      }
+    } catch (e) {
+      console.error(`Error forcing poster display for ${playerId}:`, e);
+    }
+  }, 200);
+};
+
