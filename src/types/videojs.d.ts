@@ -1,12 +1,9 @@
 
-// Type definitions for video.js
-declare namespace videojs {
-  interface VideoJsPlayer {
-    on(event: string, callback: Function): void;
-    dispose(): void;
+// Ensure we have window.videojs properly defined
+declare global {
+  interface Window {
+    videojs: any;
   }
 }
 
-interface Window {
-  videojs: any;
-}
+export {};

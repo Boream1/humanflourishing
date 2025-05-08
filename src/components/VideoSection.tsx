@@ -1,5 +1,8 @@
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import { useVideoPlayer } from "../hooks/useVideoPlayer";
+import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE } from "../utils/videoUtils";
+import KeyPoint from "./KeyPoint";
 
 interface VideoSectionProps {
   id: string;
@@ -12,16 +15,6 @@ interface VideoSectionProps {
   spanishCaptions?: string;
 }
 
-// Declare videojs as a property of the window object
-declare global {
-  interface Window {
-    videojs: any;
-  }
-}
-
-const DEFAULT_VIDEO_SOURCE = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
-const DEFAULT_POSTER = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
-
 const VideoSection: React.FC<VideoSectionProps> = ({
   id,
   title,
@@ -32,122 +25,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   englishCaptions,
   spanishCaptions,
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const playerRef = useRef<any>(null);
-  const initAttemptsRef = useRef<number>(0);
-  const mountedRef = useRef<boolean>(true);
-  const initTimerRef = useRef<number | undefined>(undefined);
-  
-  useEffect(() => {
-    mountedRef.current = true;
-    
-    const initializePlayer = () => {
-      if (!mountedRef.current) return;
-      
-      // Check if VideoJS is available
-      if (typeof window.videojs === 'undefined') {
-        console.warn(`VideoJS not available for ${videoId}, attempt ${initAttemptsRef.current + 1}`);
-        initAttemptsRef.current++;
-        return; // Continue retrying
-      }
-      
-      try {
-        // Clean up existing players to prevent conflicts
-        try {
-          const existingPlayer = window.videojs.getPlayer(videoId);
-          if (existingPlayer) {
-            existingPlayer.dispose();
-          }
-        } catch (e) {
-          // Player doesn't exist yet, which is fine
-        }
-        
-        if (playerRef.current) {
-          try {
-            playerRef.current.dispose();
-          } catch (e) {
-            // Failed to dispose, but we'll create a new one anyway
-          }
-          playerRef.current = null;
-        }
-        
-        // Ensure the video element exists
-        if (!videoRef.current) {
-          console.error(`Video element ref not available for ${videoId}`);
-          return;
-        }
-        
-        // Initialize the video player
-        console.log(`Initializing video player ${videoId}`);
-        playerRef.current = window.videojs(videoRef.current, {
-          playbackRates: [0.75, 1, 1.25, 1.5, 2],
-          responsive: true,
-          fluid: true,
-          controls: true,
-          preload: "auto"
-        });
-        
-        // Register event handlers
-        playerRef.current.on('ready', () => {
-          console.log(`Video player ${videoId} is ready`);
-        });
-        
-        playerRef.current.on('error', () => {
-          if (mountedRef.current && playerRef.current) {
-            console.error(`Video player error for ${videoId}:`, playerRef.current.error());
-          }
-        });
-        
-        console.log(`Video player ${videoId} initialized successfully`);
-        
-        // Clear interval since we succeeded
-        if (initTimerRef.current) {
-          clearInterval(initTimerRef.current);
-          initTimerRef.current = undefined;
-        }
-      } catch (error) {
-        console.error(`Error initializing video player ${videoId}:`, error);
-        initAttemptsRef.current++;
-      }
-    };
-    
-    // Start initialization attempts
-    const maxAttempts = 10;
-    
-    // First attempt immediately
-    initializePlayer();
-    
-    // Set up interval for retries
-    initTimerRef.current = window.setInterval(() => {
-      if (initAttemptsRef.current >= maxAttempts) {
-        console.error(`Failed to initialize video player ${videoId} after ${maxAttempts} attempts`);
-        clearInterval(initTimerRef.current);
-        initTimerRef.current = undefined;
-        return;
-      }
-      
-      initializePlayer();
-    }, 1000) as unknown as number;
-    
-    // Clean up on unmount
-    return () => {
-      mountedRef.current = false;
-      
-      if (initTimerRef.current) {
-        clearInterval(initTimerRef.current);
-        initTimerRef.current = undefined;
-      }
-      
-      if (playerRef.current) {
-        try {
-          playerRef.current.dispose();
-        } catch (e) {
-          console.error(`Error disposing video player ${videoId}:`, e);
-        }
-        playerRef.current = null;
-      }
-    };
-  }, [videoId]);
+  const { videoRef } = useVideoPlayer({ videoId });
   
   // Determine video type
   const isHLS = videoSource && videoSource.includes('.m3u8');
@@ -201,12 +79,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
           </video>
         </div>
 
-        {keyPointText && (
-          <div className="key-point">
-            <h3>Key Point</h3>
-            <p>{keyPointText}</p>
-          </div>
-        )}
+        <KeyPoint text={keyPointText} />
       </div>
     </section>
   );
