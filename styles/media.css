@@ -71,6 +71,14 @@
   height: 100%;
 }
 
+/* Loading indicator styles */
+.loading-indicator {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
 /* Optimize poster for different screen sizes */
 @media screen and (max-width: 768px) {
   .video-js .vjs-poster {

@@ -2,49 +2,59 @@
 import { createRoot } from 'react-dom/client';
 import Chapter1Content from './components/Chapter1Content';
 import './index.css';
+import '../styles/media.css';
 
-// Add a delay to ensure DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Starting to load Chapter 1 content');
+// Function to check if VideoJS is loaded
+const isVideoJSLoaded = () => {
+  return typeof window.videojs !== 'undefined';
+};
 
-  const loadContent = () => {
-    try {
-      const chapter1Root = document.getElementById('chapter1-content');
-      if (chapter1Root) {
-        if (chapter1Root.hasChildNodes()) {
-          console.log('Chapter1Content already rendered, skipping');
-          return;
-        }
-        
-        console.log('Found chapter1-content element, rendering Chapter1Content component');
-        createRoot(chapter1Root).render(<Chapter1Content />);
-        console.log('Chapter1Content component rendered successfully');
-      } else {
-        console.error('Chapter 1 content root element not found');
-      }
-    } catch (error) {
-      console.error('Error rendering Chapter 1 content:', error);
+// Function to render the content
+const renderContent = () => {
+  try {
+    const chapter1Root = document.getElementById('chapter1-content');
+    if (!chapter1Root) {
+      console.error('Chapter 1 content root element not found');
+      return;
     }
-  };
 
-  // Check if document is ready and VideoJS is loaded
-  if (document.readyState === 'complete' && window.videojs) {
-    loadContent();
-  } else {
-    // If not ready, wait and check again
-    setTimeout(loadContent, 1000);
+    if (chapter1Root.hasChildNodes()) {
+      console.log('Chapter1Content already rendered, skipping');
+      return;
+    }
+    
+    console.log('Found chapter1-content element, rendering Chapter1Content component');
+    createRoot(chapter1Root).render(<Chapter1Content />);
+    console.log('Chapter1Content component rendered successfully');
+  } catch (error) {
+    console.error('Error rendering Chapter 1 content:', error);
   }
+};
+
+// Function to initialize the application with retries
+const initializeApp = (retries = 0, maxRetries = 10) => {
+  if (retries >= maxRetries) {
+    console.error('Max retries reached. Could not initialize Chapter 1 content.');
+    return;
+  }
+
+  if (document.readyState === 'complete' && isVideoJSLoaded()) {
+    console.log('Document ready and VideoJS loaded, rendering content');
+    renderContent();
+  } else {
+    console.log(`Waiting for document and VideoJS to be ready (attempt ${retries + 1}/${maxRetries})`);
+    setTimeout(() => initializeApp(retries + 1, maxRetries), 500);
+  }
+};
+
+// Start initialization when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM content loaded, initializing app');
+  initializeApp();
 });
 
-// Fallback to ensure the app loads even if DOMContentLoaded has already fired
-setTimeout(() => {
-  const chapter1Root = document.getElementById('chapter1-content');
-  if (chapter1Root && !chapter1Root.hasChildNodes()) {
-    console.log('Using fallback to render Chapter1Content');
-    try {
-      createRoot(chapter1Root).render(<Chapter1Content />);
-    } catch (error) {
-      console.error('Error in fallback rendering:', error);
-    }
-  }
-}, 1500);
+// Fallback for when DOMContentLoaded has already fired
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  console.log('Document already loaded, initializing app');
+  initializeApp();
+}

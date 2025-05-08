@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chapter 1: Being Human - IE University Course</title>
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/media.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+  <!-- VideoJS CSS must be loaded before any scripts -->
   <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
   <!-- Added for React components -->
   <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
@@ -33,7 +35,10 @@
       </nav>
     </header>
 
-    <main class="main-content chapter-content" id="chapter1-content"></main>
+    <main class="main-content chapter-content" id="chapter1-content">
+      <!-- React content will be rendered here -->
+      <div class="loading-indicator">Loading chapter content...</div>
+    </main>
 
     <footer class="main-footer">
       <p>&copy; <span id="copyright-year"></span> IE University. All rights reserved.</p>
@@ -44,23 +49,25 @@
 
   <div id="toast-container"></div>
 
+  <!-- Load scripts in the correct order -->
   <script src="scripts/main.js"></script>
   <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
   <script type="module">
-    // Make sure VideoJS is available globally before loading the React app
-    window.addEventListener('DOMContentLoaded', () => {
-      // Wait until VideoJS is fully loaded
+    // Dynamic copyright year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    
+    // Wait to ensure VideoJS is fully loaded before loading React app
+    window.addEventListener('load', () => {
       if (window.videojs) {
-        console.log('VideoJS loaded successfully');
-        // Import React app to render the chapter content
-        import('/src/main-chapter1.tsx').catch(e => console.error('Error loading React app:', e));
+        console.log('VideoJS loaded successfully, loading chapter content');
+        // Import React app to render the chapter content with a slight delay
+        setTimeout(() => {
+          import('/src/main-chapter1.tsx').catch(e => console.error('Error loading React app:', e));
+        }, 500);
       } else {
         console.error('VideoJS not loaded properly');
       }
     });
-    
-    // Dynamic copyright year
-    document.getElementById('copyright-year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

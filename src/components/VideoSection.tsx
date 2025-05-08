@@ -35,36 +35,33 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<any>(null);
   const initAttemptsRef = useRef<number>(0);
+  const mountedRef = useRef<boolean>(true);
   
-  // Get the correct video source path
-  const processedVideoSource = videoSource;
-  
-  // Get correct poster path
-  const processedPoster = poster;
-
-  // Process caption paths if they exist
-  const processedEnglishCaptions = englishCaptions;
-  const processedSpanishCaptions = spanishCaptions;
-
   useEffect(() => {
-    // Create a flag to track component mount state
-    let isMounted = true;
-    const maxAttempts = 10;
+    mountedRef.current = true;
     
-    // Function to initialize the video player
+    // Make sure VideoJS is available
+    if (!window.videojs) {
+      console.error(`VideoJS not available for ${videoId}`);
+      return;
+    }
+    
+    const maxAttempts = 5;
+    let initInterval: number | undefined;
+    
+    // Initialize video player
     const initializePlayer = () => {
-      // Check if component is still mounted
-      if (!isMounted) return;
+      if (!mountedRef.current) return;
       
       if (window.videojs && videoRef.current && initAttemptsRef.current < maxAttempts) {
         try {
-          // Make sure we dispose any previous instance first
+          // Clean up existing player if it exists
           if (playerRef.current) {
             playerRef.current.dispose();
             playerRef.current = null;
           }
           
-          // Initialize the player with error handling
+          // Create new player instance
           playerRef.current = window.videojs(videoRef.current, {
             playbackRates: [0.75, 1, 1.25, 1.5, 2],
             responsive: true,
@@ -73,58 +70,56 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             preload: "auto"
           });
           
-          // Add error event handler
-          playerRef.current.on('error', (e: any) => {
-            if (isMounted) {
-              console.log(`Video player error for ${videoId}:`, playerRef.current.error());
+          // Register error handler
+          playerRef.current.on('error', () => {
+            if (mountedRef.current) {
+              console.error(`Video player error for ${videoId}:`, playerRef.current.error());
             }
           });
           
-          console.log(`Video player for ${videoId} initialized successfully`);
-        } catch (error) {
-          console.error(`Error initializing video player for ${videoId}:`, error);
-          initAttemptsRef.current++;
-          if (initAttemptsRef.current < maxAttempts && isMounted) {
-            // Try again after a delay
-            setTimeout(initializePlayer, 1500); 
+          console.log(`Video player ${videoId} initialized successfully`);
+          
+          // Clear interval after successful initialization
+          if (initInterval) {
+            clearInterval(initInterval);
           }
+        } catch (error) {
+          console.error(`Error initializing video player ${videoId}:`, error);
+          initAttemptsRef.current++;
         }
-      } else if (initAttemptsRef.current < maxAttempts && isMounted) {
-        console.warn(`VideoJS or video element for ${videoId} not found, will retry (attempt ${initAttemptsRef.current + 1}/${maxAttempts})`);
-        initAttemptsRef.current++;
-        setTimeout(initializePlayer, 1500); // retry with a longer delay
-      } else if (isMounted) {
-        console.error(`Failed to initialize video player for ${videoId} after ${maxAttempts} attempts.`);
+      } else if (initAttemptsRef.current >= maxAttempts) {
+        console.error(`Failed to initialize video player ${videoId} after ${maxAttempts} attempts`);
+        if (initInterval) {
+          clearInterval(initInterval);
+        }
       }
     };
-
-    // Start initialization with a delay to ensure DOM is ready
-    const initTimer = setTimeout(initializePlayer, 1000);
-
+    
+    // Start initialization attempts
+    initInterval = window.setInterval(initializePlayer, 1000);
+    
     // Clean up on unmount
     return () => {
-      isMounted = false;
-      clearTimeout(initTimer);
+      mountedRef.current = false;
+      if (initInterval) {
+        clearInterval(initInterval);
+      }
+      
       if (playerRef.current) {
         try {
           playerRef.current.dispose();
           playerRef.current = null;
         } catch (e) {
-          console.error(`Error disposing video player for ${videoId}:`, e);
+          console.error(`Error disposing video player ${videoId}:`, e);
         }
       }
     };
   }, [videoId]);
-
-  // Determine if the video is an HLS stream or a regular MP4
-  const isHLS = processedVideoSource.includes('.m3u8');
+  
+  // Determine video type
+  const isHLS = videoSource && videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
-
-  // Handle separate error for when video fails to load
-  const handleVideoError = () => {
-    console.error(`Error loading video source: ${processedVideoSource}`);
-  };
-
+  
   return (
     <section className="lesson-section" id={id}>
       <h2 className="section-heading">{title}</h2>
@@ -136,25 +131,24 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             className="video-js vjs-16-9 vjs-big-play-centered"
             controls
             preload="auto"
-            poster={processedPoster}
+            poster={poster}
             data-setup="{}"
-            onError={handleVideoError}
           >
-            <source src={processedVideoSource} type={videoType} />
+            <source src={videoSource} type={videoType} />
             
-            {processedEnglishCaptions && (
+            {englishCaptions && (
               <track
                 kind="subtitles"
-                src={processedEnglishCaptions}
+                src={englishCaptions}
                 srcLang="en"
                 label="English"
               />
             )}
             
-            {processedSpanishCaptions && (
+            {spanishCaptions && (
               <track
                 kind="subtitles"
-                src={processedSpanishCaptions}
+                src={spanishCaptions}
                 srcLang="es"
                 label="Spanish"
               />

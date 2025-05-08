@@ -26,6 +26,8 @@ const Chapter1Content: React.FC = () => {
   
   // Create a ref to store the React root for the reflection activity
   const reflectionRootRef = useRef<any>(null);
+  // Track if feedback event has been set up
+  const feedbackSetupRef = useRef<boolean>(false);
 
   useEffect(() => {
     // Mount the reflection activity component
@@ -40,9 +42,10 @@ const Chapter1Content: React.FC = () => {
       }
     }
 
-    // Configure feedback modal trigger when last video ends
-    const configureLastVideoFeedback = () => {
-      // Wait for VideoJS to be initialized
+    // Configure feedback modal trigger for the last video
+    const configureFeedbackTrigger = () => {
+      if (feedbackSetupRef.current) return;
+      
       if (window.videojs) {
         try {
           // Try to get the last video player
@@ -50,39 +53,47 @@ const Chapter1Content: React.FC = () => {
           const lastVideo = window.videojs.getPlayer(lastVideoId);
           
           if (lastVideo) {
-            console.log("Successfully found last video, configuring feedback event");
+            console.log("Configuring feedback event for last video");
             
             // Set up the ended event handler
             lastVideo.on("ended", function() {
               console.log("Last video ended, triggering feedback modal");
               document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
             });
-          } else {
-            console.warn("Last video element not found yet, will retry");
-            setTimeout(configureLastVideoFeedback, 2000);
+            
+            feedbackSetupRef.current = true;
           }
         } catch (error) {
           console.error("Error setting up video end event:", error);
-          setTimeout(configureLastVideoFeedback, 2000);
         }
-      } else {
-        console.warn("VideoJS not available, will retry");
-        setTimeout(configureLastVideoFeedback, 2000);
       }
     };
 
-    // Start checking for the last video after a delay to ensure the component has rendered
-    setTimeout(configureLastVideoFeedback, 3000);
+    // Try multiple times to set up the feedback trigger
+    const setupInterval = setInterval(() => {
+      configureFeedbackTrigger();
+      if (feedbackSetupRef.current) {
+        clearInterval(setupInterval);
+      }
+    }, 2000);
 
-    // Also set up a fallback trigger for the feedback modal on page unload
-    const handleUnload = () => {
-      document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+    // Also set up navigation feedback trigger
+    const setupNavigationFeedback = () => {
+      const navButtons = document.querySelectorAll('.nav-button.next');
+      navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          console.log('Navigation button clicked, triggering feedback modal');
+          document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
+        });
+      });
     };
-
-    window.addEventListener('beforeunload', handleUnload);
     
+    // Wait for DOM to be ready before setting up navigation feedback
+    setTimeout(setupNavigationFeedback, 1500);
+
+    // Clean up
     return () => {
-      window.removeEventListener('beforeunload', handleUnload);
+      clearInterval(setupInterval);
     };
   }, []);
 
