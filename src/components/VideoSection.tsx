@@ -55,36 +55,65 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       
       if (window.videojs && videoRef.current && initAttemptsRef.current < maxAttempts) {
         try {
+          // Check if the player already exists
+          let existingPlayer;
+          try {
+            existingPlayer = window.videojs.getPlayer(videoId);
+          } catch (err) {
+            // Player doesn't exist, which is what we want
+          }
+          
           // Clean up existing player if it exists
+          if (existingPlayer) {
+            try {
+              existingPlayer.dispose();
+            } catch (err) {
+              console.warn(`Error disposing existing player for ${videoId}:`, err);
+            }
+          }
+          
           if (playerRef.current) {
-            playerRef.current.dispose();
+            try {
+              playerRef.current.dispose();
+            } catch (err) {
+              console.warn(`Error disposing player ref for ${videoId}:`, err);
+            }
             playerRef.current = null;
           }
           
-          // Create new player instance
-          playerRef.current = window.videojs(videoRef.current, {
-            playbackRates: [0.75, 1, 1.25, 1.5, 2],
-            responsive: true,
-            fluid: true,
-            controls: true,
-            preload: "auto"
-          });
-          
-          // Register error handler
-          playerRef.current.on('error', () => {
-            if (mountedRef.current) {
-              console.error(`Video player error for ${videoId}:`, playerRef.current.error());
+          // Create new player instance with a short delay
+          setTimeout(() => {
+            if (!mountedRef.current) return;
+            
+            try {
+              playerRef.current = window.videojs(videoRef.current, {
+                playbackRates: [0.75, 1, 1.25, 1.5, 2],
+                responsive: true,
+                fluid: true,
+                controls: true,
+                preload: "auto"
+              });
+              
+              // Register error handler
+              playerRef.current.on('error', () => {
+                if (mountedRef.current && playerRef.current) {
+                  console.error(`Video player error for ${videoId}:`, playerRef.current.error());
+                }
+              });
+              
+              console.log(`Video player ${videoId} initialized successfully`);
+              
+              // Clear interval after successful initialization
+              if (initInterval) {
+                clearInterval(initInterval);
+              }
+            } catch (error) {
+              console.error(`Error initializing video player ${videoId}:`, error);
+              initAttemptsRef.current++;
             }
-          });
-          
-          console.log(`Video player ${videoId} initialized successfully`);
-          
-          // Clear interval after successful initialization
-          if (initInterval) {
-            clearInterval(initInterval);
-          }
+          }, 100);
         } catch (error) {
-          console.error(`Error initializing video player ${videoId}:`, error);
+          console.error(`Error in video player initialization process for ${videoId}:`, error);
           initAttemptsRef.current++;
         }
       } else if (initAttemptsRef.current >= maxAttempts) {
@@ -95,8 +124,10 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       }
     };
     
-    // Start initialization attempts
-    initInterval = window.setInterval(initializePlayer, 1000);
+    // Start initialization attempts with a small delay to ensure DOM is ready
+    setTimeout(() => {
+      initInterval = window.setInterval(initializePlayer, 1000);
+    }, 500);
     
     // Clean up on unmount
     return () => {

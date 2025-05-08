@@ -12,17 +12,17 @@ const isVideoJSLoaded = () => {
 // Function to render the content
 const renderContent = () => {
   try {
+    const loadingIndicator = document.querySelector('.loading-indicator');
+    if (loadingIndicator) {
+      loadingIndicator.remove();
+    }
+    
     const chapter1Root = document.getElementById('chapter1-content');
     if (!chapter1Root) {
       console.error('Chapter 1 content root element not found');
       return;
     }
 
-    if (chapter1Root.hasChildNodes()) {
-      console.log('Chapter1Content already rendered, skipping');
-      return;
-    }
-    
     console.log('Found chapter1-content element, rendering Chapter1Content component');
     createRoot(chapter1Root).render(<Chapter1Content />);
     console.log('Chapter1Content component rendered successfully');
@@ -32,7 +32,7 @@ const renderContent = () => {
 };
 
 // Function to initialize the application with retries
-const initializeApp = (retries = 0, maxRetries = 10) => {
+const initializeApp = (retries = 0, maxRetries = 20) => {
   if (retries >= maxRetries) {
     console.error('Max retries reached. Could not initialize Chapter 1 content.');
     return;
@@ -49,12 +49,12 @@ const initializeApp = (retries = 0, maxRetries = 10) => {
 
 // Start initialization when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM content loaded, initializing app');
+  console.log('DOM content loaded, initializing chapter 1 app');
   initializeApp();
 });
 
 // Fallback for when DOMContentLoaded has already fired
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  console.log('Document already loaded, initializing app');
+  console.log('Document already loaded, initializing chapter 1 app');
   initializeApp();
 }

@@ -74,9 +74,18 @@
 /* Loading indicator styles */
 .loading-indicator {
   text-align: center;
-  padding: 2rem;
+  padding: 4rem 2rem;
   font-size: 1.2rem;
   color: #666;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 80%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 /* Optimize poster for different screen sizes */
@@ -93,6 +102,13 @@
   .video-js {
     height: auto !important;
     max-height: 300px;
+  }
+  
+  .loading-indicator {
+    padding: 2rem 1rem;
+    min-height: 150px;
+    margin: 1rem auto;
+    max-width: 90%;
   }
 }
 

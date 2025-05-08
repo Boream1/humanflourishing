@@ -62,8 +62,10 @@
         console.log('VideoJS loaded successfully, loading chapter content');
         // Import React app to render the chapter content with a slight delay
         setTimeout(() => {
-          import('/src/main-chapter1.tsx').catch(e => console.error('Error loading React app:', e));
-        }, 500);
+          import('/src/main-chapter1.tsx')
+            .then(() => console.log('Chapter 1 module loaded successfully'))
+            .catch(e => console.error('Error loading React app:', e));
+        }, 800);
       } else {
         console.error('VideoJS not loaded properly');
       }

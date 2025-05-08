@@ -25,18 +25,30 @@ function App() {
     // Set copyright year on all pages
     const setCopyrightYear = () => {
       const copyrightElements = document.querySelectorAll('#copyright-year');
+      const currentYear = new Date().getFullYear().toString();
+      
       copyrightElements.forEach(el => {
-        if (el && !el.textContent) {
-          el.textContent = new Date().getFullYear().toString();
+        if (el && (!el.textContent || el.textContent.trim() === '')) {
+          el.textContent = currentYear;
         }
       });
     };
     
-    // Run copyright update
+    // Run copyright update immediately and after a delay to ensure it's set
     setCopyrightYear();
+    setTimeout(setCopyrightYear, 1500);
     
     // Set up survey app event listener for feedback
     const setupSurveyFeedback = () => {
+      // Add event listener for next chapter navigation to trigger feedback widget
+      const navNextButtons = document.querySelectorAll('.nav-button.next');
+      navNextButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+          console.log('Navigation next button clicked, triggering feedback modal');
+          document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
+        });
+      });
+      
       // Add event listener for page unload to trigger feedback widget
       const handleBeforeUnload = (event: BeforeUnloadEvent) => {
         document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
@@ -48,6 +60,9 @@ function App() {
       
       return () => {
         window.removeEventListener('beforeunload', handleBeforeUnload);
+        navNextButtons.forEach(button => {
+          button.removeEventListener('click', () => {});
+        });
       };
     };
     

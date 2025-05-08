@@ -30,6 +30,12 @@ const Chapter1Content: React.FC = () => {
   const feedbackSetupRef = useRef<boolean>(false);
 
   useEffect(() => {
+    // Remove loading indicator if it still exists
+    const loadingIndicator = document.querySelector('.loading-indicator');
+    if (loadingIndicator) {
+      loadingIndicator.remove();
+    }
+
     // Mount the reflection activity component
     const reflectionRoot = document.getElementById("reflection-activity-root");
     if (reflectionRoot && !reflectionRootRef.current) {
@@ -42,7 +48,7 @@ const Chapter1Content: React.FC = () => {
       }
     }
 
-    // Configure feedback modal trigger for the last video
+    // Configure feedback modal trigger for the last video with retries
     const configureFeedbackTrigger = () => {
       if (feedbackSetupRef.current) return;
       
