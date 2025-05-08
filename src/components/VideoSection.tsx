@@ -55,9 +55,11 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       const forcePosterVisibility = () => {
         const posterElement = videoElement.querySelector('.vjs-poster');
         if (posterElement) {
-          posterElement.style.display = 'block';
-          posterElement.style.visibility = 'visible';
-          posterElement.style.opacity = '1';
+          // Fix: Cast the Element to HTMLElement to access style property
+          const posterHTMLElement = posterElement as HTMLElement;
+          posterHTMLElement.style.display = 'block';
+          posterHTMLElement.style.visibility = 'visible';
+          posterHTMLElement.style.opacity = '1';
         }
       };
       
