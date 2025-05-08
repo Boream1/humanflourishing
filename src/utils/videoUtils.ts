@@ -1,4 +1,3 @@
-
 /**
  * Utility functions for working with VideoJS
  */
@@ -30,6 +29,16 @@ export const getDefaultVideoConfig = () => ({
   controls: true,
   preload: "auto"
 });
+
+// Helper function to ensure URLs are absolute regardless of router path
+export const ensureAbsolutePath = (path: string): string => {
+  // If it's already absolute (starts with http or /), return as is
+  if (path.startsWith('http') || path.startsWith('/')) {
+    return path;
+  }
+  // Otherwise, make it absolute
+  return `/${path}`;
+};
 
 // Constants for default values
 export const DEFAULT_VIDEO_SOURCE = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";

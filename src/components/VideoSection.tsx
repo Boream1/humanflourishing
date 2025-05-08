@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useVideoPlayer } from "../hooks/useVideoPlayer";
-import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE } from "../utils/videoUtils";
+import { DEFAULT_POSTER, DEFAULT_VIDEO_SOURCE, ensureAbsolutePath } from "../utils/videoUtils";
 import KeyPoint from "./KeyPoint";
 
 interface VideoSectionProps {
@@ -33,10 +33,12 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const isHLS = videoSource && videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
 
-  // Ensure poster has correct path
-  const posterUrl = poster.startsWith('/') || poster.startsWith('http') 
-    ? poster 
-    : `/${poster}`;
+  // Ensure poster has correct absolute path
+  const posterUrl = ensureAbsolutePath(poster);
+  
+  // Make sure captions have absolute paths if provided
+  const englishCaptionsUrl = englishCaptions ? ensureAbsolutePath(englishCaptions) : undefined;
+  const spanishCaptionsUrl = spanishCaptions ? ensureAbsolutePath(spanishCaptions) : undefined;
   
   useEffect(() => {
     // Check if VideoJS is loaded after component mount
@@ -83,19 +85,19 @@ const VideoSection: React.FC<VideoSectionProps> = ({
             >
               <source src={videoSource} type={videoType} />
               
-              {englishCaptions && (
+              {englishCaptionsUrl && (
                 <track
                   kind="subtitles"
-                  src={englishCaptions}
+                  src={englishCaptionsUrl}
                   srcLang="en"
                   label="English"
                 />
               )}
               
-              {spanishCaptions && (
+              {spanishCaptionsUrl && (
                 <track
                   kind="subtitles"
-                  src={spanishCaptions}
+                  src={spanishCaptionsUrl}
                   srcLang="es"
                   label="Spanish"
                 />

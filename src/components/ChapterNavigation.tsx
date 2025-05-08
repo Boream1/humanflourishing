@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface ChapterNavigationProps {
   prevLink: string;
@@ -14,15 +15,20 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
   nextLink,
   nextText,
 }) => {
+  // Function to trigger feedback modal
+  const handleNextClick = () => {
+    document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
+  };
+
   return (
     <section className="chapter-navigation">
       <div className="nav-buttons">
-        <a href={prevLink} className="nav-button prev">
+        <Link to={prevLink} className="nav-button prev">
           ← {prevText}
-        </a>
-        <a href={nextLink} className="nav-button next">
+        </Link>
+        <Link to={nextLink} className="nav-button next" onClick={handleNextClick}>
           {nextText} →
-        </a>
+        </Link>
       </div>
     </section>
   );
