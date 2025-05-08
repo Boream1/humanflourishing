@@ -1,15 +1,13 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 interface MainLayoutProps {
   children: React.ReactNode;
 }
-
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({
+  children
+}) => {
   const location = useLocation();
   const currentPath = location.pathname;
-
   React.useEffect(() => {
     // Set copyright year dynamically
     const copyrightYearElement = document.getElementById('copyright-year');
@@ -17,13 +15,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       copyrightYearElement.textContent = new Date().getFullYear().toString();
     }
   }, []);
-
-  return (
-    <div className="page-container">
+  return <div className="page-container">
       <header className="main-header">
         <div className="logo">
           <a href="https://www.ie.edu" target="_blank" rel="noreferrer">
-            <img src="/assets/IE_University_logo.svg" alt="IE University Logo" className="ie-logo" />
+            <img alt="IE University Logo" className="ie-logo" src="assets/IE_University_logo.svg" />
           </a>
         </div>
         <nav className="main-nav">
@@ -59,8 +55,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <footer className="main-footer">
         <p>&copy; <span id="copyright-year"></span> IE University. All rights reserved.</p>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default MainLayout;
