@@ -33,4 +33,6 @@ export const getDefaultVideoConfig = () => ({
 
 // Constants for default values
 export const DEFAULT_VIDEO_SOURCE = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
+
+// Ensure the poster path is correct by using the absolute path
 export const DEFAULT_POSTER = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";

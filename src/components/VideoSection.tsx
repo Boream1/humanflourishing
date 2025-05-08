@@ -32,6 +32,11 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   // Determine video type
   const isHLS = videoSource && videoSource.includes('.m3u8');
   const videoType = isHLS ? "application/x-mpegURL" : "video/mp4";
+
+  // Ensure poster has correct path
+  const posterUrl = poster.startsWith('/') || poster.startsWith('http') 
+    ? poster 
+    : `/${poster}`;
   
   useEffect(() => {
     // Check if VideoJS is loaded after component mount
@@ -51,6 +56,11 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  // Log the poster URL to help with debugging
+  useEffect(() => {
+    console.log(`Video ${videoId} poster URL: ${posterUrl}`);
+  }, [videoId, posterUrl]);
+
   return (
     <section className="lesson-section" id={id}>
       <h2 className="section-heading">{title}</h2>
@@ -67,7 +77,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
               className="video-js vjs-16-9 vjs-big-play-centered"
               controls
               preload="auto"
-              poster={poster}
+              poster={posterUrl}
               data-setup="{}"
               onError={() => setHasError(true)}
             >
