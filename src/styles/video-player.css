@@ -1,4 +1,3 @@
-
 /* Video container styles */
 .video-container {
   margin-bottom: 2rem;
@@ -155,6 +154,51 @@
   /* Make sure video player is responsive on mobile */
   .video-js {
     height: auto !important;
+    max-height: 300px;
+  }
+}
+
+/* HTML5 Video Player Styles for Chapter 2 */
+.html5-video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+/* Error display styles */
+.video-error-message {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px;
+  border-radius: 8px;
+}
+
+/* Make sure video controls are visible */
+.html5-video::-webkit-media-controls {
+  display: flex !important;
+  opacity: 1 !important;
+}
+
+/* iOS specific fix for video display */
+@supports (-webkit-touch-callout: none) {
+  .html5-video {
+    object-fit: cover;
+  }
+}
+
+/* Optimize video display for different screen sizes */
+@media screen and (max-width: 768px) {
+  .html5-video {
     max-height: 300px;
   }
 }

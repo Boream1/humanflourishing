@@ -1,6 +1,6 @@
 
 import React from "react";
-import VideoSection from "./VideoSection";
+import Chapter2VideoSection from "./Chapter2VideoSection";
 import ReadingSection from "./ReadingSection";
 import LearningObjectives from "./LearningObjectives";
 import ChapterNavigation from "./ChapterNavigation";
@@ -27,17 +27,21 @@ const Chapter2Content: React.FC = () => {
         <article className="lesson-content">
           <LearningObjectives objectives={learningObjectives} />
 
-          <VideoSection 
+          <Chapter2VideoSection 
             id="advanced-concepts" 
             title="Advanced Concepts in Human Connection" 
             videoId="video-2-1"
+            videoSource="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4"
+            poster="/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png"
             keyPointText="Building on the foundational aspects of human connection, we now explore how these connections evolve and strengthen over time through consistent positive interactions." 
           />
 
-          <VideoSection 
+          <Chapter2VideoSection 
             id="technology-impact" 
             title="The Impact of Technology on Human Connection" 
             videoId="video-2-2"
+            videoSource="https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4"
+            poster="/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png"
             keyPointText="Technology presents both opportunities and challenges for human connection. Understanding how to leverage technology while maintaining authentic relationships is crucial for well-being in the digital age." 
           />
 
