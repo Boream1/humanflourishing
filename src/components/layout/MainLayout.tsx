@@ -43,6 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    console.log("Menu toggled, new state:", !isMenuOpen);
   };
 
   const closeMenu = () => {
