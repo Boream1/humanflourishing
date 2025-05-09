@@ -8,14 +8,27 @@
 
 /* Header */
 .main-header {
-  background-color: var(--background-color);
+  background-color: white;
   border-bottom: 1px solid var(--border-color);
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
+  padding: 0.75rem 0;
   width: 100%;
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 5%;
+}
+
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo {
@@ -28,6 +41,33 @@
   width: auto;
 }
 
+.course-title {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-button:focus {
+  outline: none;
+}
+
 /* Main content */
 .main-content {
   flex: 1;
@@ -35,7 +75,6 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  text-align: left;
 }
 
 /* Footer */
@@ -48,14 +87,4 @@
   margin-top: auto;
   padding-left: 5%;
   padding-right: 5%;
-}
-
-/* Header container */
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 5%;
-  position: relative;
 }

@@ -66,14 +66,6 @@
     margin-left: 0;
     padding: 0 1rem;
   }
-
-  /* Menu toggle adjustments for smaller screens */
-  .menu-toggle {
-    top: 12px;
-    right: 12px;
-    width: 42px;
-    height: 42px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -115,14 +107,5 @@
   
   .header-actions {
     gap: 0.5rem;
-  }
-  
-  /* Menu toggle adjustments for very small screens */
-  .menu-toggle {
-    top: 8px;
-    right: 8px;
-    width: 40px;
-    height: 40px;
-    padding: 10px;
   }
 }
