@@ -1,10 +1,13 @@
+
 import React from 'react';
+
 interface HeroSectionProps {
   title: string;
   subtitle?: string;
   objectives?: string[];
   backgroundImage?: string;
 }
+
 const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
@@ -15,16 +18,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
-  return <section className="hero-section bg-slate-100">
+
+  return (
+    <section className="hero-section bg-slate-100">
       <div className="hero-background" style={backgroundImage ? {
-      backgroundImage: `url(${backgroundImage})`
-    } : {}}>
+        backgroundImage: `url(${backgroundImage})`
+      } : {}}>
         <div className="hero-overlay"></div>
       </div>
       
       <div className="hero-content px-[182px]">
         {/* Main title and image section - two columns */}
-        <div className="hero-main-container py-[100px]">
+        <div className="hero-main-container py-[60px]">
           <div className="hero-title-container">
             {lessonNumber && <span className="hero-lesson-number text-left text-xl">{lessonNumber}</span>}
             <h1 className="hero-main-title text-5xl font-normal">{lessonTitle}</h1>
@@ -38,18 +43,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
         
         {/* Learning objectives section - grid layout */}
-        {objectives && objectives.length > 0 && <div className="hero-objectives-container">
+        {objectives && objectives.length > 0 && (
+          <div className="hero-objectives-container pb-6">
             <div className="objectives-header">
               <h2 className="objectives-title text-2xl">Learning Objectives</h2>
             </div>
             
             <div className="objectives-grid">
-              {objectives.map((objective, index) => <div key={index} className="objective-item">
+              {objectives.map((objective, index) => (
+                <div key={index} className="objective-item">
                   <span className="objective-text text-base text-left">{objective}</span>
-                </div>)}
+                </div>
+              ))}
             </div>
-          </div>}
+          </div>
+        )}
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;
