@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -15,7 +15,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('English');
 
-  React.useEffect(() => {
+  // Determine if the current path is a chapter path
+  const isChapterPath = currentPath.includes('chapter');
+  const chapterNumber = isChapterPath ? currentPath.replace('/chapter', '') : null;
+
+  useEffect(() => {
     // Set copyright year dynamically
     const copyrightYearElement = document.getElementById('copyright-year');
     if (copyrightYearElement) {
@@ -24,10 +28,25 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     
     // Close menu when route changes
     setIsMenuOpen(false);
-  }, [location.pathname]);
+
+    // Prevent body scroll when menu is open
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [location.pathname, isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   const switchLanguage = (language: string) => {
@@ -41,7 +60,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         <div className="header-container">
           <div className="logo-title-container">
             <a href="https://www.ie.edu" target="_blank" rel="noreferrer" className="logo">
-              <img alt="IE University Logo" className="ie-logo" src="assets/IE_University_logo.svg" />
+              <img alt="IE University Logo" className="ie-logo" src="/assets/IE_University_logo.svg" />
             </a>
             <h1 className="course-title">Human Flourishing</h1>
           </div>
@@ -76,20 +95,43 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         </div>
         
         <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
-          <ul className={`nav-list ${isMenuOpen ? 'show' : ''}`} id="navList">
-            <li className="nav-item">
-              <Link to="/" className={currentPath === '/' ? 'nav-link active' : 'nav-link'}>
+          <button 
+            aria-label="Close navigation menu" 
+            className="nav-close"
+            onClick={closeMenu}
+          >
+            <X size={24} />
+          </button>
+          
+          <ul className="nav-list">
+            <li className={`nav-item ${currentPath === '/' ? 'active-chapter' : ''}`}>
+              <Link to="/" className={currentPath === '/' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/chapter1" className={currentPath === '/chapter1' ? 'nav-link active' : 'nav-link'}>
-                Chapter 1
+            <li className={`nav-item ${currentPath === '/chapter1' ? 'active-chapter' : ''}`}>
+              <Link to="/chapter1" className={currentPath === '/chapter1' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+                1. Being Human
+              </Link>
+            </li>
+            <li className={`nav-item ${currentPath === '/chapter2' ? 'active-chapter' : ''}`}>
+              <Link to="/chapter2" className={currentPath === '/chapter2' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+                2. Cultivating Awareness
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/chapter2" className={currentPath === '/chapter2' ? 'nav-link active' : 'nav-link'}>
-                Chapter 2
+              <Link to="/chapter3" className={currentPath === '/chapter3' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+                3. Autonomy and Motivation
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/chapter4" className={currentPath === '/chapter4' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+                4. Building Resilience
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/chapter5" className={currentPath === '/chapter5' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+                5. Ownership and Practice
               </Link>
             </li>
           </ul>
