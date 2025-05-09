@@ -24,63 +24,19 @@
   .chapter-title {
     font-size: 2.5rem;
   }
+  
+  .course-title {
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .main-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1.25rem 5%;
+  .logo-title-container {
+    flex-wrap: wrap;
   }
-
-  .logo {
-    margin-bottom: 1rem;
-  }
-
-  .main-nav {
-    width: 100%;
-  }
-
-  .menu-toggle {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: -40px;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--background-color);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    border-radius: 0 0 8px 8px;
-    display: none;
-    z-index: 10;
-  }
-
-  .nav-list.show {
-    display: flex;
-  }
-
-  .nav-item {
-    margin: 0.5rem 0;
-    margin-left: 0;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-description {
-    font-size: 1.1rem;
-  }
-
-  .chapter-cards {
-    grid-template-columns: 1fr;
+  
+  .course-title {
+    font-size: 1rem;
   }
 
   .nav-buttons {
@@ -98,6 +54,10 @@
   
   .chapter-header {
     padding: 0 1rem;
+  }
+  
+  .language-switcher {
+    font-size: 0.8rem;
   }
 }
 
@@ -124,5 +84,21 @@
   
   .section-heading {
     font-size: 1.5rem;
+  }
+  
+  .logo-title-container {
+    gap: 0.5rem;
+  }
+  
+  .course-title {
+    font-size: 0.9rem;
+  }
+  
+  .ie-logo {
+    max-height: 30px;
+  }
+  
+  .header-actions {
+    gap: 0.5rem;
   }
 }

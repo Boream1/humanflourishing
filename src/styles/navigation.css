@@ -1,25 +1,38 @@
 
 /* Navigation */
 .main-nav {
+  width: 100%;
   position: relative;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.main-nav.open {
+  max-height: 300px;
+  border-top: 1px solid var(--border-color);
 }
 
 .nav-list {
-  display: flex;
   list-style: none;
+  padding: 1rem 0;
+  flex-direction: column;
+  width: 100%;
 }
 
 .nav-item {
-  margin-left: 2rem;
+  margin: 0;
+  padding: 0.5rem 5%;
 }
 
 .nav-link {
   font-weight: 500;
   color: var(--text-light);
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   position: relative;
   display: inline-block;
   letter-spacing: 0.03em;
+  text-align: left;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -41,29 +54,68 @@
 }
 
 .menu-toggle {
-  display: none;
+  display: flex;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-toggle:focus-visible {
   outline: 2px solid var(--accent-color);
 }
 
-.menu-toggle span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: var(--text-color);
-  margin-bottom: 5px;
-  border-radius: 3px;
-  transition: all 0.3s ease;
+/* Language switcher */
+.language-switcher {
+  display: flex;
+  align-items: center;
 }
 
-.menu-toggle span:last-child {
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.lang-btn.active {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+.lang-separator {
+  color: var(--text-light);
+  margin: 0 0.25rem;
+}
+
+/* Header container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.course-title {
+  font-size: 1.25rem;
   margin-bottom: 0;
+  color: var(--dark-gray);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* Chapter navigation */
@@ -97,4 +149,23 @@
 
 .nav-button:focus-visible {
   outline: 2px solid var(--accent-color);
+}
+
+@media (min-width: 769px) {
+  .main-nav {
+    max-height: none;
+    overflow: visible;
+  }
+  
+  .nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-left: 2rem;
+    padding: 0;
+  }
 }
