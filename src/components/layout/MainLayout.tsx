@@ -42,8 +42,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   }, [location.pathname, isMenuOpen]);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    console.log("Menu toggled, new state:", !isMenuOpen);
+    const newState = !isMenuOpen;
+    setIsMenuOpen(newState);
+    console.log("Menu toggled, new state:", newState);
   };
 
   const closeMenu = () => {
@@ -84,49 +85,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             </div>
           </div>
         </div>
-        
-        <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`} id="mainNav">
-          <button 
-            aria-label="Close navigation menu" 
-            className="nav-close"
-            onClick={closeMenu}
-          >
-            <X size={24} />
-          </button>
-          
-          <ul className="nav-list">
-            <li className={`nav-item ${currentPath === '/' ? 'active-chapter' : ''}`}>
-              <Link to="/" className={currentPath === '/' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
-                Home
-              </Link>
-            </li>
-            <li className={`nav-item ${currentPath === '/chapter1' ? 'active-chapter' : ''}`}>
-              <Link to="/chapter1" className={currentPath === '/chapter1' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
-                1. Being Human
-              </Link>
-            </li>
-            <li className={`nav-item ${currentPath === '/chapter2' ? 'active-chapter' : ''}`}>
-              <Link to="/chapter2" className={currentPath === '/chapter2' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
-                2. Cultivating Awareness
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/chapter3" className={currentPath === '/chapter3' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
-                3. Autonomy and Motivation
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/chapter4" className={currentPath === '/chapter4' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
-                4. Building Resilience
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/chapter5" className={currentPath === '/chapter5' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
-                5. Ownership and Practice
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </header>
 
       {/* Floating hamburger menu button */}
@@ -139,6 +97,50 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       >
         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+      
+      {/* Navigation menu - positioned after the button for proper z-index stacking */}
+      <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`} id="mainNav">
+        <button 
+          aria-label="Close navigation menu" 
+          className="nav-close"
+          onClick={closeMenu}
+        >
+          <X size={24} />
+        </button>
+        
+        <ul className="nav-list">
+          <li className={`nav-item ${currentPath === '/' ? 'active-chapter' : ''}`}>
+            <Link to="/" className={currentPath === '/' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+              Home
+            </Link>
+          </li>
+          <li className={`nav-item ${currentPath === '/chapter1' ? 'active-chapter' : ''}`}>
+            <Link to="/chapter1" className={currentPath === '/chapter1' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+              1. Being Human
+            </Link>
+          </li>
+          <li className={`nav-item ${currentPath === '/chapter2' ? 'active-chapter' : ''}`}>
+            <Link to="/chapter2" className={currentPath === '/chapter2' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+              2. Cultivating Awareness
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/chapter3" className={currentPath === '/chapter3' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+              3. Autonomy and Motivation
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/chapter4" className={currentPath === '/chapter4' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+              4. Building Resilience
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/chapter5" className={currentPath === '/chapter5' ? 'nav-link active' : 'nav-link'} onClick={closeMenu}>
+              5. Ownership and Practice
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
       <main className="main-content">
         {children}
