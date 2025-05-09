@@ -81,16 +81,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                 Español
               </button>
             </div>
-            
-            <button 
-              className="menu-toggle" 
-              id="menuToggle" 
-              aria-label="Navigation Menu"
-              onClick={toggleMenu}
-              aria-expanded={isMenuOpen}
-            >
-              <Menu size={24} />
-            </button>
           </div>
         </div>
         
@@ -137,6 +127,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           </ul>
         </nav>
       </header>
+
+      {/* Floating hamburger menu button */}
+      <button 
+        className="menu-toggle" 
+        id="menuToggle" 
+        aria-label="Navigation Menu"
+        onClick={toggleMenu}
+        aria-expanded={isMenuOpen}
+      >
+        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
 
       <main className="main-content">
         {children}
