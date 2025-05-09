@@ -74,7 +74,7 @@
 /* Main content */
 .main-content {
   flex: 1;
-  padding: 5% 5%;
+  padding: 0 5% 5% 5%; /* Updated to remove top padding */
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
