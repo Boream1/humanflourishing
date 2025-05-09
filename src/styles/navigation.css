@@ -24,6 +24,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
   flex-direction: column;
   width: 100%;
 }
@@ -74,8 +75,7 @@
   padding: 10px;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
-  position: relative;
+  z-index: 1;
 }
 
 .menu-toggle:focus-visible {
@@ -86,7 +86,7 @@
 .language-switcher {
   display: flex;
   align-items: center;
-  z-index: 2000;
+  z-index: 1;
 }
 
 .lang-btn {
@@ -144,6 +144,7 @@
   cursor: pointer;
   z-index: 2001;
   padding: 0.5rem;
+  color: var(--dark-gray);
 }
 
 /* Chapter navigation */

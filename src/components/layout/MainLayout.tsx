@@ -94,7 +94,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           </div>
         </div>
         
-        <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
+        <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`} id="mainNav">
           <button 
             aria-label="Close navigation menu" 
             className="nav-close"
