@@ -18,7 +18,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   title,
   videoId,
   videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4",
-  poster = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png",
+  poster = "/lovable-uploads/d70cbd33-ee63-4b9b-86d7-da464c08ee54.png",
   keyPointText,
   englishCaptions,
   spanishCaptions,
@@ -44,9 +44,26 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     videoElement.addEventListener("canplay", handleCanPlay);
     videoElement.addEventListener("error", handleError);
 
+    // Set up lazy loading with Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && videoElement.getAttribute("data-src")) {
+            videoElement.src = videoElement.getAttribute("data-src") || "";
+            videoElement.load();
+            observer.unobserve(videoElement);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(videoElement);
+
     return () => {
       videoElement.removeEventListener("canplay", handleCanPlay);
       videoElement.removeEventListener("error", handleError);
+      observer.disconnect();
     };
   }, [videoId]);
 
@@ -72,11 +89,12 @@ const VideoSection: React.FC<VideoSectionProps> = ({
               id={videoId}
               className="html5-video"
               controls
-              preload="auto"
+              preload="none"
               poster={poster}
               playsInline
+              data-src={videoSource}
             >
-              <source src={videoSource} type="video/mp4" />
+              <source type="video/mp4" />
               
               {englishCaptions && (
                 <track

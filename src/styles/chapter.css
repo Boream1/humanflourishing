@@ -8,45 +8,43 @@
 }
 
 .chapter-header {
-  margin-bottom: 3rem;
-  text-align: left;
+  margin-bottom: 5rem;
+  text-align: center;
   max-width: 800px;
-  margin-left: 0;
+  margin-left: auto;
   margin-right: auto;
 }
 
 .chapter-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--dark-gray);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-align: left;
+  text-align: center;
 }
 
 .chapter-description {
   color: var(--text-light);
   font-size: 1.25rem;
-  text-align: left;
+  text-align: center;
 }
 
 /* Lesson content */
 .lesson-content {
   background-color: white;
-  padding: 3rem;
-  border-radius: 8px;
+  padding: 2rem 0;
   margin-bottom: 3rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
   width: 100%;
-  text-align: left;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .lesson-section {
-  margin-bottom: 4rem;
-  max-width: 1100px;
+  margin-bottom: 6rem;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
 }
 
 .lesson-section:last-child {
@@ -54,24 +52,23 @@
 }
 
 .section-heading {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--dark-gray);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   font-weight: 600;
-  border-left: 3px solid var(--accent-color);
-  padding-left: 1rem;
-  text-align: left;
+  border-left: none;
+  padding-left: 0;
+  text-align: center;
 }
 
 .content-block {
-  margin-bottom: 2rem;
-  text-align: left;
+  margin-bottom: 3rem;
 }
 
 .content-block p {
   margin-bottom: 1.5rem;
   line-height: 1.8;
-  text-align: left;
+  font-size: 1.1rem;
 }
 
 /* Bullet list styles */
@@ -79,29 +76,45 @@
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1.5rem;
-  text-align: left;
 }
 
 .bullet-list li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   line-height: 1.6;
-  text-align: left;
+  font-size: 1.1rem;
 }
 
 /* Key point styles */
 .key-point {
-  background-color: var(--soft-gray);
-  border-left: 4px solid var(--accent-color);
-  padding: 1.5rem;
-  margin: 2rem 0;
-  border-radius: 4px;
-  text-align: left;
+  background-color: transparent;
+  border-left: none;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2rem 0;
+  margin: 3rem 0;
+  text-align: center;
 }
 
 .key-point h3 {
   color: var(--dark-gray);
-  margin-bottom: 0.75rem;
-  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  text-align: left;
+  text-align: center;
+}
+
+/* Video container */
+.video-container {
+  margin: 0 auto;
+  max-width: 900px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  margin-bottom: 3rem;
+}
+
+/* Video styling */
+.html5-video {
+  width: 100%;
+  display: block;
 }
