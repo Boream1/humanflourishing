@@ -1,45 +1,124 @@
-
 /* Hero section */
 .hero-section {
-  text-align: left;
-  padding: 6rem 2rem;
-  margin-bottom: 5rem;
-  background: linear-gradient(to bottom, var(--soft-gray) 0%, transparent 100%);
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 3rem;
 }
 
-.hero-title {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--soft-gray);
+  background-image: linear-gradient(225deg, #9b87f5 0%, #F1F0FB 100%);
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(155, 135, 245, 0.8) 0%, rgba(241, 240, 251, 0.4) 100%);
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 5%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.hero-title-container {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.hero-title-container::before,
+.hero-title-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--dark-gray);
+}
+
+.hero-title-container::before {
+  top: -1rem;
+}
+
+.hero-title-container::after {
+  bottom: 0;
+}
+
+.hero-main-title {
+  font-size: 4rem;
   color: var(--dark-gray);
+  margin-bottom: 1rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
-.hero-description {
-  font-size: 1.25rem;
-  color: var(--text-light);
-  margin-bottom: 3rem;
-  max-width: 700px;
-  margin-left: 0;
-  margin-right: auto;
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.cta-button {
-  display: inline-block;
-  background-color: var(--accent-color);
-  color: white;
-  padding: 0.8rem 2.5rem;
-  border-radius: 4px;
+.hero-objectives {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.objectives-title {
+  font-size: 2.5rem;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+  text-align: center;
   font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
 }
 
-.cta-button:hover, .cta-button:focus {
-  background-color: var(--dark-gray);
-  color: white;
-  transform: translateY(-2px);
+.objectives-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.objective-item {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.objective-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-color);
+  font-size: 1.5rem;
 }
 
 /* Course overview section */
@@ -111,4 +190,38 @@
 
 .chapter-link:hover::after, .chapter-link:focus::after {
   width: 100%;
+}
+
+/* Responsive styles for hero section */
+@media (max-width: 768px) {
+  .hero-main-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .objectives-title {
+    font-size: 2rem;
+  }
+  
+  .objective-item {
+    font-size: 1rem;
+  }
+  
+  .hero-section {
+    min-height: auto;
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-main-title {
+    font-size: 2rem;
+  }
+  
+  .hero-objectives {
+    padding: 1.5rem;
+  }
 }

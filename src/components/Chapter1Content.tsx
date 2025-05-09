@@ -1,14 +1,18 @@
-
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
-import LearningObjectives from "./LearningObjectives";
+import HeroSection from "./HeroSection";
 import ChapterNavigation from "./ChapterNavigation";
 import { createRoot } from "react-dom/client";
 import ReflectionActivity from "./ReflectionActivity";
 
 const Chapter1Content: React.FC = () => {
-  const learningObjectives = ["Appreciate the complexity of human beings", "Understand the human need for social connection", "Evaluate the role and paradox of human biases"];
+  const learningObjectives = [
+    "Appreciate the complexity of human beings", 
+    "Understand the human need for social connection", 
+    "Evaluate the role and paradox of human biases"
+  ];
+  
   const readings = [{
     title: "Why a strong social network improves performance, health, and well-being",
     url: "https://www.ie.edu/center-for-health-and-well-being/blog/why-a-strong-social-network-improves-performance-health-and-well-being/"
@@ -100,14 +104,14 @@ const Chapter1Content: React.FC = () => {
 
   return (
     <>
-      <section className="chapter-header">
-        <h1 className="chapter-title text-left">LESSON 1: Being Human</h1>
-      </section>
+      <HeroSection 
+        title="LESSON 1: Being Human"
+        objectives={learningObjectives}
+        backgroundImage="/lovable-uploads/170ba942-1a2e-4c01-af93-ab6aa9608e73.png"
+      />
 
       <section className="chapter-body">
         <article className="lesson-content">
-          <LearningObjectives objectives={learningObjectives} />
-
           <VideoSection 
             id="what-does-it-mean" 
             title="What Does It Mean to Be Human?" 
