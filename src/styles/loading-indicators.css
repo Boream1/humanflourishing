@@ -16,6 +16,30 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+/* Video container styles */
+.video-container {
+  margin-bottom: 2rem;
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: 300px; /* Ensure container has height even when video is loading */
+}
+
+/* HTML5 Video Player Styles */
+.html5-video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
 /* Video loading overlay */
 .video-loading {
   position: absolute;
@@ -73,8 +97,25 @@
   margin: 0;
 }
 
-/* Responsive styles for loading and error indicators */
+/* Make sure video controls are visible */
+.html5-video::-webkit-media-controls {
+  display: flex !important;
+  opacity: 1 !important;
+}
+
+/* iOS specific fix for video display */
+@supports (-webkit-touch-callout: none) {
+  .html5-video {
+    object-fit: cover;
+  }
+}
+
+/* Optimize video display for different screen sizes */
 @media screen and (max-width: 768px) {
+  .html5-video {
+    max-height: 300px;
+  }
+  
   .loading-indicator,
   .error-message,
   .video-error-message {

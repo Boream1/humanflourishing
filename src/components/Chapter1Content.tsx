@@ -6,7 +6,6 @@ import LearningObjectives from "./LearningObjectives";
 import ChapterNavigation from "./ChapterNavigation";
 import { createRoot } from "react-dom/client";
 import ReflectionActivity from "./ReflectionActivity";
-import { DEFAULT_VIDEO_SOURCE, DEFAULT_POSTER } from "../utils/videoUtils";
 
 const Chapter1Content: React.FC = () => {
   const learningObjectives = ["Appreciate the complexity of human beings", "Understand the human need for social connection", "Evaluate the role and paradox of human biases"];
@@ -30,9 +29,9 @@ const Chapter1Content: React.FC = () => {
   // Track if feedback event has been set up
   const feedbackSetupRef = useRef<boolean>(false);
 
-  // Default video source and poster
-  const videoSource = DEFAULT_VIDEO_SOURCE;
-  const posterImage = DEFAULT_POSTER;
+  // Video source and poster
+  const videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
+  const posterImage = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
 
   useEffect(() => {
     // Remove loading indicator if it still exists
@@ -53,36 +52,27 @@ const Chapter1Content: React.FC = () => {
       }
     }
 
-    // Configure feedback modal trigger for the last video with retries
-    const configureFeedbackTrigger = () => {
+    // Set up the feedback trigger for the last video
+    const setupFeedbackTrigger = () => {
       if (feedbackSetupRef.current) return;
       
-      if (window.videojs) {
-        try {
-          // Try to get the last video player
-          const lastVideoId = "video-1-6";
-          const lastVideo = window.videojs.getPlayer(lastVideoId);
-          
-          if (lastVideo) {
-            console.log("Configuring feedback event for last video");
-            
-            // Set up the ended event handler
-            lastVideo.on("ended", function() {
-              console.log("Last video ended, triggering feedback modal");
-              document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
-            });
-            
-            feedbackSetupRef.current = true;
-          }
-        } catch (error) {
-          console.error("Error setting up video end event:", error);
-        }
+      const lastVideo = document.getElementById("video-1-6") as HTMLVideoElement;
+      
+      if (lastVideo) {
+        console.log("Configuring feedback event for last video");
+        
+        lastVideo.addEventListener("ended", function() {
+          console.log("Last video ended, triggering feedback modal");
+          document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+        });
+        
+        feedbackSetupRef.current = true;
       }
     };
 
     // Try multiple times to set up the feedback trigger
     const setupInterval = setInterval(() => {
-      configureFeedbackTrigger();
+      setupFeedbackTrigger();
       if (feedbackSetupRef.current) {
         clearInterval(setupInterval);
       }
