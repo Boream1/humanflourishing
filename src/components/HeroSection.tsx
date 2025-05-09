@@ -1,13 +1,10 @@
-
 import React from 'react';
-
 interface HeroSectionProps {
   title: string;
   subtitle?: string;
   objectives?: string[];
   backgroundImage?: string;
 }
-
 const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
@@ -18,12 +15,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
-
-  return (
-    <section className="hero-section bg-slate-100">
+  return <section className="hero-section bg-slate-50">
       <div className="hero-background" style={backgroundImage ? {
-        backgroundImage: `url(${backgroundImage})`
-      } : {}}>
+      backgroundImage: `url(${backgroundImage})`
+    } : {}}>
         <div className="hero-overlay"></div>
       </div>
       
@@ -43,24 +38,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
         
         {/* Learning objectives section - grid layout */}
-        {objectives && objectives.length > 0 && (
-          <div className="hero-objectives-container pb-6">
+        {objectives && objectives.length > 0 && <div className="hero-objectives-container pb-6">
             <div className="objectives-header">
               <h2 className="objectives-title text-2xl">Learning Objectives</h2>
             </div>
             
             <div className="objectives-grid">
-              {objectives.map((objective, index) => (
-                <div key={index} className="objective-item">
+              {objectives.map((objective, index) => <div key={index} className="objective-item">
                   <span className="objective-text text-base text-left">{objective}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
-          </div>
-        )}
+          </div>}
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
