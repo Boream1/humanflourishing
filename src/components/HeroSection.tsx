@@ -14,6 +14,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   objectives,
   backgroundImage 
 }) => {
+  // Split the title into two parts if it contains a colon
+  const titleParts = title.split(':');
+  const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
+  const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
+  
   return (
     <section className="hero-section">
       <div className="hero-background" style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : {}}>
@@ -21,21 +26,34 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
       
       <div className="hero-content">
-        <div className="hero-title-container">
-          <h1 className="hero-main-title">{title}</h1>
-          {subtitle && <p className="hero-subtitle">{subtitle}</p>}
+        {/* Main title and image section - two columns */}
+        <div className="hero-main-container">
+          <div className="hero-title-container">
+            {lessonNumber && <span className="hero-lesson-number">{lessonNumber}</span>}
+            <h1 className="hero-main-title">{lessonTitle}</h1>
+            {subtitle && <p className="hero-subtitle">{subtitle}</p>}
+          </div>
+          
+          <div className="hero-image-container">
+            {backgroundImage && <img src={backgroundImage} alt={title} className="hero-image" />}
+            {!backgroundImage && <div className="hero-image-placeholder">Course Image</div>}
+          </div>
         </div>
         
+        {/* Learning objectives section - grid layout */}
         {objectives && objectives.length > 0 && (
-          <div className="hero-objectives">
-            <h2 className="objectives-title">Learning Objectives</h2>
-            <ul className="objectives-list">
+          <div className="hero-objectives-container">
+            <div className="objectives-header">
+              <h2 className="objectives-title">Learning Objectives</h2>
+            </div>
+            
+            <div className="objectives-grid">
               {objectives.map((objective, index) => (
-                <li key={index} className="objective-item">
-                  {objective}
-                </li>
+                <div key={index} className="objective-item">
+                  <span className="objective-text">{objective}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         )}
       </div>

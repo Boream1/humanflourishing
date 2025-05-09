@@ -4,9 +4,10 @@
   min-height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
   margin-bottom: 3rem;
+  background-color: var(--soft-gray);
 }
 
 .hero-background {
@@ -28,97 +29,180 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(155, 135, 245, 0.8) 0%, rgba(241, 240, 251, 0.4) 100%);
+  background: linear-gradient(135deg, rgba(155, 135, 245, 0.6) 0%, rgba(241, 240, 251, 0.2) 100%);
 }
 
 .hero-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 5%;
+  padding: 1rem 5%;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+}
+
+/* Main two-column layout */
+.hero-main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .hero-title-container {
-  position: relative;
-  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
 }
 
-.hero-title-container::before,
-.hero-title-container::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: var(--dark-gray);
-}
-
-.hero-title-container::before {
-  top: -1rem;
-}
-
-.hero-title-container::after {
-  bottom: 0;
+.hero-lesson-number {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--dark-gray);
+  text-transform: uppercase;
 }
 
 .hero-main-title {
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: var(--dark-gray);
   margin-bottom: 1rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-align: center;
+  line-height: 1.1;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--text-dark);
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+  margin-top: 1rem;
 }
 
-.hero-objectives {
-  background-color: rgba(255, 255, 255, 0.9);
+/* Hero image section */
+.hero-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 400px;
+  overflow: hidden;
   border-radius: 8px;
-  padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  max-width: 800px;
-  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--dark-gray);
+  border-radius: 8px;
+}
+
+/* Learning objectives grid layout */
+.hero-objectives-container {
+  padding: 2rem 0;
+}
+
+.objectives-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.5rem;
 }
 
 .objectives-title {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   color: var(--dark-gray);
-  margin-bottom: 2rem;
-  text-align: center;
   font-weight: 600;
 }
 
-.objectives-list {
-  list-style: none;
-  padding-left: 0;
+.objectives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .objective-item {
-  position: relative;
-  padding-left: 2rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
-  line-height: 1.6;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.objective-item::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--accent-color);
-  font-size: 1.5rem;
+.objective-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.objective-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+/* Responsive styles for hero section */
+@media (max-width: 992px) {
+  .hero-main-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .hero-image-container {
+    order: -1;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-title-container {
+    padding: 1rem 0;
+  }
+  
+  .hero-main-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-main-title {
+    font-size: 2.5rem;
+  }
+  
+  .objectives-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-objectives-container {
+    padding: 1rem 0;
+  }
+  
+  .hero-section {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-main-title {
+    font-size: 2rem;
+  }
+  
+  .hero-lesson-number {
+    font-size: 1.25rem;
+  }
+  
+  .objectives-title {
+    font-size: 1.5rem;
+  }
 }
 
 /* Course overview section */
