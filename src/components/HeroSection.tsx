@@ -24,7 +24,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       
       <div className="hero-content px-[182px]">
         {/* Main title and image section - two columns */}
-        <div className="hero-main-container">
+        <div className="hero-main-container py-[100px]">
           <div className="hero-title-container">
             {lessonNumber && <span className="hero-lesson-number text-left text-xl">{lessonNumber}</span>}
             <h1 className="hero-main-title text-5xl font-normal">{lessonTitle}</h1>
