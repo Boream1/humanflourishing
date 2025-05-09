@@ -32,8 +32,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     // Prevent body scroll when menu is open
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
+      console.log("Menu opened - body scroll disabled");
     } else {
       document.body.style.overflow = 'auto';
+      console.log("Menu closed - body scroll enabled");
     }
 
     return () => {
@@ -42,16 +44,20 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   }, [location.pathname, isMenuOpen]);
 
   const toggleMenu = () => {
+    console.log("Toggle menu called. Current state:", isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
+    console.log("New menu state:", !isMenuOpen);
   };
 
   const closeMenu = () => {
+    console.log("Close menu called");
     setIsMenuOpen(false);
   };
 
   const switchLanguage = (language: string) => {
     setCurrentLanguage(language);
     // Here you would implement actual language switching logic
+    console.log("Language switched to:", language);
   };
 
   return (

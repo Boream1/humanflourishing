@@ -14,6 +14,7 @@
   --accent-color: #9b87f5;
   --background-color: #ffffff;
   --text-color: #1A1F2C;
+  --text-dark: #1A1F2C;  /* Explicitly defined with the correct color */
   --text-light: #8E9196;
   --border-color: #e1e5eb;
 }

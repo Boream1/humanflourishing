@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   background-color: white;
-  z-index: 200;
+  z-index: 2000; /* Increased significantly to ensure it's above everything */
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear 0.3s, opacity 0.3s;
@@ -87,29 +87,4 @@
   background-color: #f0f7ff;
   border-left: 4px solid #3366cc;
   color: #3366cc;
-}
-
-/* Update language switcher position in the menu */
-.language-switcher {
-  display: flex;
-  align-items: center;
-}
-
-.lang-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-}
-
-.lang-btn.active {
-  color: #3366cc;
-  font-weight: 500;
-}
-
-.lang-separator {
-  color: var(--text-light);
-  margin: 0 0.25rem;
 }
