@@ -1,0 +1,33 @@
+
+/* Chapter navigation */
+.chapter-navigation {
+  margin-top: 4rem;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.nav-button {
+  padding: 1rem 1.5rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-weight: 500;
+  color: var(--dark-gray);
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover, .nav-button:focus {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+  outline: none;
+}
+
+.nav-button:focus-visible {
+  outline: 2px solid var(--accent-color);
+}
