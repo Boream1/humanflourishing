@@ -38,6 +38,7 @@
   width: 100%;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
+  box-shadow: none;
 }
 
 .lesson-section {
@@ -45,6 +46,7 @@
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .lesson-section:last-child {
@@ -63,6 +65,7 @@
 
 .content-block {
   margin-bottom: 3rem;
+  text-align: center;
 }
 
 .content-block p {
@@ -76,6 +79,10 @@
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1.5rem;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bullet-list li {
@@ -91,8 +98,9 @@
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   padding: 2rem 0;
-  margin: 3rem 0;
+  margin: 3rem auto;
   text-align: center;
+  max-width: 800px;
 }
 
 .key-point h3 {
@@ -100,7 +108,6 @@
   margin-bottom: 1rem;
   font-size: 1.5rem;
   font-weight: 600;
-  text-align: center;
 }
 
 /* Video container */

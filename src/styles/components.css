@@ -2,38 +2,36 @@
 /* Hero section */
 .hero-section {
   text-align: center;
-  padding: 8rem 2rem;
+  padding: 6rem 2rem;
   margin-bottom: 5rem;
   background: linear-gradient(to bottom, var(--soft-gray) 0%, transparent 100%);
 }
 
 .hero-title {
-  font-size: 4rem;
-  margin-bottom: 2rem;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
   color: var(--dark-gray);
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-align: center;
 }
 
 .hero-description {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--text-light);
   margin-bottom: 3rem;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
 }
 
 .cta-button {
   display: inline-block;
   background-color: var(--accent-color);
   color: white;
-  padding: 1rem 3rem;
-  border-radius: 0;
+  padding: 0.8rem 2.5rem;
+  border-radius: 4px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
 }
@@ -46,12 +44,12 @@
 
 /* Course overview section */
 .course-overview {
-  padding: 6rem 0;
+  padding: 4rem 0;
 }
 
 .section-title {
-  font-size: 3rem;
-  margin-bottom: 4rem;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
   text-align: center;
   color: var(--dark-gray);
   font-weight: 600;
@@ -62,39 +60,34 @@
 .chapter-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 4rem;
+  gap: 3rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 .chapter-card {
   background-color: white;
-  padding: 2.5rem;
-  border-radius: 0;
-  box-shadow: none;
-  border: 1px solid var(--border-color);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  text-align: center;
 }
 
 .chapter-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .chapter-title {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   color: var(--dark-gray);
   font-weight: 600;
-  text-align: center;
 }
 
 .chapter-preview {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: var(--text-light);
-  text-align: center;
-  font-size: 1.1rem;
 }
 
 .chapter-link {
@@ -103,7 +96,6 @@
   font-weight: 600;
   padding: 0.5rem 0;
   position: relative;
-  font-size: 1.1rem;
 }
 
 .chapter-link::after {
