@@ -1,4 +1,3 @@
-
 import React from 'react';
 interface HeroSectionProps {
   title: string;
@@ -23,7 +22,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="hero-overlay"></div>
       </div>
       
-      <div className="hero-content">
+      <div className="hero-content px-[182px]">
         {/* Main title and image section - two columns */}
         <div className="hero-main-container">
           <div className="hero-title-container">
