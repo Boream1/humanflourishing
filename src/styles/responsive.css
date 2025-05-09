@@ -9,6 +9,7 @@
   
   .lesson-section {
     max-width: 900px;
+    margin-left: 5%;
   }
 }
 
@@ -54,10 +55,16 @@
   
   .chapter-header {
     padding: 0 1rem;
+    margin-left: 0;
   }
   
   .language-switcher {
     font-size: 0.8rem;
+  }
+  
+  .lesson-section {
+    margin-left: 0;
+    padding: 0 1rem;
   }
 }
 

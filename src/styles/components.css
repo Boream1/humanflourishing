@@ -1,7 +1,7 @@
 
 /* Hero section */
 .hero-section {
-  text-align: center;
+  text-align: left;
   padding: 6rem 2rem;
   margin-bottom: 5rem;
   background: linear-gradient(to bottom, var(--soft-gray) 0%, transparent 100%);
@@ -20,7 +20,7 @@
   color: var(--text-light);
   margin-bottom: 3rem;
   max-width: 700px;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
 }
 
@@ -50,7 +50,7 @@
 .section-title {
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  text-align: center;
+  text-align: left;
   color: var(--dark-gray);
   font-weight: 600;
   letter-spacing: -0.01em;
