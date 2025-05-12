@@ -20,39 +20,52 @@
   margin: 0 auto;
   padding: 0 5%;
   z-index: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 
-/* Hero grid layout */
-.hero-text-container {
-  flex: 1;
+/* Hero left column layout */
+.hero-left-column {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.hero-image-container {
-  flex: 1;
+/* Title card */
+.title-card {
+  padding: 2.5rem;
+  border-radius: 12px !important;
+  border: none !important;
+  background-color: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Objectives card */
+.objectives-card {
+  padding: 2.5rem;
+  border-radius: 12px !important;
+  border: none !important;
+  background-color: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Hero right column layout */
+.hero-right-column {
   height: 100%;
-  overflow: hidden;
 }
 
 .hero-image-card {
   height: 100%;
-  min-height: 400px;
-  overflow: hidden;
   border-radius: 12px !important;
   border: none !important;
+  overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
 }
 
 .hero-image {
   width: 100%;
   height: 100%;
-  min-height: 400px;
   overflow: hidden;
 }
 
@@ -92,15 +105,6 @@
 }
 
 /* Learning objectives styling */
-.objectives-container {
-  margin-top: 1rem;
-  padding: 1.5rem;
-  border-radius: 12px !important;
-  border: none !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
-  background-color: white;
-}
-
 .objectives-title {
   font-size: 1.5rem;
   font-weight: 500;
@@ -135,11 +139,11 @@
 /* Responsive styles */
 @media (max-width: 992px) {
   .hero-content {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
   
-  .hero-image-container {
-    min-height: 300px;
+  .hero-right-column {
+    min-height: 400px;
   }
   
   .lesson-title {
@@ -156,8 +160,13 @@
     font-size: 1.8rem;
   }
   
-  .hero-image-container {
-    min-height: 250px;
+  .hero-right-column {
+    min-height: 300px;
+  }
+  
+  .title-card,
+  .objectives-card {
+    padding: 2rem;
   }
 }
 
@@ -178,7 +187,12 @@
     font-size: 1.1rem;
   }
   
-  .hero-image-container {
-    min-height: 200px;
+  .hero-right-column {
+    min-height: 250px;
+  }
+  
+  .title-card,
+  .objectives-card {
+    padding: 1.5rem;
   }
 }
