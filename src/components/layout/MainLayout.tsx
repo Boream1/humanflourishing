@@ -32,6 +32,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     };
   }, []);
 
+  // Function to check if a path is active
+  const isActiveRoute = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <div className="page-container">
       <header className={`main-header ${hasHeaderShadow ? 'header-shadow' : ''}`}>
@@ -50,11 +55,26 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64">
+              <SheetContent side="right" className="w-80">
                 <nav className="flex flex-col py-6">
-                  <Link to="/" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">Home</Link>
-                  <Link to="/chapter1" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 1: Being Human</Link>
-                  <Link to="/chapter2" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 2: Cultivating Awareness: Emotions and Cognition</Link>
+                  <Link 
+                    to="/" 
+                    className={`py-2 px-4 rounded text-lg ${isActiveRoute('/') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                  >
+                    Home
+                  </Link>
+                  <Link 
+                    to="/chapter1" 
+                    className={`py-2 px-4 rounded text-lg ${isActiveRoute('/chapter1') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                  >
+                    LESSON 1: Being Human
+                  </Link>
+                  <Link 
+                    to="/chapter2" 
+                    className={`py-2 px-4 rounded text-lg ${isActiveRoute('/chapter2') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                  >
+                    LESSON 2: Cultivating Awareness: Emotions and Cognition
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
