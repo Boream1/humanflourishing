@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { Menu } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -32,11 +32,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     };
   }, []);
 
-  // Function to check if a path is active
-  const isActiveRoute = (path: string) => {
-    return location.pathname === path;
-  };
-
   return (
     <div className="page-container">
       <header className={`main-header ${hasHeaderShadow ? 'header-shadow' : ''}`}>
@@ -55,31 +50,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 p-0 bg-white">
-                <div className="flex justify-end p-2">
-                  <SheetClose className="p-2">
-                    <X size={24} />
-                  </SheetClose>
-                </div>
-                <nav className="flex flex-col">
-                  <Link 
-                    to="/" 
-                    className={`py-3 px-6 text-lg ${isActiveRoute('/') ? 'bg-red-500 text-white' : 'hover:bg-gray-100 text-gray-800'}`}
-                  >
-                    <span>Home</span>
-                  </Link>
-                  <Link 
-                    to="/chapter1" 
-                    className={`py-3 px-6 text-lg ${isActiveRoute('/chapter1') ? 'bg-red-500 text-white' : 'hover:bg-gray-100 text-gray-800'}`}
-                  >
-                    <span>LESSON 1: Being Human</span>
-                  </Link>
-                  <Link 
-                    to="/chapter2" 
-                    className={`py-3 px-6 text-lg ${isActiveRoute('/chapter2') ? 'bg-red-500 text-white' : 'hover:bg-gray-100 text-gray-800'}`}
-                  >
-                    <span>LESSON 2: Cultivating Awareness: Emotions and Cognition</span>
-                  </Link>
+              <SheetContent side="right" className="w-64">
+                <nav className="flex flex-col py-6">
+                  <Link to="/" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">Home</Link>
+                  <Link to="/chapter1" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 1: Being Human</Link>
+                  <Link to="/chapter2" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 2: Cultivating Awareness: Emotions and Cognition</Link>
                 </nav>
               </SheetContent>
             </Sheet>
