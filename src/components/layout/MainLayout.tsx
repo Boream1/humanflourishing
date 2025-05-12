@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Menu, X } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -55,28 +55,30 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <nav className="flex flex-col py-6">
+              <SheetContent side="right" className="w-80 p-0 bg-white">
+                <div className="flex justify-end p-2">
+                  <SheetClose className="p-2">
+                    <X size={24} />
+                  </SheetClose>
+                </div>
+                <nav className="flex flex-col">
                   <Link 
                     to="/" 
-                    className={`py-2 px-4 rounded text-lg relative flex items-center ${isActiveRoute('/') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                    className={`py-3 px-6 text-lg ${isActiveRoute('/') ? 'bg-red-500 text-white' : 'hover:bg-gray-100 text-gray-800'}`}
                   >
-                    <span className="flex-1">Home</span>
-                    {isActiveRoute('/') && <div className="absolute right-0 top-0 h-full w-1 bg-white rounded-l"></div>}
+                    <span>Home</span>
                   </Link>
                   <Link 
                     to="/chapter1" 
-                    className={`py-2 px-4 rounded text-lg relative flex items-center ${isActiveRoute('/chapter1') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                    className={`py-3 px-6 text-lg ${isActiveRoute('/chapter1') ? 'bg-red-500 text-white' : 'hover:bg-gray-100 text-gray-800'}`}
                   >
-                    <span className="flex-1">LESSON 1: Being Human</span>
-                    {isActiveRoute('/chapter1') && <div className="absolute right-0 top-0 h-full w-1 bg-white rounded-l"></div>}
+                    <span>LESSON 1: Being Human</span>
                   </Link>
                   <Link 
                     to="/chapter2" 
-                    className={`py-2 px-4 rounded text-lg relative flex items-center ${isActiveRoute('/chapter2') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                    className={`py-3 px-6 text-lg ${isActiveRoute('/chapter2') ? 'bg-red-500 text-white' : 'hover:bg-gray-100 text-gray-800'}`}
                   >
-                    <span className="flex-1">LESSON 2: Cultivating Awareness: Emotions and Cognition</span>
-                    {isActiveRoute('/chapter2') && <div className="absolute right-0 top-0 h-full w-1 bg-white rounded-l"></div>}
+                    <span>LESSON 2: Cultivating Awareness: Emotions and Cognition</span>
                   </Link>
                 </nav>
               </SheetContent>
