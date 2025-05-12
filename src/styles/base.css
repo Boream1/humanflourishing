@@ -11,7 +11,7 @@
   --neutral-gray: #8E9196;
   --soft-gray: #F1F0FB;
   --dark-gray: #1A1F2C;
-  --accent-color: #9b87f5;
+  --accent-color: #ea384c;
   --background-color: #ffffff;
   --text-color: #1A1F2C;
   --text-dark: #1A1F2C;  /* Explicitly defined with the correct color */
@@ -29,13 +29,13 @@ body {
 }
 
 a {
-  color: var(--accent-color);
+  color: #000000;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 a:hover, a:focus {
-  color: var(--dark-gray);
+  color: var(--accent-color);
   outline: none;
 }
 
