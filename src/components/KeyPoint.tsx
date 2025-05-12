@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Square } from 'lucide-react';
 
 interface KeyPointProps {
   text: string;
@@ -13,7 +14,10 @@ const KeyPoint: React.FC<KeyPointProps> = ({ text }) => {
   
   return (
     <div className="key-point">
-      <h3>Key Point</h3>
+      <div className="key-point-header">
+        <Square className="key-point-icon" size={24} strokeWidth={2} />
+        <h3>Key Point</h3>
+      </div>
       <p>{text}</p>
     </div>
   );

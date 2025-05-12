@@ -107,11 +107,26 @@
   width: 100%;
 }
 
+.key-point-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.key-point-icon {
+  color: #000;
+  margin-right: 0.75rem;
+}
+
 .key-point h3 {
   color: var(--dark-gray);
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.key-point p {
+  margin-top: 1rem;
 }
 
 /* Video container */
