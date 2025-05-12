@@ -1,6 +1,6 @@
 
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 import Home from './pages/Home';
 import Chapter1Content from './components/Chapter1Content';
@@ -9,6 +9,13 @@ import NotFound from './pages/NotFound';
 import './App.css';
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Scroll to top on route changes
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   useEffect(() => {
     // Set up survey app event listener for feedback
     const setupSurveyFeedback = () => {
