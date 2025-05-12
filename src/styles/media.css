@@ -4,8 +4,8 @@
 /* Video container */
 .video-container {
   position: relative;
-  margin: 0 auto;
-  max-width: 900px;
+  margin: 0 auto 3rem 0;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
 }

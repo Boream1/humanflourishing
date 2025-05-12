@@ -52,6 +52,7 @@
 .lesson-section {
   margin-bottom: 6rem;
   text-align: left;
+  width: 100%;
 }
 
 .lesson-section:last-child {
@@ -71,6 +72,7 @@
 .content-block {
   margin-bottom: 3rem;
   text-align: left;
+  width: 100%;
 }
 
 .content-block p {
@@ -105,6 +107,7 @@
   padding: 2rem 0;
   margin: 3rem 0;
   text-align: left;
+  width: 100%;
 }
 
 .key-point h3 {
@@ -116,12 +119,10 @@
 
 /* Video container */
 .video-container {
-  margin: 0 auto;
+  margin: 0 auto 3rem 0;
   position: relative;
   overflow: hidden;
   border-radius: 0;
-  margin-bottom: 3rem;
-  margin-left: 0;
   width: 100%;
 }
 
