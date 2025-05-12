@@ -1,5 +1,8 @@
 
 import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { BookOpen } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 interface ReadingLink {
   title: string;
@@ -24,15 +27,29 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({
       <h2 className="section-heading">{title}</h2>
       <div className="content-block">
         {introduction && <p>{introduction}</p>}
-        <ul className="bullet-list">
+        <div className="reading-cards">
           {links.map((link, index) => (
-            <li key={index}>
-              <a href={link.url} target="_blank" rel="noopener noreferrer">
-                {link.title}
-              </a>
-            </li>
+            <Card key={index} className="reading-card">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="reading-icon-container">
+                    <BookOpen className="reading-icon" size={24} />
+                  </div>
+                  <div className="reading-content">
+                    <a 
+                      href={link.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="reading-link"
+                    >
+                      {link.title}
+                    </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

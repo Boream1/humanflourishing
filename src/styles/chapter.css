@@ -168,3 +168,66 @@
   width: 100%;
   display: block;
 }
+
+/* Reading cards styles */
+.reading-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.reading-card {
+  transition: all 0.2s ease;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.reading-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.reading-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reading-icon {
+  color: var(--accent-color, #4a55a2);
+}
+
+.reading-content {
+  flex-grow: 1;
+}
+
+.reading-link {
+  color: var(--dark-gray);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.reading-link:hover {
+  color: var(--accent-color, #4a55a2);
+}
+
+.reading-link:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent-color, #4a55a2);
+  transition: width 0.3s ease;
+}
+
+.reading-link:hover:after {
+  width: 100%;
+}
