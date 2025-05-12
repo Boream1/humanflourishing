@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Card } from './ui/card';
 
 interface HeroSectionProps {
   title: string;
@@ -12,7 +13,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
   objectives,
-  backgroundImage = "/lovable-uploads/ec01c3e3-2e0d-4a20-8bfd-b82e5d4d50a0.png" // Default image updated to the newly uploaded one
+  backgroundImage = "/lovable-uploads/3fb257ff-6b0c-4295-9c55-5effe12f70b9.png" // Updated to the newly uploaded image
 }) => {
   // Split the title into two parts if it contains a colon
   const titleParts = title.split(':');
@@ -28,27 +29,29 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           {subtitle && <p className="hero-subtitle">{subtitle}</p>}
           
           {objectives && objectives.length > 0 && (
-            <div className="objectives-container">
+            <Card className="objectives-container">
               <h2 className="objectives-title">Learning Objectives</h2>
-              <div>
+              <div className="objectives-list">
                 {objectives.map((objective, index) => (
                   <div key={index} className="objective-item">
                     <span className="objective-text">{objective}</span>
                   </div>
                 ))}
               </div>
-            </div>
+            </Card>
           )}
         </div>
         
         <div className="hero-image-container">
-          <div className="hero-image">
-            <img 
-              src={backgroundImage} 
-              alt={title} 
-              className="w-full h-full object-cover" 
-            />
-          </div>
+          <Card className="hero-image-card">
+            <div className="hero-image">
+              <img 
+                src={backgroundImage} 
+                alt={title} 
+                className="w-full h-full object-cover" 
+              />
+            </div>
+          </Card>
         </div>
       </div>
     </section>
