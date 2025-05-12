@@ -169,6 +169,22 @@
   display: block;
 }
 
+/* Reading section styles */
+.reading-section-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background-color: #f9f9fb;
+  padding: 5rem 0;
+  margin-bottom: 3rem;
+}
+
+.reading-section-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 /* Reading cards styles */
 .reading-cards {
   display: grid;
@@ -182,6 +198,7 @@
   border: 1px solid #f0f0f0;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: white;
 }
 
 .reading-card:hover {

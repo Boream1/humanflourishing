@@ -23,33 +23,37 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({
   isOptional = false,
 }) => {
   return (
-    <section className="lesson-section" id={isOptional ? "optional-reading" : "readings"}>
-      <h2 className="section-heading">{title}</h2>
-      <div className="content-block">
-        {introduction && <p>{introduction}</p>}
-        <div className="reading-cards">
-          {links.map((link, index) => (
-            <Card key={index} className="reading-card">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="reading-icon-container">
-                    <BookOpen className="reading-icon" size={24} />
-                  </div>
-                  <div className="reading-content">
-                    <a 
-                      href={link.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="reading-link"
-                    >
-                      {link.title}
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+    <section className="reading-section-wrapper">
+      <div className="reading-section-inner">
+        <section className="lesson-section" id={isOptional ? "optional-reading" : "readings"}>
+          <h2 className="section-heading">{title}</h2>
+          <div className="content-block">
+            {introduction && <p>{introduction}</p>}
+            <div className="reading-cards">
+              {links.map((link, index) => (
+                <Card key={index} className="reading-card">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="reading-icon-container">
+                        <BookOpen className="reading-icon" size={24} />
+                      </div>
+                      <div className="reading-content">
+                        <a 
+                          href={link.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="reading-link"
+                        >
+                          {link.title}
+                        </a>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   );
