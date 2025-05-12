@@ -10,7 +10,7 @@
 .chapter-header {
   margin-bottom: 5rem;
   text-align: left;
-  max-width: 1400px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 5%;
@@ -44,7 +44,7 @@
 
 .chapter-body {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 5%;
 }

@@ -47,6 +47,12 @@
   .language-switcher {
     font-size: 0.8rem;
   }
+  
+  .header-container,
+  .hero-content,
+  .chapter-body {
+    padding: 0 5%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -88,5 +94,11 @@
   
   .header-actions {
     gap: 0.5rem;
+  }
+  
+  .header-container,
+  .hero-content,
+  .chapter-body {
+    padding: 0 5%;
   }
 }

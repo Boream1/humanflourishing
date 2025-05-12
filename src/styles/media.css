@@ -4,7 +4,7 @@
 /* Video container */
 .video-container {
   position: relative;
-  margin: 0 auto 3rem 0;
+  margin: 0 auto;
   max-width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -71,17 +71,6 @@
 img {
   max-width: 100%;
   height: auto;
-  display: block; /* Ensures no extra space below images */
-}
-
-/* Add preload for images to prevent FOUC */
-.hero-image img {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.hero-image img.loaded {
-  opacity: 1;
 }
 
 /* Figure and captions */
@@ -95,19 +84,4 @@ figcaption {
   font-size: 0.9rem;
   color: var(--text-light);
   font-style: italic;
-}
-
-/* Fallback image styling */
-.image-fallback {
-  background-color: #f0f0f0;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  padding: 2rem;
-  border-radius: 4px;
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
 }
