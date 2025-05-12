@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 interface HeroSectionProps {
   title: string;
@@ -13,7 +12,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
   objectives,
-  backgroundImage = "/lovable-uploads/89096209-1df0-4b51-96c6-2d8a6bd364ce.png" // Default image
+  backgroundImage = "/lovable-uploads/ec01c3e3-2e0d-4a20-8bfd-b82e5d4d50a0.png" // Default image updated to the newly uploaded one
 }) => {
   // Split the title into two parts if it contains a colon
   const titleParts = title.split(':');
@@ -23,43 +22,33 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section className="hero-section">
       <div className="hero-content">
-        <div className="hero-grid">
-          <Card className="hero-title-card">
-            <CardContent className="p-6">
-              {lessonNumber && <p className="lesson-number">{lessonNumber}</p>}
-              <h1 className="lesson-title">{lessonTitle}</h1>
-              {subtitle && <p className="hero-subtitle mt-4">{subtitle}</p>}
-            </CardContent>
-          </Card>
-
+        <div className="hero-text-container">
+          {lessonNumber && <p className="lesson-number">{lessonNumber}</p>}
+          <h1 className="lesson-title">{lessonTitle}</h1>
+          {subtitle && <p className="hero-subtitle">{subtitle}</p>}
+          
           {objectives && objectives.length > 0 && (
-            <Card className="hero-objectives-card">
-              <CardHeader className="pb-0">
-                <CardTitle className="text-2xl font-normal">Learning Objectives</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="mt-2">
-                  {objectives.map((objective, index) => (
-                    <div key={index} className="objective-item mb-3">
-                      <span className="objective-text">{objective}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          <Card className="hero-image-card">
-            <CardContent className="p-0">
-              <div className="hero-image">
-                <img 
-                  src={backgroundImage} 
-                  alt={title} 
-                  className="w-full h-full object-cover" 
-                />
+            <div className="objectives-container">
+              <h2 className="objectives-title">Learning Objectives</h2>
+              <div>
+                {objectives.map((objective, index) => (
+                  <div key={index} className="objective-item">
+                    <span className="objective-text">{objective}</span>
+                  </div>
+                ))}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          )}
+        </div>
+        
+        <div className="hero-image-container">
+          <div className="hero-image">
+            <img 
+              src={backgroundImage} 
+              alt={title} 
+              className="w-full h-full object-cover" 
+            />
+          </div>
         </div>
       </div>
     </section>

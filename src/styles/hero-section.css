@@ -8,8 +8,9 @@
   justify-content: flex-start;
   overflow: hidden;
   margin-bottom: 0;
-  width: 100%;
-  padding: 2rem 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 4rem 0;
   background-color: #f9f9fb;
 }
 
@@ -19,38 +20,23 @@
   margin: 0 auto;
   padding: 0 5%;
   z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
 }
 
 /* Hero grid layout */
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+.hero-text-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.hero-title-card {
-  grid-column: 1;
-  grid-row: 1;
-  background-color: white;
-  border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.hero-objectives-card {
-  grid-column: 1;
-  grid-row: 2;
-  background-color: white;
-  border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.hero-image-card {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  background-color: white;
-  border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+.hero-image-container {
+  flex: 1;
+  height: 100%;
   overflow: hidden;
   border-radius: 8px;
 }
@@ -77,6 +63,7 @@
   color: #333;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
+  text-align: left;
 }
 
 .lesson-title {
@@ -86,18 +73,33 @@
   letter-spacing: -0.02em;
   line-height: 1.2;
   margin-bottom: 1rem;
+  text-align: left;
 }
 
 .hero-subtitle {
   font-size: 1.1rem;
   color: #555;
   line-height: 1.6;
+  text-align: left;
 }
 
 /* Learning objectives styling */
+.objectives-container {
+  margin-top: 2rem;
+}
+
+.objectives-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
 .objective-item {
   padding: 0.75rem 0;
   transition: transform 0.3s ease;
+  text-align: left;
 }
 
 .objective-item:not(:last-child) {
@@ -108,31 +110,16 @@
   font-size: 1rem;
   line-height: 1.5;
   color: #444;
+  text-align: left;
 }
 
 /* Responsive styles */
 @media (max-width: 992px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+  .hero-content {
+    flex-direction: column;
   }
   
-  .hero-title-card {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  
-  .hero-objectives-card {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  
-  .hero-image-card {
-    grid-column: 1;
-    grid-row: 3;
-  }
-  
-  .hero-image {
+  .hero-image-container {
     min-height: 300px;
   }
   
@@ -150,12 +137,16 @@
     font-size: 1.8rem;
   }
   
-  .hero-image {
+  .hero-image-container {
     min-height: 250px;
   }
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    padding: 2rem 0;
+  }
+  
   .hero-content {
     padding: 0 5%;
   }
@@ -168,7 +159,7 @@
     font-size: 1.1rem;
   }
   
-  .hero-image {
+  .hero-image-container {
     min-height: 200px;
   }
 }
