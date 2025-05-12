@@ -1,10 +1,11 @@
 
 /* Responsive styles */
 @media (max-width: 1440px) {
-  .main-content {
-    padding: 0 0 5% 0;
+  .main-content,
+  .header-container {
+    max-width: 1200px;
+    padding: 0 1rem;
     margin: 0 auto;
-    max-width: 100%;
   }
 }
 
