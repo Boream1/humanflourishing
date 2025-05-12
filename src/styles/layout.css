@@ -88,19 +88,10 @@
   z-index: 1; /* Ensure main content has lower z-index than header and menu */
 }
 
-/* Footer */
-.main-footer {
-  background-color: var(--soft-gray);
-  padding: 2rem 0;
-  text-align: left;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  margin-top: auto;
-  border: none;
-}
-
-.main-footer p {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+/* Custom styling for the sidebar menu */
+[data-radix-dropdown-menu-content],
+[data-radix-dialog-content] {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding: 0 !important;
 }
