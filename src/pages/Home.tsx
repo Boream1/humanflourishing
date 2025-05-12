@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           <img 
             src="/assets/IE_University_logo.svg" 
             alt="IE University Logo" 
-            className={`w-12 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+            className={`w-20 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
           />
         </a>
       </div>
