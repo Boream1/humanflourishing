@@ -1,4 +1,3 @@
-
 /* Hero section */
 .hero-section {
   position: relative;
@@ -12,9 +11,7 @@
   margin-left: calc(-50vw + 50%);
   padding: 4rem 0;
   background-color: #f9f9fb;
-  /* Add top and bottom grey lines */
-  border-top: 1px solid #e1e5eb;
-  border-bottom: 1px solid #e1e5eb;
+  /* Removing all border lines */
 }
 
 .hero-content {
