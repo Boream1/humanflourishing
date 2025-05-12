@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -178,7 +179,7 @@ const Chapter1Content: React.FC = () => {
         </article>
       </section>
 
-      <ChapterNavigation prevLink="index.html" prevText="Back to Home" nextLink="chapter2.html" nextText="Next Chapter" />
+      <ChapterNavigation prevLink="/" prevText="Back to Home" nextLink="/chapter2" nextText="Next Chapter" />
     </>
   );
 };
