@@ -2,22 +2,13 @@
 /* Responsive styles */
 @media (max-width: 1440px) {
   .main-content {
-    padding: 5% 5%;
+    padding: 0 0 5% 0;
     margin: 0 auto;
     max-width: 100%;
-  }
-  
-  .lesson-section {
-    max-width: 900px;
-    margin-left: 5%;
   }
 }
 
 @media (max-width: 1024px) {
-  .main-content {
-    padding: 5% 5%;
-  }
-
   .hero-title {
     font-size: 2.8rem;
   }
@@ -49,28 +40,22 @@
     text-align: center;
   }
   
-  .lesson-content {
-    padding: 2rem;
-  }
-  
   .chapter-header {
-    padding: 0 1rem;
-    margin-left: 0;
+    padding: 0 5%;
   }
   
   .language-switcher {
     font-size: 0.8rem;
   }
-  
-  .lesson-section {
-    margin-left: 0;
-    padding: 0 1rem;
-  }
 }
 
 @media (max-width: 480px) {
   .hero-section {
-    padding: 3rem 1rem;
+    padding: 3rem 0;
+  }
+
+  .hero-content {
+    padding: 0 5%;
   }
 
   .hero-title {
@@ -82,10 +67,6 @@
   }
 
   .chapter-card {
-    padding: 1.5rem;
-  }
-
-  .lesson-content {
     padding: 1.5rem;
   }
   
