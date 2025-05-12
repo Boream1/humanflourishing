@@ -31,14 +31,20 @@ function App() {
   }, []);
 
   return (
-    <MainLayout>
+    <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/chapter1" element={<Chapter1Content />} />
-        <Route path="/chapter2" element={<Chapter2Content />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={
+          <MainLayout>
+            <Routes>
+              <Route path="/chapter1" element={<Chapter1Content />} />
+              <Route path="/chapter2" element={<Chapter2Content />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </MainLayout>
+        } />
       </Routes>
-    </MainLayout>
+    </>
   );
 }
 
