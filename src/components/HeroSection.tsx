@@ -47,10 +47,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="hero-right-column">
           <Card className="hero-image-card">
             <div className="hero-image">
+              {/* Using public URL pattern to ensure images load correctly */}
               <img 
-                src={backgroundImage} 
+                src={backgroundImage.startsWith('/') ? backgroundImage : `/${backgroundImage}`} 
                 alt={title} 
                 className="w-full h-full object-cover" 
+                onError={(e) => {
+                  console.error("Image failed to load:", backgroundImage);
+                  e.currentTarget.src = "/placeholder.svg";
+                }}
               />
             </div>
           </Card>
