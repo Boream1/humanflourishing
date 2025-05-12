@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card } from './ui/card';
 
@@ -13,7 +12,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
   objectives,
-  backgroundImage = "/lovable-uploads/3fb257ff-6b0c-4295-9c55-5effe12f70b9.png" // Updated to the newly uploaded image
+  backgroundImage = "/assets/talgat-baizrahmanov-BayiApxgDPY-unsplash.jpg" // Updated to use the specified image
 }) => {
   // Split the title into two parts if it contains a colon
   const titleParts = title.split(':');

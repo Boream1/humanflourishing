@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
@@ -17,7 +16,6 @@ const Home: React.FC = () => {
         title="Human Flourishing"
         subtitle="Explore what it means to be human and discover the path to wellbeing and fulfillment."
         objectives={objectives}
-        backgroundImage="/lovable-uploads/8f766a81-6978-4547-b870-4295b6802c92.png"
       />
 
       <section className="course-overview">
