@@ -39,7 +39,7 @@ const Home: React.FC = () => {
       {/* Right side image */}
       <div className="w-1/2 h-full">
         <img 
-          src="/lovable-uploads/0fa38892-6d16-4bf1-b52f-f397b0e51c00.png" 
+          src="/assets/Sin título-1.png" 
           alt="Person with sunglasses" 
           className="w-full h-full object-cover"
         />
