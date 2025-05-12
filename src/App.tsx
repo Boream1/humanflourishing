@@ -10,23 +10,6 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    // Set copyright year on all pages
-    const setCopyrightYear = () => {
-      const copyrightElements = document.querySelectorAll('#copyright-year');
-      const currentYear = new Date().getFullYear().toString();
-      
-      copyrightElements.forEach(el => {
-        if (el && (!el.textContent || el.textContent.trim() === '')) {
-          el.textContent = currentYear;
-        }
-      });
-    };
-    
-    // Run copyright update on a schedule to ensure it's set
-    setCopyrightYear();
-    const copyrightInterval = setInterval(setCopyrightYear, 1000);
-    setTimeout(() => clearInterval(copyrightInterval), 10000);
-    
     // Set up survey app event listener for feedback
     const setupSurveyFeedback = () => {
       // Add event listener for page unload to trigger feedback widget
@@ -45,11 +28,6 @@ function App() {
     
     // Set up survey feedback
     setupSurveyFeedback();
-    
-    // Clean up
-    return () => {
-      clearInterval(copyrightInterval);
-    };
   }, []);
 
   return (

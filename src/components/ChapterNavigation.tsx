@@ -26,6 +26,9 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
         <Link to={prevLink} className="nav-button prev">
           ← {prevText}
         </Link>
+        <div className="copyright">
+          © <span id="copyright-year">{new Date().getFullYear()}</span> IE University. All rights reserved.
+        </div>
         <Link to={nextLink} className="nav-button next" onClick={handleNextClick}>
           {nextText} →
         </Link>

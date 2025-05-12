@@ -21,12 +21,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const chapterNumber = isChapterPath ? currentPath.replace('/chapter', '') : null;
 
   useEffect(() => {
-    // Set copyright year dynamically
-    const copyrightYearElement = document.getElementById('copyright-year');
-    if (copyrightYearElement) {
-      copyrightYearElement.textContent = new Date().getFullYear().toString();
-    }
-    
     // Close menu when route changes
     setIsMenuOpen(false);
 
@@ -175,10 +169,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <main className="main-content">
         {children}
       </main>
-
-      <footer className="main-footer">
-        <p>&copy; <span id="copyright-year"></span> IE University. All rights reserved.</p>
-      </footer>
     </div>
   );
 };
