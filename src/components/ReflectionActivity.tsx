@@ -86,7 +86,7 @@ export default function ReflectionActivity() {
               className="p-6 border border-gray-200 rounded-lg bg-white shadow-sm"
             >
               <div className="flex items-start gap-2 mb-4">
-                <FileText className="text-blue-600 mt-1" size={20} />
+                <FileText className="text-black mt-1" size={20} />
                 <h3 className="text-lg font-medium">{question}</h3>
               </div>
 
