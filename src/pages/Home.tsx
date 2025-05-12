@@ -72,7 +72,9 @@ const Home: React.FC = () => {
         <img 
           src="assets/Cover.png" 
           alt="Course cover image" 
-          className="w-full h-full object-cover absolute inset-0"
+          className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
       </div>
     </div>
