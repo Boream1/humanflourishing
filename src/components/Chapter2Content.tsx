@@ -7,6 +7,7 @@ import { createRoot } from "react-dom/client";
 import KeyPoint from "./KeyPoint";
 import { Card, CardContent } from "./ui/card";
 import YouTubePlayer from "./YouTubePlayer";
+import Timeline from "./Timeline";
 
 const Chapter2Content: React.FC = () => {
   const learningObjectives = [
@@ -190,15 +191,11 @@ const Chapter2Content: React.FC = () => {
             <div className="content-block">
               <Card className="activity-card">
                 <CardContent className="p-6">
-                  <p className="mb-4">This is a simple yet powerful exercise rooted in positive psychology. Studies have shown that this exercise has robust effects when it comes to boosting happiness and well-being. Here's how you can do it:</p>
-                  
-                  <ul className="bullet-list">
-                    {whatWentWellSteps.map((step, index) => (
-                      <li key={index}>{step}</li>
-                    ))}
-                  </ul>
+                  <p className="mb-4">This is a simple yet powerful exercise rooted in positive psychology. Studies have shown that this exercise has robust effects when it comes to boosting happiness and well-being. Follow these steps:</p>
                 </CardContent>
               </Card>
+              
+              <Timeline items={whatWentWellSteps} />
               
               <h3 className="text-lg font-semibold mt-6 mb-3">Benefits:</h3>
               <div className="metacognition-cards">

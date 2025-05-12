@@ -9,5 +9,6 @@
 @import 'chapter.css'; /* This now imports all chapter-related CSS modules */
 @import 'activities.css';
 @import 'activity-cards.css';
+@import 'timeline.css';
 @import 'loading-indicators.css';
 @import 'responsive.css';
