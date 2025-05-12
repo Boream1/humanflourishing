@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from "react";
 import KeyPoint from "./KeyPoint";
 
@@ -9,6 +8,7 @@ interface VideoSectionProps {
   videoSource?: string;
   poster?: string;
   keyPointText?: string;
+  keyPointType?: 'general' | 'social' | 'awareness' | 'insight' | 'wellbeing';
   englishCaptions?: string;
   spanishCaptions?: string;
 }
@@ -20,6 +20,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4",
   poster = "/lovable-uploads/d70cbd33-ee63-4b9b-86d7-da464c08ee54.png",
   keyPointText,
+  keyPointType = 'general',
   englishCaptions,
   spanishCaptions,
 }) => {
@@ -121,7 +122,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
           )}
         </div>
 
-        {keyPointText && <KeyPoint text={keyPointText} />}
+        {keyPointText && <KeyPoint text={keyPointText} type={keyPointType} />}
       </div>
     </section>
   );

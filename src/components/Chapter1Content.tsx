@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -119,7 +118,8 @@ const Chapter1Content: React.FC = () => {
             videoId="video-1-1"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing." 
+            keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing."
+            keyPointType="insight"
           />
 
           <VideoSection 
@@ -128,7 +128,8 @@ const Chapter1Content: React.FC = () => {
             videoId="video-1-2"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health." 
+            keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health."
+            keyPointType="wellbeing" 
           />
 
           <VideoSection 
@@ -137,7 +138,8 @@ const Chapter1Content: React.FC = () => {
             videoId="video-1-3"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being." 
+            keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being."
+            keyPointType="social" 
           />
 
           <ReadingSection title="Readings" introduction="Please complete the readings below to engage with the following activities:" links={readings} />
@@ -152,7 +154,8 @@ const Chapter1Content: React.FC = () => {
             videoId="video-1-4"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing." 
+            keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing."
+            keyPointType="awareness"
           />
 
           <VideoSection 

@@ -109,13 +109,14 @@
 
 .key-point-header {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 1rem;
 }
 
 .key-point-icon {
   color: #000;
-  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .key-point h3 {
