@@ -1,4 +1,3 @@
-
 /* Hero section */
 .hero-section {
   position: relative;
@@ -7,7 +6,7 @@
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
-  margin-bottom: 0;
+  margin-bottom: 200px; /* Changed from 0px to 200px */
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 4rem 0;
