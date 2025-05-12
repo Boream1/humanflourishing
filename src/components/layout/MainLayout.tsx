@@ -46,15 +46,30 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <div className="header-actions">
             <Sheet>
               <SheetTrigger asChild>
-                <button className="flex items-center justify-center p-2 text-gray-700 hover:text-gray-900 focus:outline-none" aria-label="Open menu">
+                <button className="flex items-center justify-center p-2 text-gray-700 hover:text-gray-900 focus:outline-none hamburger-button" aria-label="Open menu">
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="w-64">
                 <nav className="flex flex-col py-6">
-                  <Link to="/" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">Home</Link>
-                  <Link to="/chapter1" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 1: Being Human</Link>
-                  <Link to="/chapter2" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 2: Cultivating Awareness: Emotions and Cognition</Link>
+                  <Link 
+                    to="/" 
+                    className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/' ? 'active-link' : ''}`}
+                  >
+                    Home
+                  </Link>
+                  <Link 
+                    to="/chapter1" 
+                    className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/chapter1' ? 'active-link' : ''}`}
+                  >
+                    LESSON 1: Being Human
+                  </Link>
+                  <Link 
+                    to="/chapter2" 
+                    className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/chapter2' ? 'active-link' : ''}`}
+                  >
+                    LESSON 2: Cultivating Awareness: Emotions and Cognition
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
