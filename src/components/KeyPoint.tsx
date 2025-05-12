@@ -33,18 +33,18 @@ const KeyPoint: React.FC<KeyPointProps> = ({ text, type = 'general' }) => {
   };
   
   return (
-    <Card className="key-point-card">
-      <CardHeader className="key-point-header">
+    <div className="key-point-card">
+      <div className="key-point-header">
         <div className="key-point-icon-wrapper">
           {getIcon()}
         </div>
         <h3 className="key-point-title">Key Point</h3>
         <Separator className="my-2" />
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="key-point-content">
         <p className="key-point-text">{text}</p>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

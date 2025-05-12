@@ -83,30 +83,23 @@
 /* Video module card styling */
 .video-module-card {
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  border: 1px solid var(--border-color);
   transition: transform 0.3s ease;
   max-width: 1000px;
   margin: 0 auto;
-}
-
-.video-module-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Key point styling */
 .key-point-card {
   background-color: #f9f9f9;
   border-radius: 12px;
-  border: 1px solid var(--border-color);
-  padding: 1.5rem;
+  border-left: 4px solid #000000;
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
   margin: 2rem 0;
   text-align: left;
   width: 100%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative;
 }
 
 .key-point-header {
@@ -138,8 +131,11 @@
   font-weight: 600;
 }
 
+.key-point-content {
+  padding-top: 0.5rem;
+}
+
 .key-point-text {
-  margin-top: 0.5rem;
   line-height: 1.6;
 }
 
@@ -186,13 +182,9 @@
 }
 
 @media (max-width: 767px) {
-  .video-module-card {
-    border-radius: 8px;
-  }
-  
   .key-point-card {
     border-radius: 8px;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 1.5rem;
   }
   
   .section-heading {
