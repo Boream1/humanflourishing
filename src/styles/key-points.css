@@ -3,7 +3,7 @@
 .key-point {
   position: relative;
   padding: 0;
-  margin: 3rem 0;
+  margin: 2rem 0; /* Reduced from 3rem */
   text-align: left;
   width: 100%;
 }
@@ -30,7 +30,7 @@
 .key-point-header {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem; /* Reduced from 1rem */
 }
 
 .key-point-icon {

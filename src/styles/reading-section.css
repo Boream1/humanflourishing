@@ -4,8 +4,8 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   background-color: #f9f9fb;
-  padding: 5rem 0;
-  margin-bottom: 3rem;
+  padding: 4rem 0; /* Reduced from 5rem */
+  margin-bottom: 2rem; /* Reduced from 3rem */
 }
 
 .reading-section-inner {
@@ -20,7 +20,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem; /* Reduced from 2rem */
 }
 
 .reading-card {
@@ -44,7 +44,7 @@
 }
 
 .reading-icon {
-  color: var(--accent-color, #4a55a2);
+  color: #000; /* Changed to black */
 }
 
 .reading-content {

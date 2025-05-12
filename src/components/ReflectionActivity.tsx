@@ -69,23 +69,23 @@ export default function ReflectionActivity() {
   };
 
   return (
-    <div className="py-6">
-      <h2 className="section-heading text-center text-primary text-2xl font-bold mb-4">
+    <div className="py-4">
+      <h2 className="section-heading text-center text-primary text-2xl font-bold mb-3">
         Activity: Reflecting on Your Social Connections
       </h2>
       
-      <p className="mb-6 text-gray-700">
+      <p className="mb-4 text-gray-700">
         In light of what you've learned and read so far, please reflect on the following questions:
       </p>
 
       <Form {...form}>
-        <form className="space-y-8">
+        <form className="space-y-6">
           {reflectionQuestions.map((question, index) => (
             <div 
               key={index} 
               className="p-6 border border-gray-200 rounded-lg bg-white shadow-sm"
             >
-              <div className="flex items-start gap-2 mb-4">
+              <div className="flex items-start gap-2 mb-3">
                 <FileText className="text-black mt-1" size={20} />
                 <h3 className="text-lg font-medium">{question}</h3>
               </div>

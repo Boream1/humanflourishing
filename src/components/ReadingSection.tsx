@@ -28,7 +28,7 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({
         <section className="lesson-section" id={isOptional ? "optional-reading" : "readings"}>
           <h2 className="section-heading">{title}</h2>
           <div className="content-block">
-            {introduction && <p>{introduction}</p>}
+            {introduction && <p className="mb-4">{introduction}</p>}
             <div className="reading-cards">
               {links.map((link, index) => (
                 <Card key={index} className="reading-card">

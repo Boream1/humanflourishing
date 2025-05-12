@@ -1,7 +1,7 @@
 
 /* Lesson section styles */
 .lesson-section {
-  margin-bottom: 6rem;
+  margin-bottom: 4rem; /* Reduced from 6rem */
   text-align: left;
   width: 100%;
 }
@@ -13,7 +13,7 @@
 .section-heading {
   font-size: 2.5rem;
   color: var(--dark-gray);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem; /* Reduced from 2.5rem */
   font-weight: 600;
   border-left: none;
   padding-left: 0;
@@ -21,13 +21,13 @@
 }
 
 .content-block {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem; /* Reduced from 3rem */
   text-align: left;
   width: 100%;
 }
 
 .content-block p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
   line-height: 1.8;
   font-size: 1.1rem;
 }
@@ -36,7 +36,7 @@
 .bullet-list {
   list-style-type: disc;
   padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
   text-align: left;
   max-width: 600px;
   margin-left: 0;
@@ -44,7 +44,7 @@
 }
 
 .bullet-list li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem; /* Reduced from 1rem */
   line-height: 1.6;
   font-size: 1.1rem;
 }
