@@ -15,7 +15,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
-  return <section className="hero-section">
+  return <section className="hero-section bg-gray-100">
       <div className="hero-background" style={backgroundImage ? {
       backgroundImage: `url(${backgroundImage})`
     } : {}}>
@@ -40,7 +40,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Learning objectives section - grid layout */}
         {objectives && objectives.length > 0 && <div className="hero-objectives-container pb-0">
             <div className="objectives-header">
-              <h2 className="objectives-title text-2xl">Learning Objectives</h2>
+              <h2 className="objectives-title text-xl">Learning Objectives</h2>
             </div>
             
             <div className="objectives-grid">
