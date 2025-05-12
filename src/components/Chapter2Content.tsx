@@ -1,13 +1,14 @@
+
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
 import HeroSection from "./HeroSection";
 import ChapterNavigation from "./ChapterNavigation";
-import { createRoot } from "react-dom/client";
-import KeyPoint from "./KeyPoint";
-import { Card, CardContent } from "./ui/card";
-import YouTubePlayer from "./YouTubePlayer";
-import Timeline from "./Timeline";
+import EmotionalGranularityActivity from "./activities/EmotionalGranularityActivity";
+import MetacognitionActivity from "./activities/MetacognitionActivity";
+import WhatWentWellActivity from "./activities/WhatWentWellActivity";
+import BodyMindSoulActivity from "./activities/BodyMindSoulActivity";
+import EmotionPillsVideo from "./EmotionPillsVideo";
 
 const Chapter2Content: React.FC = () => {
   const learningObjectives = [
@@ -29,66 +30,8 @@ const Chapter2Content: React.FC = () => {
   const videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
   const posterImage = "/lovable-uploads/d8922e18-e45a-41bc-9aaa-0faed86084a5.png";
 
-  // Create a ref to store the React root for the reflection activity
-  const emotionalGranularityRootRef = useRef<any>(null);
-  const whatWentWellRootRef = useRef<any>(null);
-  const metacognitionRootRef = useRef<any>(null);
-  const leveragingBodyMindSoulRootRef = useRef<any>(null);
-  
   // Track if feedback event has been set up
   const feedbackSetupRef = useRef<boolean>(false);
-
-  // Metacognition practices
-  const metacognitionPractices = [
-    {
-      title: "Journaling",
-      description: "Writing down your thoughts, feelings, and experiences helps increase self-awareness and provides insights into your thinking patterns."
-    },
-    {
-      title: "Mindfulness",
-      description: "Focusing your awareness on the present moment can reduce stress and improve cognitive clarity by preventing your mind from wandering."
-    },
-    {
-      title: "Take time to pause",
-      description: "Deliberately pausing before reacting allows you to consider your thoughts and responses, leading to more thoughtful decision-making."
-    },
-    {
-      title: "Stand up and move around",
-      description: "Physical movement can boost brain function and creativity, helping you think more clearly and effectively."
-    },
-    {
-      title: "Appreciate nature",
-      description: "Spending time in nature, or even just looking through a window to appreciate the natural world, can reduce stress and enhance your mood, providing a fresh perspective and mental clarity."
-    },
-    {
-      title: "Connect with another human being",
-      description: "Engaging in meaningful conversations can provide new insights and help you reflect on your own thoughts and feelings."
-    }
-  ];
-
-  // What Went Well benefits
-  const whatWentWellBenefits = [
-    {
-      title: "Counteracts negativity bias",
-      description: "This practice helps balance the natural tendency to focus on negative experiences by actively shifting our focus to positive events."
-    },
-    {
-      title: "Increases gratitude",
-      description: "Regularly acknowledging good things – big or small – fosters a sense of appreciation that enhances well-being."
-    },
-    {
-      title: "Fosters greater self-compassion",
-      description: "Reflecting on what went well can foster a kinder, more compassionate attitude towards yourself, reducing self-criticism."
-    }
-  ];
-
-  // Exercise steps
-  const whatWentWellSteps = [
-    "Take your journal or a notebook.",
-    "Write down three things that went well today: These can be big achievements or small pleasures. For example, \"I had a great conversation with a friend,\" \"I enjoyed a delicious meal,\" or \"I completed a challenging task at work.\"",
-    "Reflect on why each event went well: Consider what caused these positive events and what they mean to you. This helps deepen your appreciation and understanding of the good things in your life.",
-    "Consistency is key: Do this exercise daily for at least a week, but aim for longer to see more significant benefits."
-  ];
 
   useEffect(() => {
     // Remove loading indicator if it still exists
@@ -164,52 +107,12 @@ const Chapter2Content: React.FC = () => {
           />
 
           <ReadingSection title="Readings" introduction="Please complete the following readings:" links={readings} />
-
-          <section className="lesson-section" id="reflecting-emotional-granularity">
-            <h2 className="section-heading">Activity: Reflecting on Emotional Granularity</h2>
-            <div className="content-block">
-              <Card className="activity-card">
-                <CardContent className="p-6">
-                  <p className="mb-4">Can you identify a situation where you felt an emotion from the outermost circle of the wheel of emotional granularity? We encourage you to take your journal or a notebook and describe that situation and how you felt.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          <section className="lesson-section" id="emotion-pills">
-            <h2 className="section-heading">The Emotion Pills We Are All Unknowingly Taking</h2>
-            <div className="content-block">
-              <p>Lee Newman, Dean of IE Business School, shares some insights on emotions in the video below:</p>
-              <div className="youtube-video-container">
-                <YouTubePlayer videoId="H8UUWbQEH_E" title="The Emotion Pills We Are All Unknowingly Taking" />
-              </div>
-            </div>
-          </section>
-
-          <section className="lesson-section" id="what-went-well">
-            <h2 className="section-heading">Activity: What Went Well?</h2>
-            <div className="content-block">
-              <Card className="activity-card">
-                <CardContent className="p-6">
-                  <p className="mb-4">This is a simple yet powerful exercise rooted in positive psychology. Studies have shown that this exercise has robust effects when it comes to boosting happiness and well-being. Follow these steps:</p>
-                </CardContent>
-              </Card>
-              
-              <Timeline items={whatWentWellSteps} />
-              
-              <h3 className="text-lg font-semibold mt-6 mb-3">Benefits:</h3>
-              <div className="metacognition-cards">
-                {whatWentWellBenefits.map((benefit, index) => (
-                  <Card key={index} className="activity-card practice-card">
-                    <CardContent className="p-6">
-                      <h3 className="mb-2 font-semibold text-lg">{benefit.title}:</h3>
-                      <p>{benefit.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </section>
+          
+          <EmotionalGranularityActivity />
+          
+          <EmotionPillsVideo />
+          
+          <WhatWentWellActivity />
 
           <VideoSection 
             id="broaden-build" 
@@ -231,23 +134,7 @@ const Chapter2Content: React.FC = () => {
             keyPointType="awareness"
           />
 
-          <section className="lesson-section" id="practicing-metacognition">
-            <h2 className="section-heading">Activity: Practicing Metacognition</h2>
-            <div className="content-block">
-              <p className="mb-4">Now it's time to practice some ways to elevate your metacognition. Choose at least two of these practices and try them out!</p>
-              
-              <div className="metacognition-cards">
-                {metacognitionPractices.map((practice, index) => (
-                  <Card key={index} className="activity-card practice-card">
-                    <CardContent className="p-6">
-                      <h3 className="mb-2 font-semibold text-lg">{practice.title}:</h3>
-                      <p>{practice.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </section>
+          <MetacognitionActivity />
 
           <VideoSection 
             id="body-mind-soul" 
@@ -257,18 +144,7 @@ const Chapter2Content: React.FC = () => {
             poster={posterImage}
           />
 
-          <section className="lesson-section" id="leveraging-body-mind-soul">
-            <h2 className="section-heading">Activity: Leveraging Body, Mind, and Soul</h2>
-            <div className="content-block">
-              <Card className="activity-card">
-                <CardContent className="p-6">
-                  <p className="mb-4">We can leverage the integration of body, mind, and soul to support our awareness, emotions, and cognition. Specifically, we can leverage aspects of the body, mind, and soul so that they enhance each other. For example, if we're feeling mentally sluggish at work, we can activate the body by going for a walk. By energizing the body through physical activity, we can energize the mind. Similarly, if we're feeling physically tired, we can tap into the soul by connecting with others. By energizing the soul with human connection, we can energize the body.</p>
-                  
-                  <p className="mt-4">Given these examples, what practices can you cultivate to better leverage the body, mind, and soul connection to support you in your flourishing?</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
+          <BodyMindSoulActivity />
 
           <VideoSection 
             id="integrated-approach" 
