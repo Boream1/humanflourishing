@@ -11,11 +11,10 @@
   background-color: white;
   border-bottom: 1px solid var(--border-color);
   padding: 0.75rem 0;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   position: sticky;
   top: 0;
-  z-index: 50; /* Lowered z-index to ensure menu overlay appears above */
+  z-index: 50;
   transition: box-shadow 0.3s ease;
 }
 
@@ -24,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -33,6 +32,16 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin: 0 auto;
+}
+
+.hamburger-menu-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-spacer {
+  width: 40px; /* Match hamburger button width to maintain balance */
 }
 
 .logo {
@@ -50,12 +59,6 @@
   margin: 0;
   color: var(--text-dark);
   font-weight: 500;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 
 .hamburger-button {
@@ -93,7 +96,7 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  z-index: 1; /* Ensure main content has lower z-index than header and menu */
+  z-index: 1;
 }
 
 /* Footer */
