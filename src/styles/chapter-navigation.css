@@ -3,7 +3,7 @@
 .chapter-navigation {
   margin-top: 4rem;
   padding: 2rem 0;
-  background-color: var(--soft-gray);
+  background-color: #f9f9fb;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   position: relative;
@@ -39,18 +39,9 @@
   outline: 2px solid #ea384c;
 }
 
-.copyright {
-  font-size: 0.9rem;
-  color: var(--text-light);
-}
-
 @media (max-width: 768px) {
   .nav-buttons {
     flex-direction: column;
     gap: 1.5rem;
-  }
-  
-  .copyright {
-    order: 3;
   }
 }
