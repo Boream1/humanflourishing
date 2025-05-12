@@ -36,13 +36,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     <div className="page-container">
       <header className={`main-header ${hasHeaderShadow ? 'header-shadow' : ''}`}>
         <div className="header-container">
-          <div className="logo-title-container">
-            <a href="https://www.ie.edu" target="_blank" rel="noreferrer" className="logo">
-              <img alt="IE University Logo" className="ie-logo" src="/assets/IE_University_logo.svg" />
-            </a>
-            <h1 className="course-title">Human Flourishing</h1>
-          </div>
-          
           <div className="header-actions">
             <Sheet>
               <SheetTrigger asChild>
@@ -50,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64">
+              <SheetContent side="left" className="w-64">
                 <nav className="flex flex-col py-6">
                   <Link to="/" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">Home</Link>
                   <Link to="/chapter1" className="py-2 px-4 hover:bg-gray-100 rounded text-lg">LESSON 1: Being Human</Link>
@@ -58,6 +51,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                 </nav>
               </SheetContent>
             </Sheet>
+          </div>
+          
+          <div className="logo-title-container">
+            <a href="https://www.ie.edu" target="_blank" rel="noreferrer" className="logo">
+              <img alt="IE University Logo" className="ie-logo" src="/assets/IE_University_logo.svg" />
+            </a>
+            <h1 className="course-title">Human Flourishing</h1>
           </div>
         </div>
       </header>
