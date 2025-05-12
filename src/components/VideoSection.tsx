@@ -1,7 +1,5 @@
-
 import React, { useRef, useEffect, useState } from "react";
 import KeyPoint from "./KeyPoint";
-import { Card, CardContent, CardHeader } from "./ui/card";
 
 interface VideoSectionProps {
   id: string;
@@ -71,71 +69,61 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   }, [videoId]);
 
   return (
-    <section className="lesson-section bento-container" id={id}>
-      <Card className="video-module-card">
-        <CardHeader>
-          <h2 className="section-heading">{title}</h2>
-        </CardHeader>
-        <CardContent>
-          <div className="content-block">
-            <div className="video-container">
-              {isLoading && !hasError && (
-                <div className="video-loading">
-                  <div className="loading-spinner"></div>
-                  <p>Loading video...</p>
-                </div>
+    <section className="lesson-section" id={id}>
+      <h2 className="section-heading">{title}</h2>
+      <div className="content-block">
+        <div className="video-container">
+          {isLoading && !hasError && (
+            <div className="video-loading">
+              <div className="loading-spinner"></div>
+              <p>Loading video...</p>
+            </div>
+          )}
+          
+          {hasError ? (
+            <div className="video-error-message">
+              <p>There was an error loading the video. Please try refreshing the page.</p>
+            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              id={videoId}
+              className="html5-video"
+              controls
+              preload="none"
+              poster={poster}
+              playsInline
+              data-src={videoSource}
+            >
+              <source type="video/mp4" />
+              
+              {englishCaptions && (
+                <track
+                  kind="subtitles"
+                  src={englishCaptions}
+                  srcLang="en"
+                  label="English"
+                />
               )}
               
-              {hasError ? (
-                <div className="video-error-message">
-                  <p>There was an error loading the video. Please try refreshing the page.</p>
-                </div>
-              ) : (
-                <video
-                  ref={videoRef}
-                  id={videoId}
-                  className="html5-video"
-                  controls
-                  preload="none"
-                  poster={poster}
-                  playsInline
-                  data-src={videoSource}
-                >
-                  <source type="video/mp4" />
-                  
-                  {englishCaptions && (
-                    <track
-                      kind="subtitles"
-                      src={englishCaptions}
-                      srcLang="en"
-                      label="English"
-                    />
-                  )}
-                  
-                  {spanishCaptions && (
-                    <track
-                      kind="subtitles"
-                      src={spanishCaptions}
-                      srcLang="es"
-                      label="Spanish"
-                    />
-                  )}
-                  
-                  <p>
-                    Your browser does not support HTML5 video. Please upgrade your browser.
-                  </p>
-                </video>
+              {spanishCaptions && (
+                <track
+                  kind="subtitles"
+                  src={spanishCaptions}
+                  srcLang="es"
+                  label="Spanish"
+                />
               )}
-            </div>
+              
+              <p>
+                Your browser does not support HTML5 video. Please upgrade your browser.
+              </p>
+            </video>
+          )}
+        </div>
 
-            {keyPointText && (
-              <div className="key-point-container">
-                <KeyPoint text={keyPointText} type={keyPointType} />
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+        {keyPointText && <KeyPoint text={keyPointText} type={keyPointType} />}
+      </div>
     </section>
   );
 };

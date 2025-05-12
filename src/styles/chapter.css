@@ -48,8 +48,7 @@
   padding: 0 1rem;
 }
 
-/* Bento container styling */
-.bento-container {
+.lesson-section {
   margin-bottom: 6rem;
   text-align: left;
   width: 100%;
@@ -60,10 +59,11 @@
 }
 
 .section-heading {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--dark-gray);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
   font-weight: 600;
+  border-left: none;
   padding-left: 0;
   text-align: left;
 }
@@ -78,65 +78,6 @@
   margin-bottom: 1.5rem;
   line-height: 1.8;
   font-size: 1.1rem;
-}
-
-/* Video module card styling */
-.video-module-card {
-  background-color: #ffffff;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* Key point styling */
-.key-point-card {
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  border-left: 4px solid #000000;
-  padding: 1.5rem 1.5rem 1.5rem 2rem;
-  margin: 2rem 0;
-  text-align: left;
-  width: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  position: relative;
-}
-
-.key-point-header {
-  padding: 0.5rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.key-point-icon-wrapper {
-  background-color: #f1f1f1;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-}
-
-.key-point-icon {
-  color: #333;
-}
-
-.key-point-title {
-  color: var(--dark-gray);
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.key-point-content {
-  padding-top: 0.5rem;
-}
-
-.key-point-text {
-  line-height: 1.6;
 }
 
 /* Bullet list styles */
@@ -156,38 +97,51 @@
   font-size: 1.1rem;
 }
 
+/* Key point styles */
+.key-point {
+  background-color: transparent;
+  border: none;
+  padding: 2rem 0;
+  margin: 3rem 0;
+  text-align: left;
+  width: 100%;
+}
+
+.key-point-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.key-point-icon {
+  color: #000;
+  margin-bottom: 0.75rem;
+}
+
+.key-point h3 {
+  color: var(--dark-gray);
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.key-point p {
+  margin-top: 1rem;
+}
+
 /* Video container */
 .video-container {
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0;
   width: 100%;
-  margin-bottom: 2rem;
-  background-color: #000;
+  margin-bottom: 3rem;
 }
 
 /* Video styling */
 .html5-video {
   width: 100%;
   display: block;
-  aspect-ratio: 16 / 9;
-}
-
-/* Responsive styles for bento layout */
-@media (min-width: 768px) {
-  .key-point-container {
-    padding: 0 1rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .key-point-card {
-    border-radius: 8px;
-    padding: 1rem 1rem 1rem 1.5rem;
-  }
-  
-  .section-heading {
-    font-size: 1.75rem;
-  }
 }
