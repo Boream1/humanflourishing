@@ -18,13 +18,13 @@ const Home: React.FC = () => {
   
   return (
     <div className="w-full h-screen flex flex-col overflow-hidden">
-      {/* Logo container - positioned at top left */}
-      <div className="absolute top-8 left-8 z-10">
+      {/* Logo container - positioned to align with content */}
+      <div className="absolute top-8 md:left-16 left-8 z-10">
         <a href="https://www.ie.edu" target="_blank" rel="noreferrer">
           <img 
             src="/assets/IE_University_logo.svg" 
             alt="IE University Logo" 
-            className={`w-32 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+            className={`w-12 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
           />
         </a>
       </div>
