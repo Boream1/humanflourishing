@@ -32,16 +32,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin: 0 auto;
-}
-
-.hamburger-menu-container {
-  display: flex;
-  align-items: center;
-}
-
-.header-spacer {
-  width: 40px; /* Match hamburger button width to maintain balance */
 }
 
 .logo {
@@ -59,6 +49,11 @@
   margin: 0;
   color: var(--text-dark);
   font-weight: 500;
+}
+
+.menu-button-container {
+  display: flex;
+  align-items: center;
 }
 
 .hamburger-button {

@@ -36,7 +36,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     <div className="page-container">
       <header className={`main-header ${hasHeaderShadow ? 'header-shadow' : ''}`}>
         <div className="header-container">
-          <div className="hamburger-menu-container">
+          <div className="logo-title-container">
+            <a href="https://www.ie.edu" target="_blank" rel="noreferrer" className="logo">
+              <img alt="IE University Logo" className="ie-logo" src="/assets/IE_University_logo.svg" />
+            </a>
+            <h1 className="course-title">Human Flourishing</h1>
+          </div>
+          
+          <div className="menu-button-container">
             <Sheet>
               <SheetTrigger asChild>
                 <button className="flex items-center justify-center p-2 text-gray-700 hover:text-gray-900 focus:outline-none hamburger-button" aria-label="Open menu">
@@ -67,15 +74,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               </SheetContent>
             </Sheet>
           </div>
-          
-          <div className="logo-title-container">
-            <a href="https://www.ie.edu" target="_blank" rel="noreferrer" className="logo">
-              <img alt="IE University Logo" className="ie-logo" src="/assets/IE_University_logo.svg" />
-            </a>
-            <h1 className="course-title">Human Flourishing</h1>
-          </div>
-          
-          <div className="header-spacer"></div>
         </div>
       </header>
 
