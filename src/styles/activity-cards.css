@@ -7,6 +7,7 @@
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
 }
 
 .activity-card:hover {
@@ -26,18 +27,34 @@
 .activity-card p {
   margin-bottom: 1rem;
   line-height: 1.6;
+  text-align: left;
 }
 
-.activity-card ul, 
 .activity-card ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
   margin-bottom: 1rem;
+  text-align: left;
+}
+
+.activity-card ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
 .activity-card li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   line-height: 1.6;
+  text-align: left;
 }
 
 .activity-card strong {
   font-weight: 600;
+}
+
+/* Card content alignment */
+.activity-card .card-content {
+  text-align: left;
 }
