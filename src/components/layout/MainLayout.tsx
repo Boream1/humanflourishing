@@ -14,6 +14,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const currentPath = location.pathname;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('English');
+  const [hasHeaderShadow, setHeaderShadow] = useState(false);
 
   // Determine if the current path is a chapter path
   const isChapterPath = currentPath.includes('chapter');
@@ -38,8 +39,21 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       console.log("Menu closed - body scroll enabled");
     }
 
+    // Add scroll event listener for header shadow
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 10) {
+        setHeaderShadow(true);
+      } else {
+        setHeaderShadow(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       document.body.style.overflow = 'auto';
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [location.pathname, isMenuOpen]);
 
@@ -62,7 +76,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   return (
     <div className="page-container">
-      <header className="main-header">
+      <header className={`main-header ${hasHeaderShadow ? 'header-shadow' : ''}`}>
         <div className="header-container">
           <div className="logo-title-container">
             <a href="https://www.ie.edu" target="_blank" rel="noreferrer" className="logo">
