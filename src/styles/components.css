@@ -7,131 +7,94 @@
   justify-content: flex-start;
   overflow: hidden;
   margin-bottom: 0;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-top: 0;
-  background-color: var(--soft-gray);
-}
-
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-color: var(--soft-gray);
-  background-image: linear-gradient(225deg, #9b87f5 0%, #F1F0FB 100%);
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(155, 135, 245, 0.6) 0%, rgba(241, 240, 251, 0.2) 100%);
+  padding: 2rem 0;
+  background-color: #f9f9fb;
 }
 
 .hero-content {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 3rem 5%;
+  padding: 0 5%;
   z-index: 1;
 }
 
-/* Bento Box Layout */
-.bento-grid {
+/* Hero grid layout */
+.hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
   gap: 1.5rem;
-  grid-template-areas: 
-    "main title"
-    "main objectives";
 }
 
-.bento-main-card {
-  grid-area: main;
+.hero-title-card {
+  grid-column: 1;
+  grid-row: 1;
+  background-color: white;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.hero-objectives-card {
+  grid-column: 1;
+  grid-row: 2;
+  background-color: white;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.hero-image-card {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  background-color: white;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  height: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
 }
 
-.bento-title-card {
-  grid-area: title;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-.bento-objectives-card {
-  grid-area: objectives;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-.bento-image {
+.hero-image {
   width: 100%;
   height: 100%;
   min-height: 400px;
-  max-height: 600px;
   overflow: hidden;
 }
 
-.bento-image img {
+.hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.bento-image-placeholder {
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-  background-color: rgba(155, 135, 245, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: var(--dark-gray);
-}
-
 /* Hero title styles */
-.hero-lesson-number {
+.lesson-number {
   font-size: 1.25rem;
   font-weight: 500;
-  color: var(--dark-gray);
+  color: #333;
   text-transform: uppercase;
-  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
-.hero-title {
+.lesson-title {
   font-size: 2.5rem;
-  color: var(--dark-gray);
+  color: #222;
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  text-align: left;
+  margin-bottom: 1rem;
 }
 
 .hero-subtitle {
   font-size: 1.1rem;
-  color: var(--text-dark);
+  color: #555;
   line-height: 1.6;
-  text-align: left;
 }
 
 /* Learning objectives styling */
 .objective-item {
   padding: 0.75rem 0;
   transition: transform 0.3s ease;
-  text-align: left;
 }
 
 .objective-item:not(:last-child) {
@@ -141,65 +104,68 @@
 .objective-text {
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--text-dark);
-  text-align: left;
+  color: #444;
 }
 
 /* Responsive styles */
 @media (max-width: 992px) {
-  .bento-grid {
+  .hero-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
-    grid-template-areas: 
-      "main"
-      "title"
-      "objectives";
   }
   
-  .bento-image, .bento-image-placeholder {
+  .hero-title-card {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .hero-objectives-card {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  .hero-image-card {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  .hero-image {
     min-height: 300px;
   }
   
-  .hero-title {
+  .lesson-title {
     font-size: 2.2rem;
-    text-align: left;
   }
 }
 
 @media (max-width: 768px) {
   .hero-content {
-    padding: 2rem 5%;
+    padding: 0 5%;
   }
   
-  .hero-title {
+  .lesson-title {
     font-size: 1.8rem;
-    text-align: left;
   }
   
-  .hero-subtitle {
-    text-align: left;
-  }
-  
-  .bento-image, .bento-image-placeholder {
+  .hero-image {
     min-height: 250px;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content {
-    padding: 1.5rem 5%;
+    padding: 0 5%;
   }
   
-  .hero-title {
+  .lesson-title {
     font-size: 1.6rem;
-    text-align: left;
   }
   
-  .hero-lesson-number {
+  .lesson-number {
     font-size: 1.1rem;
   }
   
-  .bento-image, .bento-image-placeholder {
+  .hero-image {
     min-height: 200px;
   }
 }

@@ -21,43 +21,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
 
   return (
-    <section className="hero-section bento-box">
-      <div className="hero-background">
-        <div className="hero-overlay"></div>
-      </div>
-      
+    <section className="hero-section">
       <div className="hero-content">
-        <div className="bento-grid">
-          {/* Left column with main content and image */}
-          <Card className="bento-main-card">
-            <CardContent className="p-0">
-              {backgroundImage && (
-                <div className="bento-image">
-                  <img src={backgroundImage} alt={title} className="w-full h-full object-cover" />
-                </div>
-              )}
-              {!backgroundImage && (
-                <div className="bento-image-placeholder">Course Image</div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Right column with title card */}
-          <Card className="bento-title-card">
-            <CardHeader className="pb-0">
-              <CardTitle className="text-3xl font-normal">
-                {lessonNumber && <span className="hero-lesson-number block mb-2">{lessonNumber}</span>}
-                <span className="hero-title">{lessonTitle}</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+        <div className="hero-grid">
+          <Card className="hero-title-card">
+            <CardContent className="p-6">
+              {lessonNumber && <p className="lesson-number">{lessonNumber}</p>}
+              <h1 className="lesson-title">{lessonTitle}</h1>
               {subtitle && <p className="hero-subtitle mt-4">{subtitle}</p>}
             </CardContent>
           </Card>
 
-          {/* Learning objectives card */}
           {objectives && objectives.length > 0 && (
-            <Card className="bento-objectives-card">
+            <Card className="hero-objectives-card">
               <CardHeader className="pb-0">
                 <CardTitle className="text-2xl font-normal">Learning Objectives</CardTitle>
               </CardHeader>
@@ -68,6 +44,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       <span className="objective-text">{objective}</span>
                     </div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {backgroundImage && (
+            <Card className="hero-image-card">
+              <CardContent className="p-0">
+                <div className="hero-image">
+                  <img src={backgroundImage} alt={title} className="w-full h-full object-cover" />
                 </div>
               </CardContent>
             </Card>
