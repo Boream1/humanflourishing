@@ -59,21 +59,24 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                 <nav className="flex flex-col py-6">
                   <Link 
                     to="/" 
-                    className={`py-2 px-4 rounded text-lg ${isActiveRoute('/') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                    className={`py-2 px-4 rounded text-lg relative flex items-center ${isActiveRoute('/') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
                   >
-                    Home
+                    <span className="flex-1">Home</span>
+                    {isActiveRoute('/') && <div className="absolute right-0 top-0 h-full w-1 bg-white rounded-l"></div>}
                   </Link>
                   <Link 
                     to="/chapter1" 
-                    className={`py-2 px-4 rounded text-lg ${isActiveRoute('/chapter1') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                    className={`py-2 px-4 rounded text-lg relative flex items-center ${isActiveRoute('/chapter1') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
                   >
-                    LESSON 1: Being Human
+                    <span className="flex-1">LESSON 1: Being Human</span>
+                    {isActiveRoute('/chapter1') && <div className="absolute right-0 top-0 h-full w-1 bg-white rounded-l"></div>}
                   </Link>
                   <Link 
                     to="/chapter2" 
-                    className={`py-2 px-4 rounded text-lg ${isActiveRoute('/chapter2') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
+                    className={`py-2 px-4 rounded text-lg relative flex items-center ${isActiveRoute('/chapter2') ? 'bg-primary text-white font-medium' : 'hover:bg-gray-100'}`}
                   >
-                    LESSON 2: Cultivating Awareness: Emotions and Cognition
+                    <span className="flex-1">LESSON 2: Cultivating Awareness: Emotions and Cognition</span>
+                    {isActiveRoute('/chapter2') && <div className="absolute right-0 top-0 h-full w-1 bg-white rounded-l"></div>}
                   </Link>
                 </nav>
               </SheetContent>
