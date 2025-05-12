@@ -1,7 +1,7 @@
 
 /* Lesson section styles */
 .lesson-section {
-  margin-bottom: 4rem; /* Reduced from 6rem */
+  margin-bottom: 160px; /* Increased from 4rem to 160px */
   text-align: left;
   width: 100%;
 }

@@ -1,7 +1,7 @@
 
 /* Video container */
 .video-section-container {
-  margin-bottom: 3rem;
+  margin-bottom: 160px; /* Increased from 3rem to 160px */
 }
 
 .video-container {
