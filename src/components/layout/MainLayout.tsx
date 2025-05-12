@@ -50,7 +50,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64">
+              <SheetContent side="right" className="w-[320px] sm:w-[400px]">
                 <nav className="flex flex-col py-6">
                   <Link 
                     to="/" 
