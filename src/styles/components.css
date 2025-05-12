@@ -2,15 +2,15 @@
 /* Hero section */
 .hero-section {
   position: relative;
-  min-height: 70vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  margin-top: 0; /* Ensure no top margin */
+  margin-top: 0;
   background-color: var(--soft-gray);
 }
 
@@ -40,7 +40,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 5%;
+  padding: 0 5%;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -116,7 +116,7 @@
 
 /* Learning objectives grid layout */
 .hero-objectives-container {
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0 0;
   margin-bottom: 0;
 }
 
@@ -136,6 +136,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
+  margin-bottom: 0;
+  padding-bottom: 1.5rem;
 }
 
 .objective-item {

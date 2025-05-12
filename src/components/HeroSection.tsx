@@ -1,3 +1,4 @@
+
 import React from 'react';
 interface HeroSectionProps {
   title: string;
@@ -15,16 +16,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
-  return <section className="hero-section bg-slate-50">
+  return <section className="hero-section">
       <div className="hero-background" style={backgroundImage ? {
       backgroundImage: `url(${backgroundImage})`
     } : {}}>
         <div className="hero-overlay"></div>
       </div>
       
-      <div className="hero-content px-[182px]">
+      <div className="hero-content">
         {/* Main title and image section - two columns */}
-        <div className="hero-main-container py-[60px]">
+        <div className="hero-main-container py-[40px]">
           <div className="hero-title-container">
             {lessonNumber && <span className="hero-lesson-number text-left text-xl">{lessonNumber}</span>}
             <h1 className="hero-main-title text-5xl font-normal">{lessonTitle}</h1>
@@ -38,7 +39,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
         
         {/* Learning objectives section - grid layout */}
-        {objectives && objectives.length > 0 && <div className="hero-objectives-container pb-6">
+        {objectives && objectives.length > 0 && <div className="hero-objectives-container pb-0">
             <div className="objectives-header">
               <h2 className="objectives-title text-2xl">Learning Objectives</h2>
             </div>
