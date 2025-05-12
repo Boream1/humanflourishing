@@ -8,9 +8,13 @@
   justify-content: flex-start;
   overflow: hidden;
   margin-bottom: 0;
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   padding: 4rem 0;
   background-color: #f9f9fb;
+  /* Add top and bottom grey lines */
+  border-top: 1px solid #e1e5eb;
+  border-bottom: 1px solid #e1e5eb;
 }
 
 .hero-content {
