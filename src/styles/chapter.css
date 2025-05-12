@@ -99,45 +99,68 @@
 
 /* Key point styles */
 .key-point {
-  background-color: transparent;
-  border: none;
-  padding: 2rem 0;
+  position: relative;
+  padding: 0;
   margin: 3rem 0;
   text-align: left;
   width: 100%;
 }
 
+.key-point-content {
+  padding: 1.5rem 2rem 1.5rem 2.5rem;
+  position: relative;
+  background-color: rgba(248, 248, 248, 0.7);
+  border-radius: 8px;
+}
+
+.key-point-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #000;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
 .key-point-header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
 .key-point-icon {
   color: #000;
-  margin-bottom: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .key-point h3 {
   color: var(--dark-gray);
-  margin-bottom: 0;
-  font-size: 1.5rem;
+  margin: 0;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
 .key-point p {
-  margin-top: 1rem;
+  margin: 0;
+  line-height: 1.6;
 }
 
 /* Video container */
+.video-section-container {
+  margin-bottom: 3rem;
+}
+
 .video-container {
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  border-radius: 0;
   width: 100%;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 /* Video styling */

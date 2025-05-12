@@ -18,25 +18,27 @@ const KeyPoint: React.FC<KeyPointProps> = ({ text, type = 'general' }) => {
   const getIcon = () => {
     switch (type) {
       case 'social':
-        return <Users className="key-point-icon" size={28} strokeWidth={2} />;
+        return <Users className="key-point-icon" size={24} strokeWidth={2} />;
       case 'awareness':
-        return <AlertCircle className="key-point-icon" size={28} strokeWidth={2} />;
+        return <AlertCircle className="key-point-icon" size={24} strokeWidth={2} />;
       case 'insight':
-        return <Lightbulb className="key-point-icon" size={28} strokeWidth={2} />;
+        return <Lightbulb className="key-point-icon" size={24} strokeWidth={2} />;
       case 'wellbeing':
-        return <Heart className="key-point-icon" size={28} strokeWidth={2} />;
+        return <Heart className="key-point-icon" size={24} strokeWidth={2} />;
       default:
-        return <Key className="key-point-icon" size={28} strokeWidth={2} />;
+        return <Key className="key-point-icon" size={24} strokeWidth={2} />;
     }
   };
   
   return (
     <div className="key-point">
-      <div className="key-point-header">
-        {getIcon()}
-        <h3>Key Point</h3>
+      <div className="key-point-content">
+        <div className="key-point-header">
+          {getIcon()}
+          <h3>Key Point</h3>
+        </div>
+        <p>{text}</p>
       </div>
-      <p>{text}</p>
     </div>
   );
 };

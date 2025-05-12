@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from "react";
 import KeyPoint from "./KeyPoint";
 
@@ -71,7 +72,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   return (
     <section className="lesson-section" id={id}>
       <h2 className="section-heading">{title}</h2>
-      <div className="content-block">
+      <div className="content-block video-section-container">
         <div className="video-container">
           {isLoading && !hasError && (
             <div className="video-loading">
