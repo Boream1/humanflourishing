@@ -1,0 +1,61 @@
+
+/* Video container */
+.video-section-container {
+  margin-bottom: 3rem;
+}
+
+.video-container {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Video styling */
+.html5-video {
+  width: 100%;
+  display: block;
+}
+
+/* Video loading/error states */
+.video-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--dark-gray);
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid var(--dark-gray);
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+.video-error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--dark-gray);
+  border-radius: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,51 @@
+
+/* Key point styles */
+.key-point {
+  position: relative;
+  padding: 0;
+  margin: 3rem 0;
+  text-align: left;
+  width: 100%;
+}
+
+.key-point-content {
+  padding: 1.5rem 2rem 1.5rem 2.5rem;
+  position: relative;
+  background-color: rgba(248, 248, 248, 0.7);
+  border-radius: 8px;
+}
+
+.key-point-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #000;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.key-point-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.key-point-icon {
+  color: #000;
+  margin-right: 0.75rem;
+}
+
+.key-point h3 {
+  color: var(--dark-gray);
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.key-point p {
+  margin: 0;
+  line-height: 1.6;
+}

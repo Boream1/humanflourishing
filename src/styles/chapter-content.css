@@ -1,0 +1,49 @@
+
+/* Chapter content styles */
+.chapter-content {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.chapter-header {
+  margin-bottom: 5rem;
+  text-align: left;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.chapter-title {
+  font-size: 3.5rem;
+  color: var(--dark-gray);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.chapter-description {
+  color: var(--text-light);
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+/* Lesson content */
+.lesson-content {
+  background-color: white;
+  padding: 2rem 0;
+  margin-bottom: 3rem;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+}
+
+.chapter-body {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

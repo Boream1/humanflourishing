@@ -1,0 +1,50 @@
+
+/* Lesson section styles */
+.lesson-section {
+  margin-bottom: 6rem;
+  text-align: left;
+  width: 100%;
+}
+
+.lesson-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-heading {
+  font-size: 2.5rem;
+  color: var(--dark-gray);
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+  border-left: none;
+  padding-left: 0;
+  text-align: left;
+}
+
+.content-block {
+  margin-bottom: 3rem;
+  text-align: left;
+  width: 100%;
+}
+
+.content-block p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* Bullet list styles */
+.bullet-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  max-width: 600px;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.bullet-list li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
