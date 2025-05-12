@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -7,6 +6,7 @@ import ChapterNavigation from "./ChapterNavigation";
 import { createRoot } from "react-dom/client";
 import KeyPoint from "./KeyPoint";
 import { Card, CardContent } from "./ui/card";
+import YouTubePlayer from "./YouTubePlayer";
 
 const Chapter2Content: React.FC = () => {
   const learningObjectives = [
@@ -155,11 +155,9 @@ const Chapter2Content: React.FC = () => {
             <h2 className="section-heading">The Emotion Pills We Are All Unknowingly Taking</h2>
             <div className="content-block">
               <p>Lee Newman, Dean of IE Business School, shares some insights on emotions in the video below:</p>
-              <p className="mt-4">
-                <a href="https://www.youtube.com/watch?v=H8UUWbQEH_E" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
-                  https://www.youtube.com/watch?v=H8UUWbQEH_E
-                </a>
-              </p>
+              <div className="youtube-video-container">
+                <YouTubePlayer videoId="H8UUWbQEH_E" title="The Emotion Pills We Are All Unknowingly Taking" />
+              </div>
             </div>
           </section>
 
