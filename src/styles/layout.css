@@ -1,3 +1,4 @@
+
 /* Main container */
 .page-container {
   min-height: 100vh;
@@ -8,7 +9,7 @@
 /* Header */
 .main-header {
   background-color: white;
-  border-bottom: 1px solid var(--border-color);
+  border: none;
   padding: 0.75rem 0;
   width: 100%;
   position: sticky;
@@ -87,6 +88,7 @@
   color: var(--text-light);
   font-size: 0.9rem;
   margin-top: auto;
+  border: none;
 }
 
 .main-footer p {

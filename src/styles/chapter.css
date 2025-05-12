@@ -37,8 +37,7 @@
   padding: 2rem 0;
   margin-bottom: 3rem;
   width: 100%;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  border: none;
   box-shadow: none;
 }
 
@@ -101,9 +100,7 @@
 /* Key point styles */
 .key-point {
   background-color: transparent;
-  border-left: none;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  border: none;
   padding: 2rem 0;
   margin: 3rem 0;
   text-align: left;
