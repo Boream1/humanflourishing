@@ -97,10 +97,6 @@
     max-height: 30px;
   }
   
-  .header-actions {
-    gap: 0.5rem;
-  }
-  
   .header-container,
   .hero-content,
   .chapter-body,
