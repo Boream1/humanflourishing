@@ -55,6 +55,7 @@
 .header-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .hamburger-button {
@@ -70,6 +71,13 @@
 
 .hamburger-button:focus {
   outline: none;
+}
+
+/* Active link in the menu */
+.active-link {
+  position: relative;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Header shadow class that will be added on scroll */
