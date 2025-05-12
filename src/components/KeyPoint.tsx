@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Key, Users, AlertCircle, LightBulb, Heart } from 'lucide-react';
+import { Key, Users, AlertCircle, Lightbulb, Heart } from 'lucide-react';
 
 interface KeyPointProps {
   text: string;
@@ -22,7 +22,7 @@ const KeyPoint: React.FC<KeyPointProps> = ({ text, type = 'general' }) => {
       case 'awareness':
         return <AlertCircle className="key-point-icon" size={28} strokeWidth={2} />;
       case 'insight':
-        return <LightBulb className="key-point-icon" size={28} strokeWidth={2} />;
+        return <Lightbulb className="key-point-icon" size={28} strokeWidth={2} />;
       case 'wellbeing':
         return <Heart className="key-point-icon" size={28} strokeWidth={2} />;
       default:
