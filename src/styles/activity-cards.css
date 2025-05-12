@@ -58,3 +58,34 @@
 .activity-card .card-content {
   text-align: left;
 }
+
+/* Metacognition practice cards grid */
+.metacognition-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.practice-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-card h3 {
+  color: var(--accent-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .metacognition-cards {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .metacognition-cards {
+    grid-template-columns: 1fr;
+  }
+}
