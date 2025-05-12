@@ -39,152 +39,140 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 5%;
+  padding: 3rem 5%;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
 }
 
-/* Main two-column layout */
-.hero-main-container {
+/* Bento Box Layout */
+.bento-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem 0;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+  grid-template-areas: 
+    "main title"
+    "main objectives";
 }
 
-.hero-title-container {
+.bento-main-card {
+  grid-area: main;
+  overflow: hidden;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.bento-title-card {
+  grid-area: title;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bento-objectives-card {
+  grid-area: objectives;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bento-image {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.bento-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bento-image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  background-color: rgba(155, 135, 245, 0.2);
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 2rem 0;
+  font-size: 1.5rem;
+  color: var(--dark-gray);
+}
+
+/* Hero title styles */
+.hero-lesson-number {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--dark-gray);
+  text-transform: uppercase;
   text-align: left;
 }
 
-.hero-lesson-number {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+.hero-title {
+  font-size: 2.5rem;
   color: var(--dark-gray);
-  text-transform: uppercase;
-}
-
-.hero-main-title {
-  font-size: 3.5rem;
-  color: var(--dark-gray);
-  margin-bottom: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.2;
   text-align: left;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   color: var(--text-dark);
-  margin-top: 1rem;
+  line-height: 1.6;
   text-align: left;
 }
 
-/* Hero image section */
-.hero-image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 400px;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-image-placeholder {
-  width: 100%;
-  height: 300px;
-  background-color: rgba(255, 255, 255, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: var(--dark-gray);
-  border-radius: 8px;
-}
-
-/* Learning objectives grid layout */
-.hero-objectives-container {
-  padding: 1.5rem 0 0 0;
-  margin-bottom: 0;
-}
-
-.objectives-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.objectives-title {
-  font-size: 1.75rem;
-  color: var(--dark-gray);
-  font-weight: 600;
-}
-
-.objectives-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 0;
-  padding-bottom: 3rem;
-}
-
+/* Learning objectives styling */
 .objective-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.75rem 0;
+  transition: transform 0.3s ease;
+  text-align: left;
 }
 
-.objective-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+.objective-item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .objective-text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--text-dark);
+  text-align: left;
 }
 
-/* Responsive styles for hero section */
+/* Responsive styles */
 @media (max-width: 992px) {
-  .hero-main-container {
+  .bento-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 
+      "main"
+      "title"
+      "objectives";
   }
   
-  .hero-image-container {
-    order: -1;
-    margin-bottom: 1rem;
+  .bento-image, .bento-image-placeholder {
+    min-height: 300px;
   }
   
-  .hero-title-container {
-    padding: 1rem 0;
-    text-align: left;
-  }
-  
-  .hero-main-title {
-    font-size: 3rem;
+  .hero-title {
+    font-size: 2.2rem;
     text-align: left;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-main-title {
-    font-size: 2.5rem;
+  .hero-content {
+    padding: 2rem 5%;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
     text-align: left;
   }
   
@@ -192,32 +180,27 @@
     text-align: left;
   }
   
-  .objectives-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .hero-objectives-container {
-    padding: 1rem 0;
-  }
-  
-  .hero-section {
-    min-height: auto;
+  .bento-image, .bento-image-placeholder {
+    min-height: 250px;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-main-title {
-    font-size: 2rem;
+  .hero-content {
+    padding: 1.5rem 5%;
+  }
+  
+  .hero-title {
+    font-size: 1.6rem;
     text-align: left;
   }
   
   .hero-lesson-number {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
   
-  .objectives-title {
-    font-size: 1.5rem;
-    text-align: left;
+  .bento-image, .bento-image-placeholder {
+    min-height: 200px;
   }
 }
 

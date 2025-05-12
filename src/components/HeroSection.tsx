@@ -1,11 +1,14 @@
 
 import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+
 interface HeroSectionProps {
   title: string;
   subtitle?: string;
   objectives?: string[];
   backgroundImage?: string;
 }
+
 const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
@@ -16,41 +19,63 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
-  return <section className="hero-section bg-gray-100">
-      <div className="hero-background" style={backgroundImage ? {
-      backgroundImage: `url(${backgroundImage})`
-    } : {}}>
+
+  return (
+    <section className="hero-section bento-box">
+      <div className="hero-background">
         <div className="hero-overlay"></div>
       </div>
       
-      <div className="hero-content py-[60px]">
-        {/* Main title and image section - two columns */}
-        <div className="hero-main-container py-[40px]">
-          <div className="hero-title-container">
-            {lessonNumber && <span className="hero-lesson-number text-left text-xl">{lessonNumber}</span>}
-            <h1 className="hero-main-title text-5xl font-normal">{lessonTitle}</h1>
-            {subtitle && <p className="hero-subtitle">{subtitle}</p>}
-          </div>
-          
-          <div className="hero-image-container">
-            {backgroundImage && <img src={backgroundImage} alt={title} className="hero-image" />}
-            {!backgroundImage && <div className="hero-image-placeholder">Course Image</div>}
-          </div>
+      <div className="hero-content">
+        <div className="bento-grid">
+          {/* Left column with main content and image */}
+          <Card className="bento-main-card">
+            <CardContent className="p-0">
+              {backgroundImage && (
+                <div className="bento-image">
+                  <img src={backgroundImage} alt={title} className="w-full h-full object-cover" />
+                </div>
+              )}
+              {!backgroundImage && (
+                <div className="bento-image-placeholder">Course Image</div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Right column with title card */}
+          <Card className="bento-title-card">
+            <CardHeader className="pb-0">
+              <CardTitle className="text-3xl font-normal">
+                {lessonNumber && <span className="hero-lesson-number block mb-2">{lessonNumber}</span>}
+                <span className="hero-title">{lessonTitle}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {subtitle && <p className="hero-subtitle mt-4">{subtitle}</p>}
+            </CardContent>
+          </Card>
+
+          {/* Learning objectives card */}
+          {objectives && objectives.length > 0 && (
+            <Card className="bento-objectives-card">
+              <CardHeader className="pb-0">
+                <CardTitle className="text-2xl font-normal">Learning Objectives</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="mt-2">
+                  {objectives.map((objective, index) => (
+                    <div key={index} className="objective-item mb-3">
+                      <span className="objective-text">{objective}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
-        
-        {/* Learning objectives section - grid layout */}
-        {objectives && objectives.length > 0 && <div className="hero-objectives-container pb-0">
-            <div className="objectives-header">
-              <h2 className="objectives-title text-xl text-left">Learning Objectives</h2>
-            </div>
-            
-            <div className="objectives-grid">
-              {objectives.map((objective, index) => <div key={index} className="objective-item">
-                  <span className="objective-text text-base text-left">{objective}</span>
-                </div>)}
-            </div>
-          </div>}
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;
