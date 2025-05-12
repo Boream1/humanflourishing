@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Key, Users, AlertCircle, Lightbulb, Heart } from 'lucide-react';
+import { Separator } from "./ui/separator";
+import { Card, CardContent, CardHeader } from "./ui/card";
 
 interface KeyPointProps {
   text: string;
@@ -31,13 +33,18 @@ const KeyPoint: React.FC<KeyPointProps> = ({ text, type = 'general' }) => {
   };
   
   return (
-    <div className="key-point">
-      <div className="key-point-header">
-        {getIcon()}
-        <h3>Key Point</h3>
-      </div>
-      <p>{text}</p>
-    </div>
+    <Card className="key-point-card">
+      <CardHeader className="key-point-header">
+        <div className="key-point-icon-wrapper">
+          {getIcon()}
+        </div>
+        <h3 className="key-point-title">Key Point</h3>
+        <Separator className="my-2" />
+      </CardHeader>
+      <CardContent>
+        <p className="key-point-text">{text}</p>
+      </CardContent>
+    </Card>
   );
 };
 
