@@ -1,0 +1,71 @@
+
+/* Course overview section */
+.course-overview {
+  padding: 4rem 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: left;
+  color: var(--dark-gray);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Chapter cards */
+.chapter-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.chapter-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.chapter-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+
+.chapter-preview {
+  margin-bottom: 1.5rem;
+  color: var(--text-light);
+}
+
+.chapter-link {
+  display: inline-block;
+  color: var(--accent-color);
+  font-weight: 600;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.chapter-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.chapter-link:hover::after, .chapter-link:focus::after {
+  width: 100%;
+}

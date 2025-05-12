@@ -13,7 +13,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
   objectives,
-  backgroundImage = "/lovable-uploads/89096209-1df0-4b51-96c6-2d8a6bd364ce.png" // Default to use the new image
+  backgroundImage = "/lovable-uploads/89096209-1df0-4b51-96c6-2d8a6bd364ce.png" // Default image
 }) => {
   // Split the title into two parts if it contains a colon
   const titleParts = title.split(':');
@@ -52,7 +52,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <Card className="hero-image-card">
             <CardContent className="p-0">
               <div className="hero-image">
-                <img src={backgroundImage} alt={title} className="w-full h-full object-cover" />
+                <img 
+                  src={backgroundImage} 
+                  alt={title} 
+                  className="w-full h-full object-cover" 
+                />
               </div>
             </CardContent>
           </Card>
