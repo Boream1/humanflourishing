@@ -1,4 +1,3 @@
-
 /* Hero section */
 .hero-section {
   position: relative;
@@ -52,7 +51,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   padding: 2rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .hero-title-container {
@@ -60,6 +58,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 2rem 0;
+  text-align: left;
 }
 
 .hero-lesson-number {
@@ -77,12 +76,14 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  text-align: left;
 }
 
 .hero-subtitle {
   font-size: 1.25rem;
   color: var(--text-dark);
   margin-top: 1rem;
+  text-align: left;
 }
 
 /* Hero image section */
@@ -122,8 +123,7 @@
 
 .objectives-header {
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 0.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .objectives-title {
@@ -135,9 +135,9 @@
 .objectives-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
   margin-bottom: 0;
-  padding-bottom: 1.5rem;
+  padding-bottom: 3rem;
 }
 
 .objective-item {
@@ -173,16 +173,23 @@
   
   .hero-title-container {
     padding: 1rem 0;
+    text-align: left;
   }
   
   .hero-main-title {
     font-size: 3rem;
+    text-align: left;
   }
 }
 
 @media (max-width: 768px) {
   .hero-main-title {
     font-size: 2.5rem;
+    text-align: left;
+  }
+  
+  .hero-subtitle {
+    text-align: left;
   }
   
   .objectives-grid {
@@ -201,6 +208,7 @@
 @media (max-width: 480px) {
   .hero-main-title {
     font-size: 2rem;
+    text-align: left;
   }
   
   .hero-lesson-number {
@@ -209,6 +217,7 @@
   
   .objectives-title {
     font-size: 1.5rem;
+    text-align: left;
   }
 }
 

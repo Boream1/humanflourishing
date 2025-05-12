@@ -1,3 +1,4 @@
+
 import React from 'react';
 interface HeroSectionProps {
   title: string;
@@ -40,7 +41,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Learning objectives section - grid layout */}
         {objectives && objectives.length > 0 && <div className="hero-objectives-container pb-0">
             <div className="objectives-header">
-              <h2 className="objectives-title text-xl">Learning Objectives</h2>
+              <h2 className="objectives-title text-xl text-left">Learning Objectives</h2>
             </div>
             
             <div className="objectives-grid">
