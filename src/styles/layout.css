@@ -15,7 +15,7 @@
   margin-left: calc(-50vw + 50%);
   position: sticky;
   top: 0;
-  z-index: 1500; /* Below menu overlay but above other content */
+  z-index: 50; /* Lowered z-index to ensure menu overlay appears above */
   transition: box-shadow 0.3s ease;
 }
 
