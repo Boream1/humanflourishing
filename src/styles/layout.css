@@ -11,8 +11,7 @@
   background-color: white;
   border-bottom: 1px solid var(--border-color);
   padding: 0.75rem 0;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   position: sticky;
   top: 0;
   z-index: 1500; /* Below menu overlay but above other content */
@@ -25,7 +24,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 5%;
+  padding: 0 1rem;
 }
 
 .logo-title-container {
@@ -74,7 +73,7 @@
 /* Main content */
 .main-content {
   flex: 1;
-  padding: 0 0 5% 0; /* Keep padding at bottom only */
+  padding: 0;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -89,6 +88,10 @@
   color: var(--text-light);
   font-size: 0.9rem;
   margin-top: auto;
-  padding-left: 5%;
-  padding-right: 5%;
+}
+
+.main-footer p {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }

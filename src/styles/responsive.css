@@ -20,6 +20,14 @@
   .course-title {
     font-size: 1.1rem;
   }
+  
+  .header-container,
+  .hero-content,
+  .chapter-body,
+  .chapter-header,
+  .main-footer p {
+    padding: 0 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -41,7 +49,7 @@
   }
   
   .chapter-header {
-    padding: 0 5%;
+    padding: 0 1.5rem;
   }
   
   .language-switcher {
@@ -50,18 +58,15 @@
   
   .header-container,
   .hero-content,
-  .chapter-body {
-    padding: 0 5%;
+  .chapter-body,
+  .main-footer p {
+    padding: 0 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-section {
     padding: 3rem 0;
-  }
-
-  .hero-content {
-    padding: 0 5%;
   }
 
   .hero-title {
@@ -98,7 +103,9 @@
   
   .header-container,
   .hero-content,
-  .chapter-body {
-    padding: 0 5%;
+  .chapter-body,
+  .chapter-header,
+  .main-footer p {
+    padding: 0 1rem;
   }
 }
