@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -107,7 +108,7 @@ const Chapter1Content: React.FC = () => {
       <HeroSection 
         title="LESSON 1: Being Human"
         objectives={learningObjectives}
-        backgroundImage="/lovable-uploads/170ba942-1a2e-4c01-af93-ab6aa9608e73.png"
+        backgroundImage="/assets/talgat-baizrahmanov-BayiApxgDPY-unsplash.jpg"
       />
 
       <section className="chapter-body">
