@@ -1,8 +1,8 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { BookOpen, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ReadingLink {
   title: string;
@@ -32,21 +32,19 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({
             <div className="reading-cards">
               {links.map((link, index) => (
                 <Card key={index} className="reading-card">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="reading-icon-container">
-                        <BookOpen className="reading-icon" size={24} />
-                      </div>
-                      <div className="reading-content">
-                        <a 
-                          href={link.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="reading-link"
-                        >
-                          {link.title}
-                        </a>
-                      </div>
+                  <CardContent className="p-6 reading-card-content">
+                    <div className="reading-icon-container">
+                      <BookOpen className="reading-icon" size={24} />
+                    </div>
+                    <div className="reading-content">
+                      <h3 className="reading-title">{link.title}</h3>
+                      <Button 
+                        variant="ghost" 
+                        className="reading-button" 
+                        onClick={() => window.open(link.url, "_blank")}
+                      >
+                        Read More <ArrowRight className="ml-2" size={16} />
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -57,6 +55,6 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({
       </div>
     </section>
   );
-};
+}
 
 export default ReadingSection;
