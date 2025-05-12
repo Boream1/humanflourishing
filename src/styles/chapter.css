@@ -10,9 +10,10 @@
 .chapter-header {
   margin-bottom: 5rem;
   text-align: left;
-  max-width: 800px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 5%;
 }
 
 .chapter-title {
@@ -41,11 +42,15 @@
   box-shadow: none;
 }
 
+.chapter-body {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
 .lesson-section {
   margin-bottom: 6rem;
-  max-width: 900px;
-  margin-left: 5%;
-  margin-right: auto;
   text-align: left;
 }
 
@@ -100,7 +105,6 @@
   padding: 2rem 0;
   margin: 3rem 0;
   text-align: left;
-  max-width: 800px;
 }
 
 .key-point h3 {
@@ -113,12 +117,12 @@
 /* Video container */
 .video-container {
   margin: 0 auto;
-  max-width: 900px;
   position: relative;
   overflow: hidden;
   border-radius: 0;
   margin-bottom: 3rem;
   margin-left: 0;
+  width: 100%;
 }
 
 /* Video styling */
