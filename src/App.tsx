@@ -39,6 +39,7 @@ function App() {
             <Routes>
               <Route path="/chapter1" element={<Chapter1Content />} />
               <Route path="/chapter2" element={<Chapter2Content />} />
+              <Route path="/chapter3" element={<NotFound />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </MainLayout>

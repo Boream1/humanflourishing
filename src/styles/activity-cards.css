@@ -1,0 +1,43 @@
+
+/* Activity card styles */
+.activity-card {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.activity-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card .p-6 {
+  padding: 1.5rem;
+}
+
+.activity-card h3 {
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin-bottom: 0.75rem;
+}
+
+.activity-card p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.activity-card ul, 
+.activity-card ol {
+  margin-bottom: 1rem;
+}
+
+.activity-card li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.activity-card strong {
+  font-weight: 600;
+}
