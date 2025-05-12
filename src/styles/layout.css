@@ -11,10 +11,11 @@
   background-color: white;
   border-bottom: 1px solid var(--border-color);
   padding: 0.75rem 0;
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 50; /* Lowered z-index to ensure menu overlay appears above */
   transition: box-shadow 0.3s ease;
 }
 
@@ -23,7 +24,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -51,7 +52,7 @@
   font-weight: 500;
 }
 
-.menu-button-container {
+.header-actions {
   display: flex;
   align-items: center;
 }
@@ -71,13 +72,6 @@
   outline: none;
 }
 
-/* Active link in the menu */
-.active-link {
-  position: relative;
-  font-weight: 500;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
 /* Header shadow class that will be added on scroll */
 .header-shadow {
   border-bottom: none;
@@ -91,7 +85,7 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  z-index: 1;
+  z-index: 1; /* Ensure main content has lower z-index than header and menu */
 }
 
 /* Footer */
