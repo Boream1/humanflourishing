@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
@@ -7,7 +8,6 @@ import Chapter2Content from './components/Chapter2Content';
 import NotFound from './pages/NotFound';
 import './App.css';
 import { LanguageProvider } from "./context/LanguageContext";
-import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   const location = useLocation();
@@ -40,21 +40,19 @@ function App() {
 
   return (
     <LanguageProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={
-            <MainLayout>
-              <Routes>
-                <Route path="/chapter1" element={<Chapter1Content />} />
-                <Route path="/chapter2" element={<Chapter2Content />} />
-                <Route path="/chapter3" element={<NotFound />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </MainLayout>
-          } />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={
+          <MainLayout>
+            <Routes>
+              <Route path="/chapter1" element={<Chapter1Content />} />
+              <Route path="/chapter2" element={<Chapter2Content />} />
+              <Route path="/chapter3" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </MainLayout>
+        } />
+      </Routes>
     </LanguageProvider>
   );
 }
