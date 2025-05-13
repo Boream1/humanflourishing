@@ -33,39 +33,55 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
+    // Handler functions for video events
     const handleCanPlay = () => {
       setIsLoading(false);
     };
 
-    const handleError = () => {
+    const handleError = (e: Event) => {
+      console.error("Video error:", e);
       setHasError(true);
       setIsLoading(false);
-      console.error("Error loading video:", videoId);
     };
 
+    // Add event listeners
     videoElement.addEventListener("canplay", handleCanPlay);
     videoElement.addEventListener("error", handleError);
 
     // Set up lazy loading with Intersection Observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && videoElement.getAttribute("data-src")) {
-            videoElement.src = videoElement.getAttribute("data-src") || "";
-            videoElement.load();
-            observer.unobserve(videoElement);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    let observer: IntersectionObserver | null = null;
+    
+    try {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && videoElement.getAttribute("data-src")) {
+              videoElement.src = videoElement.getAttribute("data-src") || "";
+              videoElement.load();
+              observer?.unobserve(videoElement);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-    observer.observe(videoElement);
+      observer.observe(videoElement);
+    } catch (error) {
+      console.error("Error setting up IntersectionObserver:", error);
+      // Fallback if IntersectionObserver fails
+      if (videoElement.getAttribute("data-src")) {
+        videoElement.src = videoElement.getAttribute("data-src") || "";
+        videoElement.load();
+      }
+    }
 
+    // Clean up function
     return () => {
       videoElement.removeEventListener("canplay", handleCanPlay);
       videoElement.removeEventListener("error", handleError);
-      observer.disconnect();
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, [videoId]);
 

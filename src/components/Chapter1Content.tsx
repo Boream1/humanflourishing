@@ -58,60 +58,93 @@ const Chapter1Content: React.FC = () => {
     }
 
     // Mount the reflection activity component
-    const reflectionRoot = document.getElementById("reflection-activity-root");
-    if (reflectionRoot && !reflectionRootRef.current) {
-      console.log("Mounting ReflectionActivity component");
-      try {
-        reflectionRootRef.current = createRoot(reflectionRoot);
-        reflectionRootRef.current.render(<ReflectionActivity />);
-      } catch (error) {
-        console.error("Error rendering ReflectionActivity:", error);
-      }
-    }
-
-    // Set up the feedback trigger for the last video
-    const setupFeedbackTrigger = () => {
-      if (feedbackSetupRef.current) return;
-      
-      const lastVideo = document.getElementById("video-1-6") as HTMLVideoElement;
-      
-      if (lastVideo) {
-        console.log("Configuring feedback event for last video");
-        
-        lastVideo.addEventListener("ended", function() {
-          console.log("Last video ended, triggering feedback modal");
-          document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
-        });
-        
-        feedbackSetupRef.current = true;
+    const mountReflectionActivity = () => {
+      const reflectionRoot = document.getElementById("reflection-activity-root");
+      if (reflectionRoot && !reflectionRootRef.current) {
+        console.log("Mounting ReflectionActivity component");
+        try {
+          reflectionRootRef.current = createRoot(reflectionRoot);
+          reflectionRootRef.current.render(<ReflectionActivity />);
+        } catch (error) {
+          console.error("Error rendering ReflectionActivity:", error);
+        }
       }
     };
 
-    // Try multiple times to set up the feedback trigger
-    const setupInterval = setInterval(() => {
-      setupFeedbackTrigger();
-      if (feedbackSetupRef.current) {
-        clearInterval(setupInterval);
+    // Safety check to ensure DOM is fully loaded before mounting
+    if (document.readyState === 'complete') {
+      mountReflectionActivity();
+    } else {
+      window.addEventListener('load', mountReflectionActivity);
+      return () => window.removeEventListener('load', mountReflectionActivity);
+    }
+
+    // Set up the feedback trigger for the last video with safer event binding
+    const setupFeedbackTrigger = () => {
+      if (feedbackSetupRef.current) return;
+      
+      try {
+        const lastVideo = document.getElementById("video-1-6") as HTMLVideoElement;
+        
+        if (lastVideo && lastVideo instanceof HTMLVideoElement) {
+          console.log("Configuring feedback event for last video");
+          
+          const handleVideoEnd = () => {
+            console.log("Last video ended, triggering feedback modal");
+            document.dispatchEvent(new CustomEvent("ie-feedback-widget-openModal"));
+          };
+          
+          lastVideo.addEventListener("ended", handleVideoEnd);
+          feedbackSetupRef.current = true;
+          
+          return () => {
+            if (lastVideo) {
+              lastVideo.removeEventListener("ended", handleVideoEnd);
+            }
+          };
+        }
+      } catch (error) {
+        console.error("Error setting up feedback trigger:", error);
       }
+      
+      return undefined;
+    };
+
+    // Try to set up feedback trigger with a timeout to ensure video elements are loaded
+    const triggerTimeout = setTimeout(() => {
+      setupFeedbackTrigger();
     }, 2000);
 
     // Also set up navigation feedback trigger
     const setupNavigationFeedback = () => {
-      const navButtons = document.querySelectorAll('.nav-button.next');
-      navButtons.forEach(button => {
-        button.addEventListener('click', () => {
+      try {
+        const navButtons = document.querySelectorAll('.nav-button.next');
+        const handleNavClick = () => {
           console.log('Navigation button clicked, triggering feedback modal');
           document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
+        };
+        
+        navButtons.forEach(button => {
+          button.addEventListener('click', handleNavClick);
         });
-      });
+        
+        return () => {
+          navButtons.forEach(button => {
+            button.removeEventListener('click', handleNavClick);
+          });
+        };
+      } catch (error) {
+        console.error("Error setting up navigation feedback:", error);
+        return undefined;
+      }
     };
     
-    // Wait for DOM to be ready before setting up navigation feedback
-    setTimeout(setupNavigationFeedback, 1500);
+    const navTimeout = setTimeout(setupNavigationFeedback, 1500);
 
     // Clean up
     return () => {
-      clearInterval(setupInterval);
+      clearTimeout(triggerTimeout);
+      clearTimeout(navTimeout);
     };
   }, []);
 

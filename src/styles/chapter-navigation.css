@@ -9,7 +9,7 @@
   position: relative;
 }
 
-.nav-buttons {
+.nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,6 +26,9 @@
   font-weight: 500;
   color: var(--dark-gray);
   transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .nav-button:hover, .nav-button:focus {
@@ -40,7 +43,7 @@
 }
 
 @media (max-width: 768px) {
-  .nav-buttons {
+  .nav-container {
     flex-direction: column;
     gap: 1.5rem;
   }

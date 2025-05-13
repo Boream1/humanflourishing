@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
@@ -20,6 +21,15 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
   // Determine default text based on links
   const defaultPrevText = prevLink === "/" ? t('backToHome') : t('previousChapter');
   const defaultNextText = t('nextChapter');
+  
+  // Safely trigger feedback when clicking next button
+  const handleNextClick = () => {
+    try {
+      document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
+    } catch (error) {
+      console.error("Error triggering feedback modal:", error);
+    }
+  };
 
   return (
     <div className="chapter-navigation">
@@ -27,7 +37,11 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
         <Link className="nav-button prev" to={prevLink}>
           {prevText || defaultPrevText}
         </Link>
-        <Link className="nav-button next" to={nextLink}>
+        <Link 
+          className="nav-button next" 
+          to={nextLink} 
+          onClick={handleNextClick}
+        >
           {nextText || defaultNextText}
         </Link>
       </div>
