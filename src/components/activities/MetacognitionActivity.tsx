@@ -1,41 +1,48 @@
 
 import React from "react";
 import { Card, CardContent } from "../ui/card";
+import { useLanguage } from "../../context/LanguageContext";
 
 const MetacognitionActivity: React.FC = () => {
+  const { t } = useLanguage();
+
   // Metacognition practices
-  const metacognitionPractices = [
-    {
-      title: "Journaling",
-      description: "Writing down your thoughts, feelings, and experiences helps increase self-awareness and provides insights into your thinking patterns."
-    },
-    {
-      title: "Mindfulness",
-      description: "Focusing your awareness on the present moment can reduce stress and improve cognitive clarity by preventing your mind from wandering."
-    },
-    {
-      title: "Take time to pause",
-      description: "Deliberately pausing before reacting allows you to consider your thoughts and responses, leading to more thoughtful decision-making."
-    },
-    {
-      title: "Stand up and move around",
-      description: "Physical movement can boost brain function and creativity, helping you think more clearly and effectively."
-    },
-    {
-      title: "Appreciate nature",
-      description: "Spending time in nature, or even just looking through a window to appreciate the natural world, can reduce stress and enhance your mood, providing a fresh perspective and mental clarity."
-    },
-    {
-      title: "Connect with another human being",
-      description: "Engaging in meaningful conversations can provide new insights and help you reflect on your own thoughts and feelings."
-    }
-  ];
+  const getMetacognitionPractices = () => {
+    return [
+      {
+        title: t("chapter2.activity2.practice1.title"),
+        description: t("chapter2.activity2.practice1.description")
+      },
+      {
+        title: t("chapter2.activity2.practice2.title"),
+        description: t("chapter2.activity2.practice2.description")
+      },
+      {
+        title: t("chapter2.activity2.practice3.title"),
+        description: t("chapter2.activity2.practice3.description")
+      },
+      {
+        title: t("chapter2.activity2.practice4.title"),
+        description: t("chapter2.activity2.practice4.description")
+      },
+      {
+        title: t("chapter2.activity2.practice5.title"),
+        description: t("chapter2.activity2.practice5.description")
+      },
+      {
+        title: t("chapter2.activity2.practice6.title"),
+        description: t("chapter2.activity2.practice6.description")
+      }
+    ];
+  };
+
+  const metacognitionPractices = getMetacognitionPractices();
 
   return (
     <section className="lesson-section" id="practicing-metacognition">
-      <h2 className="section-heading">Activity: Practicing Metacognition</h2>
+      <h2 className="section-heading">{t("chapter2.activity2.title")}</h2>
       <div className="content-block">
-        <p className="mb-4">Now it's time to practice some ways to elevate your metacognition. Choose at least two of these practices and try them out!</p>
+        <p className="mb-4">{t("chapter2.activity2.description")}</p>
         
         <div className="metacognition-cards">
           {metacognitionPractices.map((practice, index) => (

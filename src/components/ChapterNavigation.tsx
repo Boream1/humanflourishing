@@ -1,56 +1,37 @@
-
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 interface ChapterNavigationProps {
   prevLink: string;
-  prevText: string;
   nextLink: string;
-  nextText: string;
+  prevText?: string;
+  nextText?: string;
 }
 
 const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
   prevLink,
-  prevText,
   nextLink,
-  nextText,
+  prevText,
+  nextText
 }) => {
-  const navigate = useNavigate();
-  
-  // Handle navigation with scroll to top
-  const handleNavigation = (path: string, isTriggerFeedback: boolean = false) => {
-    // First trigger feedback if it's the next button
-    if (isTriggerFeedback) {
-      document.dispatchEvent(new CustomEvent('ie-feedback-widget-openModal'));
-    }
-    
-    // Navigate to the page
-    navigate(path);
-    
-    // Scroll to the top of the page
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
+  const { t } = useLanguage();
+
+  // Determine default text based on links
+  const defaultPrevText = prevLink === "/" ? t('backToHome') : t('previousChapter');
+  const defaultNextText = t('nextChapter');
 
   return (
-    <section className="chapter-navigation">
-      <div className="nav-buttons">
-        <button 
-          onClick={() => handleNavigation(prevLink)} 
-          className="nav-button prev"
-        >
-          ← {prevText}
-        </button>
-        <button 
-          onClick={() => handleNavigation(nextLink, true)} 
-          className="nav-button next"
-        >
-          {nextText} →
-        </button>
+    <div className="chapter-navigation">
+      <div className="nav-container">
+        <Link className="nav-button prev" to={prevLink}>
+          {prevText || defaultPrevText}
+        </Link>
+        <Link className="nav-button next" to={nextLink}>
+          {nextText || defaultNextText}
+        </Link>
       </div>
-    </section>
+    </div>
   );
 };
 

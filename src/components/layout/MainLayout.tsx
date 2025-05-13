@@ -1,8 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, Globe } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useLanguage } from '@/context/LanguageContext';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -13,6 +21,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 }) => {
   const location = useLocation();
   const [hasHeaderShadow, setHeaderShadow] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     // Add scroll event listener for header shadow
@@ -31,6 +40,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value as "en" | "es");
+  };
 
   return (
     <div className="page-container">
@@ -52,23 +65,39 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               </SheetTrigger>
               <SheetContent side="right" className="w-[320px] sm:w-[400px]">
                 <nav className="flex flex-col py-6">
+                  <div className="py-4 px-4 mb-4 border-b border-gray-200">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                      <Globe className="mr-2" size={18} />
+                      {t('selectLanguage')}
+                    </label>
+                    <Select value={language} onValueChange={handleLanguageChange}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder={t('selectLanguage')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="en">{t('english')}</SelectItem>
+                        <SelectItem value="es">{t('spanish')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
                   <Link 
                     to="/" 
                     className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/' ? 'active-link' : ''}`}
                   >
-                    Home
+                    {t('home')}
                   </Link>
                   <Link 
                     to="/chapter1" 
                     className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/chapter1' ? 'active-link' : ''}`}
                   >
-                    LESSON 1: Being Human
+                    {t('lesson1')}
                   </Link>
                   <Link 
                     to="/chapter2" 
                     className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/chapter2' ? 'active-link' : ''}`}
                   >
-                    LESSON 2: Cultivating Awareness: Emotions and Cognition
+                    {t('lesson2')}
                   </Link>
                 </nav>
               </SheetContent>

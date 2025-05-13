@@ -1,15 +1,18 @@
 
 import React from "react";
 import { Card, CardContent } from "../ui/card";
+import { useLanguage } from "../../context/LanguageContext";
 
 const EmotionalGranularityActivity: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="lesson-section" id="reflecting-emotional-granularity">
-      <h2 className="section-heading">Activity: Reflecting on Emotional Granularity</h2>
+      <h2 className="section-heading">{t("chapter2.activity1.title")}</h2>
       <div className="content-block">
         <Card className="activity-card">
           <CardContent className="p-6">
-            <p className="mb-4">Can you identify a situation where you felt an emotion from the outermost circle of the wheel of emotional granularity? We encourage you to take your journal or a notebook and describe that situation and how you felt.</p>
+            <p className="mb-4">{t("chapter2.activity1.description")}</p>
           </CardContent>
         </Card>
       </div>

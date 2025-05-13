@@ -6,26 +6,38 @@ import HeroSection from "./HeroSection";
 import ChapterNavigation from "./ChapterNavigation";
 import { createRoot } from "react-dom/client";
 import ReflectionActivity from "./ReflectionActivity";
+import { useLanguage } from "../context/LanguageContext";
 
 const Chapter1Content: React.FC = () => {
+  const { t, language } = useLanguage();
+  
   const learningObjectives = [
-    "Appreciate the complexity of human beings", 
-    "Understand the human need for social connection", 
-    "Evaluate the role and paradox of human biases"
+    t("chapter1.objective1"),
+    t("chapter1.objective2"),
+    t("chapter1.objective3")
   ];
   
   const readings = [{
-    title: "Why a strong social network improves performance, health, and well-being",
+    title: language === "en" ? 
+      "Why a strong social network improves performance, health, and well-being" : 
+      "Por qué una red social fuerte mejora el rendimiento, la salud y el bienestar",
     url: "https://www.ie.edu/center-for-health-and-well-being/blog/why-a-strong-social-network-improves-performance-health-and-well-being/"
   }, {
-    title: "Your journey to self-discovery",
+    title: language === "en" ? 
+      "Your journey to self-discovery" : 
+      "Tu viaje de autodescubrimiento",
     url: "https://www.ie.edu/center-for-health-and-well-being/blog/your-journey-to-self-discovery/"
   }];
+  
   const optionalReadings = [{
-    title: "Warmth and Competence Model",
+    title: language === "en" ? 
+      "Warmth and Competence Model" : 
+      "Modelo de Calidez y Competencia",
     url: "https://www.sciencedirect.com/science/article/abs/pii/S0065260107000020"
   }, {
-    title: "Human Connection in the Age of AI",
+    title: language === "en" ? 
+      "Human Connection in the Age of AI" : 
+      "Conexión Humana en la Era de la IA",
     url: "https://www.ie.edu/insights/articles/human-connection-in-the-age-of-ai/"
   }];
   
@@ -106,7 +118,7 @@ const Chapter1Content: React.FC = () => {
   return (
     <>
       <HeroSection 
-        title="LESSON 1: Being Human"
+        title={t("chapter1.title")}
         objectives={learningObjectives}
         backgroundImage="/assets/talgat-baizrahmanov-BayiApxgDPY-unsplash.jpg"
       />
@@ -115,35 +127,39 @@ const Chapter1Content: React.FC = () => {
         <article className="lesson-content">
           <VideoSection 
             id="what-does-it-mean" 
-            title="What Does It Mean to Be Human?" 
+            title={t("chapter1.section1.title")} 
             videoId="video-1-1"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="As humans, we are programmed for survival. This instinct is still relevant in our lives today, even if we do not often face life-threatening situations. As a result, our brains may interpret certain events, such as an email or an exam, as a threat, even though these things are not life-threatening. Recognizing these kinds of 'primitive' responses as part of our human identity is a crucial step toward self-awareness and, ultimately, flourishing."
+            keyPointText={t("chapter1.section1.keyPoint")}
             keyPointType="insight"
           />
 
           <VideoSection 
             id="interconnection" 
-            title="Being Human: The Interconnection of Body, Mind, and Soul" 
+            title={t("chapter1.section2.title")} 
             videoId="video-1-2"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="Understanding the interconnection of the body, mind, and soul is key to promoting well-being. For example, by understanding the relationship between the amygdala and the prefrontal cortex and how physical exercise can affect that relationship, we can take more informed actions to promote our overall health."
+            keyPointText={t("chapter1.section2.keyPoint")}
             keyPointType="wellbeing" 
           />
 
           <VideoSection 
             id="social-connection" 
-            title="The Importance of Human Social Connection" 
+            title={t("chapter1.section3.title")} 
             videoId="video-1-3"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="As humans, we are wired for social connection. Research shows that meaningful social connection contributes to our happiness. In contrast, feelings of loneliness can have a significant detrimental impact on our well-being."
+            keyPointText={t("chapter1.section3.keyPoint")}
             keyPointType="social" 
           />
 
-          <ReadingSection title="Readings" introduction="Please complete the readings below to engage with the following activities:" links={readings} />
+          <ReadingSection 
+            title={t("chapter1.readings.title")} 
+            introduction={t("chapter1.readings.intro")} 
+            links={readings} 
+          />
 
           <section className="lesson-section" id="activity">
             <div id="reflection-activity-root"></div>
@@ -151,17 +167,17 @@ const Chapter1Content: React.FC = () => {
 
           <VideoSection 
             id="human-biases" 
-            title="Human Biases" 
+            title={t("chapter1.section4.title")} 
             videoId="video-1-4"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="As humans, we all have biases. These biases are rooted in the need for survival and exist as a way for our brains to make quick, efficient decisions; however, they can also negatively affect our well-being. By understanding our biases and how they function, we can better cultivate practices that contribute to our flourishing."
+            keyPointText={t("chapter1.section4.keyPoint")}
             keyPointType="awareness"
           />
 
           <VideoSection 
             id="leading-self" 
-            title="Leading Self for Greater Impact in What We Do" 
+            title={t("chapter1.section5.title")} 
             videoId="video-1-5"
             videoSource={videoSource}
             poster={posterImage}
@@ -169,17 +185,22 @@ const Chapter1Content: React.FC = () => {
 
           <VideoSection 
             id="closing-meditation" 
-            title="Closing Meditation: Lesson 1" 
+            title={t("chapter1.section6.title")} 
             videoId="video-1-6"
             videoSource={videoSource}
             poster={posterImage}
           />
 
-          <ReadingSection title="Optional Reading" introduction="Please complete the following readings if they are of interest to you!" links={optionalReadings} isOptional={true} />
+          <ReadingSection 
+            title={t("chapter1.optionalReadings.title")} 
+            introduction={t("chapter1.optionalReadings.intro")} 
+            links={optionalReadings} 
+            isOptional={true} 
+          />
         </article>
       </section>
 
-      <ChapterNavigation prevLink="/" prevText="Back to Home" nextLink="/chapter2" nextText="Next Chapter" />
+      <ChapterNavigation prevLink="/" nextLink="/chapter2" />
     </>
   );
 };

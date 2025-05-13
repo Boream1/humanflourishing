@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -9,20 +8,27 @@ import MetacognitionActivity from "./activities/MetacognitionActivity";
 import WhatWentWellActivity from "./activities/WhatWentWellActivity";
 import BodyMindSoulActivity from "./activities/BodyMindSoulActivity";
 import EmotionPillsVideo from "./EmotionPillsVideo";
+import { useLanguage } from "../context/LanguageContext";
 
 const Chapter2Content: React.FC = () => {
+  const { t, language } = useLanguage();
+  
   const learningObjectives = [
-    "Understand the connection of emotion with values, thinking, and behavior",
-    "Appreciate the utility of positive emotions for survival and how this shapes our perspective",
-    "Understand metacognition and how to build deeper awareness",
-    "Leverage the integration of body, mind, and soul to support our awareness, emotions, and cognition"
+    t("chapter2.objective1"),
+    t("chapter2.objective2"),
+    t("chapter2.objective3"),
+    t("chapter2.objective4")
   ];
   
   const readings = [{
-    title: "The Wheel of Emotional Granularity",
+    title: language === "en" ? 
+      "The Wheel of Emotional Granularity" : 
+      "La Rueda de la Granularidad Emocional",
     url: "https://www.restoringhoperca.com/the-feelings-wheel"
   }, {
-    title: "The role of emotional granularity in emotional regulation, mental disorders, and well-being",
+    title: language === "en" ? 
+      "The role of emotional granularity in emotional regulation, mental disorders, and well-being" : 
+      "El papel de la granularidad emocional en la regulación emocional, trastornos mentales y bienestar",
     url: "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.1080713/full"
   }];
   
@@ -89,7 +95,7 @@ const Chapter2Content: React.FC = () => {
   return (
     <>
       <HeroSection 
-        title="LESSON 2: Cultivating Awareness: Emotions and Cognition"
+        title={t("chapter2.title")}
         objectives={learningObjectives}
         backgroundImage="/assets/talgat-baizrahmanov-BayiApxgDPY-unsplash.jpg"
       />
@@ -98,15 +104,19 @@ const Chapter2Content: React.FC = () => {
         <article className="lesson-content">
           <VideoSection 
             id="emotional-granularity" 
-            title="What Are Emotions? What is Emotional Granularity?" 
+            title={t("chapter2.section1.title")} 
             videoId="video-2-1"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="Emotional granularity emphasizes the importance of recognizing the nuanced differences between various emotions. This elevated awareness of the range of emotions we experience can help us better interpret our emotional responses and shape our behaviors in a more productive manner."
+            keyPointText={t("chapter2.section1.keyPoint")}
             keyPointType="awareness" 
           />
 
-          <ReadingSection title="Readings" introduction="Please complete the following readings:" links={readings} />
+          <ReadingSection 
+            title={t("chapter2.readings.title")} 
+            introduction={t("chapter2.readings.intro")} 
+            links={readings} 
+          />
           
           <EmotionalGranularityActivity />
           
@@ -116,21 +126,21 @@ const Chapter2Content: React.FC = () => {
 
           <VideoSection 
             id="broaden-build" 
-            title="The Broaden and Build Theory" 
+            title={t("chapter2.section2.title")} 
             videoId="video-2-2"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="The Broaden and Build Theory, developed by Barbara Fredrickson, suggests that positive emotions broaden our awareness and visual field. As a result, we develop a greater appreciation of and ability to engage with the world around us."
+            keyPointText={t("chapter2.section2.keyPoint")}
             keyPointType="insight" 
           />
 
           <VideoSection 
             id="metacognition" 
-            title="Metacognition and Increasing Awareness" 
+            title={t("chapter2.section3.title")} 
             videoId="video-2-3"
             videoSource={videoSource}
             poster={posterImage}
-            keyPointText="Metacognition is the concept of thinking about our thinking. Metacognition gives us a greater awareness of our thinking and learning so that we can be more proactive in our decision-making and work to avoid detrimental biases."
+            keyPointText={t("chapter2.section3.keyPoint")}
             keyPointType="awareness"
           />
 
@@ -138,7 +148,7 @@ const Chapter2Content: React.FC = () => {
 
           <VideoSection 
             id="body-mind-soul" 
-            title="Awareness, Emotions, and Cognition Across Body, Mind, and Soul" 
+            title={t("chapter2.section4.title")} 
             videoId="video-2-4"
             videoSource={videoSource}
             poster={posterImage}
@@ -148,7 +158,7 @@ const Chapter2Content: React.FC = () => {
 
           <VideoSection 
             id="integrated-approach" 
-            title="An Integrated Approach to Learning" 
+            title={t("chapter2.section5.title")} 
             videoId="video-2-4"
             videoSource={videoSource}
             poster={posterImage}
@@ -156,7 +166,7 @@ const Chapter2Content: React.FC = () => {
 
           <VideoSection 
             id="closing-meditation" 
-            title="Closing Meditation: Lesson 2" 
+            title={t("chapter2.section6.title")} 
             videoId="video-2-5"
             videoSource={videoSource}
             poster={posterImage}
@@ -164,7 +174,7 @@ const Chapter2Content: React.FC = () => {
         </article>
       </section>
 
-      <ChapterNavigation prevLink="/chapter1" prevText="Previous Chapter" nextLink="/chapter3" nextText="Next Chapter" />
+      <ChapterNavigation prevLink="/chapter1" nextLink="/chapter3" />
     </>
   );
 };
