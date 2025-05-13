@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from "react";
 import KeyPoint from "./KeyPoint";
 
@@ -19,7 +18,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   title,
   videoId,
   videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4",
-  poster = "/lovable-uploads/d70cbd33-ee63-4b9b-86d7-da464c08ee54.png",
+  poster = "/assets/video-poster.jpg",
   keyPointText,
   keyPointType = 'general',
   englishCaptions,

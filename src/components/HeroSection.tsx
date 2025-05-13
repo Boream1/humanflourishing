@@ -53,7 +53,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <Card className="hero-image-card">
             <div className="hero-image">
               <img 
-                src={backgroundImage.startsWith('/') ? backgroundImage : `/${backgroundImage}`} 
+                src={backgroundImage} 
                 alt={title} 
                 className="w-full h-full object-cover" 
                 onLoad={handleImageLoad}
