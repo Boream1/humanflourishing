@@ -82,7 +82,7 @@ const Home: React.FC = () => {
         {/* Right side image - taking full height */}
         <div className="w-1/2 h-screen relative">
           <img 
-            src="assets/Cover.png" 
+            src="/assets/Cover.png" 
             alt="Course cover image" 
             className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out ${
               isLoaded ? 'opacity-100' : 'opacity-0'
