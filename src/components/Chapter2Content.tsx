@@ -28,7 +28,7 @@ const Chapter2Content: React.FC = () => {
   
   // Video source and poster - ensure poster image path is correctly formatted
   const videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
-  const posterImage = "/assets/video-poster.jpg";
+  const posterImage = "/assets/Poster_Video.png";
 
   // Track if feedback event has been set up
   const feedbackSetupRef = useRef<boolean>(false);

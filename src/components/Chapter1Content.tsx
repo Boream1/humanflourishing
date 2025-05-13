@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -35,7 +36,7 @@ const Chapter1Content: React.FC = () => {
 
   // Video source and poster - ensure poster image path is correctly formatted
   const videoSource = "https://iep-media.ie.edu/olj/human-flourishing/w0v01-welcome-to-the-course/mp4/w0v01-welcome-to-the-course_1080p.mp4";
-  const posterImage = "/assets/video-poster.jpg";
+  const posterImage = "/assets/Poster_Video.png";
 
   useEffect(() => {
     // Remove loading indicator if it still exists
