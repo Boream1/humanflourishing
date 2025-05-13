@@ -11,6 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -70,15 +76,20 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                       <Globe className="mr-2" size={18} />
                       {t('selectLanguage')}
                     </label>
-                    <Select value={language} onValueChange={handleLanguageChange}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t('selectLanguage')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="en">{t('english')}</SelectItem>
-                        <SelectItem value="es">{t('spanish')}</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span>{language === 'en' ? t('english') : t('spanish')}</span>
+                        <span className="ml-2">▼</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-full bg-white">
+                        <DropdownMenuItem className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('en')}>
+                          {t('english')}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('es')}>
+                          {t('spanish')}
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   
                   <Link 
