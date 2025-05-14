@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Home: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [isLoaded, setIsLoaded] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     // Set loaded state after a small delay to trigger animations
@@ -57,7 +59,7 @@ const Home: React.FC = () => {
       
       <div className="w-full h-full flex flex-grow">
         {/* Left side content */}
-        <div className="w-1/2 h-full flex flex-col justify-between p-8 md:p-16">
+        <div className={`${isMobile ? 'w-full' : 'w-1/2'} h-full flex flex-col justify-between p-8 md:p-16`}>
           {/* Module 1: Title, text and button - vertically centered */}
           <div className="flex-1 flex flex-col justify-center">
             <div className="max-w-md">
@@ -105,16 +107,18 @@ const Home: React.FC = () => {
           </div>
         </div>
         
-        {/* Right side image - taking full height */}
-        <div className="w-1/2 h-screen relative">
-          <img 
-            src="/assets/Cover.png" 
-            alt="Course cover image" 
-            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        </div>
+        {/* Right side image - taking full height, hidden on mobile */}
+        {!isMobile && (
+          <div className="w-1/2 h-screen relative">
+            <img 
+              src="/assets/Cover.png" 
+              alt="Course cover image" 
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out ${
+                isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
