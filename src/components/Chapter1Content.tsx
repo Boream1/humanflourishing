@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import VideoSection from "./VideoSection";
 import ReadingSection from "./ReadingSection";
@@ -9,7 +8,7 @@ import ReflectionActivity from "./ReflectionActivity";
 import { useLanguage } from "../context/LanguageContext";
 
 const Chapter1Content: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   
   const learningObjectives = [
     t("chapter1.objective1"),
@@ -18,26 +17,18 @@ const Chapter1Content: React.FC = () => {
   ];
   
   const readings = [{
-    title: language === "en" ? 
-      "Why a strong social network improves performance, health, and well-being" : 
-      "Por qué una red social fuerte mejora el rendimiento, la salud y el bienestar",
+    title: t("chapter1.readings.title1"),
     url: "https://www.ie.edu/center-for-health-and-well-being/blog/why-a-strong-social-network-improves-performance-health-and-well-being/"
   }, {
-    title: language === "en" ? 
-      "Your journey to self-discovery" : 
-      "Tu viaje de autodescubrimiento",
+    title: t("chapter1.readings.title2"),
     url: "https://www.ie.edu/center-for-health-and-well-being/blog/your-journey-to-self-discovery/"
   }];
   
   const optionalReadings = [{
-    title: language === "en" ? 
-      "Warmth and Competence Model" : 
-      "Modelo de Calidez y Competencia",
+    title: t("chapter1.optionalReadings.title1"),
     url: "https://www.sciencedirect.com/science/article/abs/pii/S0065260107000020"
   }, {
-    title: language === "en" ? 
-      "Human Connection in the Age of AI" : 
-      "Conexión Humana en la Era de la IA",
+    title: t("chapter1.optionalReadings.title2"),
     url: "https://www.ie.edu/insights/articles/human-connection-in-the-age-of-ai/"
   }];
   

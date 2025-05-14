@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Card } from './ui/card';
+import { useLanguage } from '../context/LanguageContext';
 
 interface HeroSectionProps {
   title: string;
@@ -15,6 +16,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   objectives,
   backgroundImage = "/assets/talgat-baizrahmanov-BayiApxgDPY-unsplash.jpg" 
 }) => {
+  const { language } = useLanguage();
+  
   // Split the title into two parts if it contains a colon
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
@@ -37,7 +40,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           
           {objectives && objectives.length > 0 && (
             <Card className="objectives-card">
-              <h2 className="objectives-title">Learning Objectives</h2>
+              <h2 className="objectives-title">
+                {language === "es" ? "Objetivos de Aprendizaje" : "Learning Objectives"}
+              </h2>
               <div className="objectives-list">
                 {objectives.map((objective, index) => (
                   <div key={index} className="objective-item">
