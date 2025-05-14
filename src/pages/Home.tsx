@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Home: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [isLoaded, setIsLoaded] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
   
   useEffect(() => {
     // Set loaded state after a small delay to trigger animations
@@ -27,6 +29,30 @@ const Home: React.FC = () => {
             className={`w-20 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
           />
         </a>
+      </div>
+      
+      {/* Language selector buttons */}
+      <div className="absolute top-8 md:right-16 right-8 z-10 flex gap-4">
+        <button 
+          onClick={() => setLanguage('en')} 
+          className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+            language === 'en' 
+              ? 'bg-red-500 text-white' 
+              : 'bg-white/80 text-gray-800 hover:bg-gray-100'
+          }`}
+        >
+          English
+        </button>
+        <button 
+          onClick={() => setLanguage('es')} 
+          className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+            language === 'es' 
+              ? 'bg-red-500 text-white' 
+              : 'bg-white/80 text-gray-800 hover:bg-gray-100'
+          }`}
+        >
+          Español
+        </button>
       </div>
       
       <div className="w-full h-full flex flex-grow">
@@ -60,7 +86,7 @@ const Home: React.FC = () => {
                 }`}
               >
                 <Link to="/chapter1" className="flex items-center gap-2">
-                  Start course
+                  {t('start course')}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>

@@ -1,22 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Globe } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useLanguage } from '@/context/LanguageContext';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -27,7 +14,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 }) => {
   const location = useLocation();
   const [hasHeaderShadow, setHeaderShadow] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Add scroll event listener for header shadow
@@ -46,10 +33,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const handleLanguageChange = (value: string) => {
-    setLanguage(value as "en" | "es");
-  };
 
   return (
     <div className="page-container">
@@ -71,27 +54,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               </SheetTrigger>
               <SheetContent side="right" className="w-[320px] sm:w-[400px]">
                 <nav className="flex flex-col py-6">
-                  <div className="py-4 px-4 mb-4 border-b border-gray-200">
-                    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                      <Globe className="mr-2" size={18} />
-                      {t('selectLanguage')}
-                    </label>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <span>{language === 'en' ? t('english') : t('spanish')}</span>
-                        <span className="ml-2">▼</span>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-full bg-white">
-                        <DropdownMenuItem className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('en')}>
-                          {t('english')}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('es')}>
-                          {t('spanish')}
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                  
                   <Link 
                     to="/" 
                     className={`py-2 px-4 hover:bg-gray-100 rounded text-lg ${location.pathname === '/' ? 'active-link' : ''}`}

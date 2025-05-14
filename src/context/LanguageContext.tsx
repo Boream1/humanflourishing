@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
 
 type Language = "en" | "es";
@@ -20,6 +19,7 @@ const translations = {
     "previousChapter": "Previous Chapter",
     "nextChapter": "Next Chapter",
     "backToHome": "Back to Home",
+    "start course": "Start course",
     // Chapter 1 translations
     "chapter1.title": "LESSON 1: Being Human",
     "chapter1.objective1": "Appreciate the complexity of human beings",
@@ -93,6 +93,7 @@ const translations = {
     "previousChapter": "Capítulo Anterior",
     "nextChapter": "Capítulo Siguiente",
     "backToHome": "Volver al Inicio",
+    "start course": "Comenzar curso",
     // Chapter 1 translations
     "chapter1.title": "LECCIÓN 1: Ser Humano",
     "chapter1.objective1": "Apreciar la complejidad de los seres humanos",
