@@ -42,14 +42,24 @@ function App() {
     <LanguageProvider>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/chapter1" element={
+          <MainLayout>
+            <Chapter1Content />
+          </MainLayout>
+        } />
+        <Route path="/chapter2" element={
+          <MainLayout>
+            <Chapter2Content />
+          </MainLayout>
+        } />
+        <Route path="/chapter3" element={
+          <MainLayout>
+            <NotFound />
+          </MainLayout>
+        } />
         <Route path="*" element={
           <MainLayout>
-            <Routes>
-              <Route path="/chapter1" element={<Chapter1Content />} />
-              <Route path="/chapter2" element={<Chapter2Content />} />
-              <Route path="/chapter3" element={<NotFound />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <NotFound />
           </MainLayout>
         } />
       </Routes>
