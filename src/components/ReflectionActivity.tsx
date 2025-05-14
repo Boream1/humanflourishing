@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { FileText, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 // Define the questions for the reflection activity
 const reflectionQuestions = [
@@ -24,6 +25,8 @@ export default function ReflectionActivity() {
   // Store the character counts for each question
   const [charCounts, setCharCounts] = useState<{ [key: string]: number }>({});
   const { toast } = useToast();
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState({title: "", message: ""});
   
   const form = useForm<ReflectionAnswers>({
     defaultValues: reflectionQuestions.reduce((acc, _, index) => {
@@ -124,6 +127,13 @@ export default function ReflectionActivity() {
           ))}
         </form>
       </Form>
+
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent>
+          <DialogTitle>{dialogContent.title}</DialogTitle>
+          <DialogDescription>{dialogContent.message}</DialogDescription>
+        </DialogContent>
+      </Dialog>
 
       <Toaster />
     </div>
