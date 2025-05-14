@@ -1,162 +1,131 @@
 
-import React, { useState } from 'react';
-import { Textarea } from './ui/textarea';
-import { useLanguage } from '../context/LanguageContext';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Form, FormField, FormItem, FormControl } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { FileText, AlertTriangle } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
-const ReflectionActivity: React.FC = () => {
-  const { t } = useLanguage();
-  const [answers, setAnswers] = useState({
-    question1: '',
-    question2: '',
-    question3: ''
+// Define the questions for the reflection activity
+const reflectionQuestions = [
+  "How does your social network impact your performance, health, and well-being?",
+  "How does technology impact your social connections? Do you think technology can lead to distancing and loneliness, or does it enhance our relationships?",
+  "What methods mentioned in the article \"Your Journey to Self-Discovery\" resonate with you most as you embark on your path of self-discovery?"
+];
+
+// Properly type the form values
+type ReflectionAnswers = {
+  [key: string]: string;
+};
+
+export default function ReflectionActivity() {
+  // Store the character counts for each question
+  const [charCounts, setCharCounts] = useState<{ [key: string]: number }>({});
+  const { toast } = useToast();
+  
+  const form = useForm<ReflectionAnswers>({
+    defaultValues: reflectionQuestions.reduce((acc, _, index) => {
+      acc[index.toString()] = "";
+      return acc;
+    }, {} as ReflectionAnswers)
   });
 
-  const handleChange = (question: keyof typeof answers) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setAnswers(prev => ({
+  const handleTextChange = (index: number, value: string) => {
+    setCharCounts(prev => ({
       ...prev,
-      [question]: e.target.value
+      [index.toString()]: value.length
+    }));
+    form.setValue(index.toString(), value);
+  };
+
+  const resetQuestion = (index: number) => {
+    form.setValue(index.toString(), "");
+    setCharCounts(prev => ({
+      ...prev,
+      [index.toString()]: 0
     }));
   };
 
-  const handleSubmit = (question: keyof typeof answers) => () => {
-    console.log(`Submitted answer for ${question}:`, answers[question]);
-    // Aquí podríamos implementar la lógica para guardar las respuestas
-    alert(`Respuesta enviada para la pregunta ${question.replace('question', '')}`);
-  };
+  const handleSubmitQuestion = (index: number) => {
+    const answer = form.getValues()[index.toString()];
+    
+    if (!answer || answer.trim() === "") {
+      toast({
+        title: "Empty Response",
+        description: "Please write your answer before submitting.",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
 
-  const handleReset = (question: keyof typeof answers) => () => {
-    setAnswers(prev => ({
-      ...prev,
-      [question]: ''
-    }));
-  };
-
-  const getCharacterCount = (text: string) => {
-    return `${text.length} ${t('reflectionActivity.charCount')}`;
+    toast({
+      title: "Success!",
+      description: "Your reflection has been submitted successfully!",
+      duration: 3000,
+    });
   };
 
   return (
-    <div className="reflection-activity">
-      <h2 className="section-heading">{t('reflectionActivity.title')}</h2>
-      <p className="mb-8">{t('reflectionActivity.introduction')}</p>
+    <div className="py-4">
+      <h2 className="section-heading text-center text-primary text-2xl font-bold mb-3">
+        Activity: Reflecting on Your Social Connections
+      </h2>
+      
+      <p className="mb-4 text-gray-700">
+        In light of what you've learned and read so far, please reflect on the following questions:
+      </p>
 
-      <div className="reflection-question">
-        <div className="reflection-question-header">
-          <div className="reflection-question-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
-            </svg>
-          </div>
-          <h3 className="reflection-question-title">{t('reflectionActivity.question1')}</h3>
-        </div>
-        
-        <Textarea 
-          placeholder={t('reflectionActivity.placeholder')} 
-          className="reflection-textarea" 
-          value={answers.question1}
-          onChange={handleChange('question1')}
-          maxLength={1500}
-        />
-        
-        <div className="reflection-controls">
-          <span className="char-count">{getCharacterCount(answers.question1)}</span>
-          <div className="reflection-buttons">
-            <button 
-              className="reflection-button reflection-button-reset" 
-              onClick={handleReset('question1')}
+      <Form {...form}>
+        <form className="space-y-6">
+          {reflectionQuestions.map((question, index) => (
+            <div 
+              key={index} 
+              className="p-6 border border-gray-200 rounded-lg bg-white shadow-sm"
             >
-              Reset
-            </button>
-            <button 
-              className="reflection-button reflection-button-submit" 
-              onClick={handleSubmit('question1')}
-              disabled={!answers.question1.trim()}
-            >
-              {t('reflectionActivity.submit')}
-            </button>
-          </div>
-        </div>
-      </div>
+              <div className="flex items-start gap-2 mb-3">
+                <FileText className="text-black mt-1" size={20} />
+                <h3 className="text-lg font-medium">{question}</h3>
+              </div>
 
-      <div className="reflection-question">
-        <div className="reflection-question-header">
-          <div className="reflection-question-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-          </div>
-          <h3 className="reflection-question-title">{t('reflectionActivity.question2')}</h3>
-        </div>
-        
-        <Textarea 
-          placeholder={t('reflectionActivity.placeholder')} 
-          className="reflection-textarea" 
-          value={answers.question2}
-          onChange={handleChange('question2')}
-          maxLength={1500}
-        />
-        
-        <div className="reflection-controls">
-          <span className="char-count">{getCharacterCount(answers.question2)}</span>
-          <div className="reflection-buttons">
-            <button 
-              className="reflection-button reflection-button-reset" 
-              onClick={handleReset('question2')}
-            >
-              Reset
-            </button>
-            <button 
-              className="reflection-button reflection-button-submit" 
-              onClick={handleSubmit('question2')}
-              disabled={!answers.question2.trim()}
-            >
-              {t('reflectionActivity.submit')}
-            </button>
-          </div>
-        </div>
-      </div>
+              <FormField
+                control={form.control}
+                name={index.toString()}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Write here your answer"
+                        className="min-h-32 resize-none"
+                        maxLength={1500}
+                        {...field}
+                        onChange={(e) => handleTextChange(index, e.target.value)}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
 
-      <div className="reflection-question">
-        <div className="reflection-question-header">
-          <div className="reflection-question-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </div>
-          <h3 className="reflection-question-title">{t('reflectionActivity.question3')}</h3>
-        </div>
-        
-        <Textarea 
-          placeholder={t('reflectionActivity.placeholder')} 
-          className="reflection-textarea" 
-          value={answers.question3}
-          onChange={handleChange('question3')}
-          maxLength={1500}
-        />
-        
-        <div className="reflection-controls">
-          <span className="char-count">{getCharacterCount(answers.question3)}</span>
-          <div className="reflection-buttons">
-            <button 
-              className="reflection-button reflection-button-reset" 
-              onClick={handleReset('question3')}
-            >
-              Reset
-            </button>
-            <button 
-              className="reflection-button reflection-button-submit" 
-              onClick={handleSubmit('question3')}
-              disabled={!answers.question3.trim()}
-            >
-              {t('reflectionActivity.submit')}
-            </button>
-          </div>
-        </div>
-      </div>
+              <div className="flex justify-between items-center mt-2">
+                <span className="text-sm text-gray-500">
+                  {charCounts[index.toString()] || 0} of 1500 characters
+                </span>
+                <Button
+                  type="button"
+                  className="bg-primary text-white"
+                  onClick={() => handleSubmitQuestion(index)}
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
+          ))}
+        </form>
+      </Form>
+
+      <Toaster />
     </div>
   );
-};
-
-export default ReflectionActivity;
+}
