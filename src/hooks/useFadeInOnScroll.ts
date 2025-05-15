@@ -21,7 +21,8 @@ const useFadeInOnScroll = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      // Threshold increased: must estar al menos ~45% visible para animarse, ¡más notorio en primer scroll!
+      { threshold: 0.45 }
     );
 
     observer.observe(el);
@@ -33,3 +34,4 @@ const useFadeInOnScroll = () => {
 };
 
 export default useFadeInOnScroll;
+
