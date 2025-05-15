@@ -1,4 +1,3 @@
-
 /* Hero section */
 .hero-section {
   text-align: center;
@@ -111,4 +110,25 @@
 
 .chapter-link:hover::after, .chapter-link:focus::after {
   width: 100%;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(.25,.8,.25,1), transform 0.8s cubic-bezier(.25,.8,.25,1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fade-up 0.8s cubic-bezier(.25,.8,.25,1) forwards;
 }

@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import KeyPoint from "./KeyPoint";
+import useFadeInOnScroll from "../hooks/useFadeInOnScroll";
 
 interface VideoSectionProps {
   id: string;
@@ -28,29 +29,24 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const { ref, isVisible } = useFadeInOnScroll();
 
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    // Handler functions for video events
-    const handleCanPlay = () => {
-      setIsLoading(false);
-    };
-
+    const handleCanPlay = () => setIsLoading(false);
     const handleError = (e: Event) => {
       console.error("Video error:", e);
       setHasError(true);
       setIsLoading(false);
     };
 
-    // Add event listeners
     videoElement.addEventListener("canplay", handleCanPlay);
     videoElement.addEventListener("error", handleError);
 
-    // Set up lazy loading with Intersection Observer
     let observer: IntersectionObserver | null = null;
-    
+
     try {
       observer = new IntersectionObserver(
         (entries) => {
@@ -68,25 +64,25 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       observer.observe(videoElement);
     } catch (error) {
       console.error("Error setting up IntersectionObserver:", error);
-      // Fallback if IntersectionObserver fails
       if (videoElement.getAttribute("data-src")) {
         videoElement.src = videoElement.getAttribute("data-src") || "";
         videoElement.load();
       }
     }
 
-    // Clean up function
     return () => {
       videoElement.removeEventListener("canplay", handleCanPlay);
       videoElement.removeEventListener("error", handleError);
-      if (observer) {
-        observer.disconnect();
-      }
+      if (observer) observer.disconnect();
     };
   }, [videoId]);
 
   return (
-    <section className="lesson-section" id={id}>
+    <section
+      className={`lesson-section fade-up${isVisible ? " visible" : ""}`}
+      id={id}
+      ref={ref as React.RefObject<HTMLElement>}
+    >
       <h2 className="section-heading">{title}</h2>
       <div className="content-block video-section-container">
         <div className="video-container">
@@ -96,7 +92,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
               <p>Loading video...</p>
             </div>
           )}
-          
+
           {hasError ? (
             <div className="video-error-message">
               <p>There was an error loading the video. Please try refreshing the page.</p>
@@ -113,7 +109,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
               data-src={videoSource}
             >
               <source type="video/mp4" />
-              
               {englishCaptions && (
                 <track
                   kind="subtitles"
@@ -122,7 +117,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
                   label="English"
                 />
               )}
-              
               {spanishCaptions && (
                 <track
                   kind="subtitles"
@@ -131,14 +125,12 @@ const VideoSection: React.FC<VideoSectionProps> = ({
                   label="Spanish"
                 />
               )}
-              
               <p>
                 Your browser does not support HTML5 video. Please upgrade your browser.
               </p>
             </video>
           )}
         </div>
-
         {keyPointText && <KeyPoint text={keyPointText} type={keyPointType} />}
       </div>
     </section>
