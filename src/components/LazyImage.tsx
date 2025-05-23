@@ -24,23 +24,11 @@ const LazyImage: React.FC<LazyImageProps> = ({
   onError
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
   const imgRef = useRef<HTMLImageElement>(null);
-  const [supportsWebP, setSupportsWebP] = useState(false);
-
-  // Check WebP support
-  useEffect(() => {
-    const checkWebPSupport = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1;
-      canvas.height = 1;
-      return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-    };
-    
-    setSupportsWebP(checkWebPSupport());
-  }, []);
+  const [isInView, setIsInView] = useState(false);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -50,11 +38,12 @@ const LazyImage: React.FC<LazyImageProps> = ({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !isLoading && !isLoaded) {
+          if (entry.isIntersecting && !isInView) {
+            setIsInView(true);
             setIsLoading(true);
             
-            // Choose the best image source
-            const bestSrc = supportsWebP && webpSrc ? webpSrc : src;
+            // Choose the best image source - prefer original src over webp for simplicity
+            const bestSrc = src;
             setImageSrc(bestSrc);
             
             observer.unobserve(img);
@@ -69,7 +58,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
     return () => {
       observer.disconnect();
     };
-  }, [src, webpSrc, supportsWebP, isLoading, isLoaded]);
+  }, [src, isInView]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -91,7 +80,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
     if (onError) onError();
   };
 
-  const aspectRatioClass = aspectRatio !== 'auto' ? `aspect-ratio-${aspectRatio}` : '';
+  const aspectRatioClass = aspectRatio !== 'auto' ? `aspect-${aspectRatio}` : '';
   
   if (hasError && imageSrc === fallbackSrc) {
     return (
@@ -103,17 +92,18 @@ const LazyImage: React.FC<LazyImageProps> = ({
   }
 
   return (
-    <div className={`relative ${aspectRatioClass}`}>
-      <img
-        ref={imgRef}
-        src={imageSrc}
-        alt={alt}
-        className={`lazy-image ${isLoaded ? 'loaded' : ''} ${isLoading ? 'loading' : ''} ${className}`}
-        onLoad={handleLoad}
-        onError={handleError}
-        loading="lazy"
-        decoding="async"
-      />
+    <div className={`relative ${aspectRatioClass}`} ref={imgRef}>
+      {imageSrc && (
+        <img
+          src={imageSrc}
+          alt={alt}
+          className={`lazy-image ${isLoaded ? 'loaded' : ''} ${isLoading ? 'loading' : ''} ${className}`}
+          onLoad={handleLoad}
+          onError={handleError}
+          loading="lazy"
+          decoding="async"
+        />
+      )}
       
       {isLoading && !isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
