@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
+import LazyImage from '../components/LazyImage';
 
 const Home: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -25,10 +26,11 @@ const Home: React.FC = () => {
       {/* Logo container - positioned to align with content */}
       <div className="absolute top-8 md:left-16 left-8 z-10">
         <a href="https://www.ie.edu" target="_blank" rel="noreferrer">
-          <img 
+          <LazyImage 
             src="/assets/IE_University_logo.svg" 
             alt="IE University Logo" 
-            className={`w-20 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+            className={`w-20 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+            aspectRatio="auto"
           />
         </a>
       </div>
@@ -110,12 +112,14 @@ const Home: React.FC = () => {
         {/* Right side image - taking full height, hidden on mobile */}
         {!isMobile && (
           <div className="w-1/2 h-screen relative">
-            <img 
+            <LazyImage 
               src="/assets/Cover.png" 
               alt="Course cover image" 
               className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out ${
                 isLoaded ? 'opacity-100' : 'opacity-0'
               }`}
+              aspectRatio="auto"
+              onLoad={() => console.log('Cover image loaded')}
             />
           </div>
         )}

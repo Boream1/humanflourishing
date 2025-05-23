@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card } from './ui/card';
 import { useLanguage } from '../context/LanguageContext';
+import LazyImage from './LazyImage';
 
 interface HeroSectionProps {
   title: string;
@@ -22,11 +23,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const titleParts = title.split(':');
   const lessonNumber = titleParts.length > 1 ? titleParts[0] : '';
   const lessonTitle = titleParts.length > 1 ? titleParts[1].trim() : title;
-  
-  // Handle image load event
-  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.classList.add('loaded');
-  };
 
   return (
     <section className="hero-section">
@@ -57,15 +53,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="hero-right-column">
           <Card className="hero-image-card">
             <div className="hero-image">
-              <img 
+              <LazyImage 
                 src={backgroundImage} 
                 alt={title} 
-                className="w-full h-full object-cover" 
-                onLoad={handleImageLoad}
-                onError={(e) => {
-                  console.error("Image failed to load:", backgroundImage);
-                  e.currentTarget.src = "/placeholder.svg";
-                }}
+                className="w-full h-full object-cover"
+                aspectRatio="16-9"
+                onLoad={() => console.log('Hero image loaded')}
+                onError={() => console.error("Hero image failed to load:", backgroundImage)}
               />
             </div>
           </Card>
