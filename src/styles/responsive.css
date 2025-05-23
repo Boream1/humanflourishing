@@ -1,14 +1,27 @@
 
-/* Responsive styles */
-@media (max-width: 1440px) {
+/* Responsive styles with custom breakpoints */
+
+/* Desktop: 1440px and above */
+@media (min-width: 1440px) {
   .main-content {
     padding: 0 0 5% 0;
     margin: 0 auto;
     max-width: 100%;
   }
+  
+  .hero-content {
+    max-width: 1400px;
+    padding: 0 8rem;
+  }
+  
+  .header-container {
+    max-width: 1400px;
+    padding: 0 8rem;
+  }
 }
 
-@media (max-width: 1024px) {
+/* Between tablet and desktop */
+@media (min-width: 860px) and (max-width: 1439px) {
   .hero-title {
     font-size: 2.8rem;
   }
@@ -22,18 +35,19 @@
   }
   
   .header-container {
-    padding: 0 1rem;
+    padding: 0 2rem;
   }
   
   .hero-content,
   .chapter-body,
   .chapter-header,
   .main-footer p {
-    padding: 0 1.5rem;
+    padding: 0 2rem;
   }
 }
 
-@media (max-width: 768px) {
+/* Tablet: 860px and below */
+@media (max-width: 860px) {
   .logo-title-container {
     flex-wrap: wrap;
   }
@@ -62,13 +76,26 @@
   .hero-content,
   .chapter-body,
   .main-footer p {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
+  }
+  
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-right-column {
+    min-height: 400px;
+  }
+  
+  .lesson-title {
+    font-size: 2.2rem;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile: 320px and below */
+@media (max-width: 320px) {
   .hero-section {
-    padding: 3rem 0;
+    padding: 2rem 0;
   }
 
   .hero-title {
@@ -104,5 +131,22 @@
   .chapter-header,
   .main-footer p {
     padding: 0 1rem;
+  }
+  
+  .lesson-title {
+    font-size: 1.6rem;
+  }
+  
+  .lesson-number {
+    font-size: 1.1rem;
+  }
+  
+  .hero-right-column {
+    min-height: 250px;
+  }
+  
+  .title-card,
+  .objectives-card {
+    padding: 1.5rem;
   }
 }
