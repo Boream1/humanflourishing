@@ -18,6 +18,12 @@ export default {
 				'2xl': '1400px'
 			}
 		},
+		screens: {
+			'sm': '480px',   // Mobile: 320px - 480px
+			'md': '768px',   // Tablet: 768px - 1024px  
+			'lg': '1024px',  // Desktop: 1024px - 1440px
+			'xl': '1440px'   // Large screens: 1440px and above
+		},
 		extend: {
 			fontFamily: {
 				sans: ['Open Sans', 'sans-serif'],
