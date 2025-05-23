@@ -18,11 +18,6 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		screens: {
-			'mobile': '320px',
-			'tablet': '860px',
-			'desktop': '1440px',
-		},
 		extend: {
 			fontFamily: {
 				sans: ['Open Sans', 'sans-serif'],

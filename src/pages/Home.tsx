@@ -24,7 +24,7 @@ const Home: React.FC = () => {
   return (
     <div className="w-full h-screen flex flex-col overflow-hidden">
       {/* Logo container - positioned to align with content */}
-      <div className="absolute top-8 left-8 tablet:left-16 desktop:left-16 z-10">
+      <div className="absolute top-8 md:left-16 left-8 z-10">
         <a href="https://www.ie.edu" target="_blank" rel="noreferrer">
           <img 
             src="/assets/IE_University_logo.svg" 
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
       </div>
       
       {/* Language selector buttons */}
-      <div className="absolute top-8 right-8 tablet:right-16 desktop:right-16 z-10 flex gap-4">
+      <div className="absolute top-8 md:right-16 right-8 z-10 flex gap-4">
         <button 
           onClick={() => setLanguage('en')} 
           className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
@@ -60,12 +60,12 @@ const Home: React.FC = () => {
       
       <div className="w-full h-full flex flex-grow">
         {/* Left side content */}
-        <div className={`${isMobile ? 'w-full' : 'w-1/2'} h-full flex flex-col justify-between p-8 tablet:p-16 desktop:p-16`}>
+        <div className={`${isMobile ? 'w-full' : 'w-1/2'} h-full flex flex-col justify-between p-8 md:p-16`}>
           {/* Module 1: Title, text and button - vertically centered */}
           <div className="flex-1 flex flex-col justify-center">
             <div className="max-w-md">
               <h1 
-                className={`text-4xl tablet:text-5xl desktop:text-5xl font-bold text-gray-800 mb-8 tablet:mb-12 desktop:mb-12 transition-all duration-700 ease-out ${
+                className={`text-4xl md:text-5xl font-bold text-gray-800 mb-8 md:mb-12 transition-all duration-700 ease-out ${
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
               
               <Button 
                 asChild 
-                className={`mt-6 bg-red-400 hover:bg-red-500 text-white rounded-md px-6 py-4 tablet:px-8 tablet:py-6 desktop:px-8 desktop:py-6 transition-all duration-700 delay-600 ease-out ${
+                className={`mt-6 bg-red-400 hover:bg-red-500 text-white rounded-md px-6 py-4 md:px-8 md:py-6 transition-all duration-700 delay-600 ease-out ${
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
